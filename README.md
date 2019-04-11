@@ -1,0 +1,3 @@
+# A Tailwind integration for Django Projects
+
+Early alpha, work in progress...
