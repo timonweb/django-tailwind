@@ -4,8 +4,8 @@
   "description": "",
   "scripts": {
     "build": "npm run build-clean && npm run build-postcss && npm run build-cleancss",
-    "build-postcss": "postcss --config . --map false --output ../css/styles.min.css ./src/styles.scss",
-    "build-cleancss": "cleancss -o ../css/styles.min.css ../css/styles.min.css",
+    "build-postcss": "postcss --config . --map false --output ../static/css/styles.min.css ./src/styles.scss",
+    "build-cleancss": "cleancss -o ../static/css/styles.min.css ../static/css/styles.min.css",
     "build-clean": "rimraf ../css",
     "start": "watch 'npm run build-postcss' ./src"
   },

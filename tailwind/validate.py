@@ -3,7 +3,7 @@ import os
 from django.apps import apps
 from django.conf import settings
 
-from django_tailwind.utils import get_tailwind_src_path
+from .utils import get_tailwind_src_path
 
 
 class ValidationError(Exception):
