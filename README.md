@@ -1,7 +1,5 @@
 # A Tailwind integration for Django Projects
 
-Early alpha, work in progress...
-
 ## Quick start
 
 1. Install the python package django-tailwind from pip
@@ -46,8 +44,22 @@ Early alpha, work in progress...
 
     `python manage.py tailwind build`.
 
+## NPM executable path configuration
+
+Sometimes (especially on Windows), Python executable can't find `NPM` installed in the system.
+In this case, you need to set `NPM` executable path in settings.py file manually:
+
+```python
+NPM_BIN_PATH = '/usr/local/bin/npm'
+``` 
+    
+Please note that `NPM` path of your system may be different. Try to run `which npm` in your
+command line to get the path.
+
 ## Bugs and suggestions
 
 If you have found a bug, please use the issue tracker on GitHub.
 
 [https://github.com/timonweb/django-tailwind/issues](https://github.com/timonweb/django-tailwind/issues)
+
+2019 (c) [Tim Kamanin - A Full Stack Django Developer](https://timonweb.com)
