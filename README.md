@@ -28,11 +28,11 @@
 
    `python manage.py tailwind start`
 
-8a. Django Tailwind comes with a simple `base.html` template that can be found under 
+8. Django Tailwind comes with a simple `base.html` template that can be found under 
    `yourtailwindappname/templates/base.html`. You can always extend it or delete it if you
    have own layout.
 
-8b. If you're not using `base.html` template provided with Django Tailwind, add `styles.min.css` to your own `base.html` template file:
+9. If you're not using `base.html` template provided with Django Tailwind, add `styles.min.css` to your own `base.html` template file:
 
    ```html
    <link
@@ -42,9 +42,9 @@
    />
    ```
 
-9. You should now be able to use Tailwind CSS classes in your html.
+10. You should now be able to use Tailwind CSS classes in your html.
 
-10. To build a production version of CSS run:
+11. To build a production version of CSS run:
 
     `python manage.py tailwind build`.
 
