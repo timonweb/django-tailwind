@@ -1,4 +1,4 @@
-# A Tailwind integration for Django Projects
+# The integration of Tailwind CSS framework with Django a.k.a. Django + Tailwind = ❤
 
 ## Quick start
 
@@ -28,7 +28,11 @@
 
    `python manage.py tailwind start`
 
-8. Add `styles.min.css` to your `base.html` template file:
+8a. Django Tailwind comes with a simple `base.html` template that can be found under 
+   `yourtailwindappname/templates/base.html`. You can always extend it or delete it if you
+   have own layout.
+
+8b. If you're not using `base.html` template provided with Django Tailwind, add `styles.min.css` to your own `base.html` template file:
 
    ```html
    <link
@@ -38,7 +42,7 @@
    />
    ```
 
-9. You should now be able to use Tailwind css classes in your html.
+9. You should now be able to use Tailwind CSS classes in your html.
 
 10. To build a production version of CSS run:
 
