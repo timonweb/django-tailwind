@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 from setuptools import setup
 
@@ -12,6 +11,7 @@ setup(
     long_description=readme,
     author="Tim Kamanin",
     author_email="tim@timonweb.com",
+    url="https://github.com/timonweb/django-tailwind",
     packages=["tailwind"],
     include_package_data=True,
     use_scm_version={
