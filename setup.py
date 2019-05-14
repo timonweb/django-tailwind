@@ -1,15 +1,13 @@
 #!/usr/bin/env python
 
 from setuptools import setup
-
-with open("README.md") as readme_file:
-    readme = readme_file.read()
+from os import path
 
 setup(
     name="django-tailwind",
     description="""Tailwind CSS Framework for Django projects""",
-    long_description=readme,
     long_description_content_type="text/markdown",
+    long_description=open("README.md").read(),
     author="Tim Kamanin",
     author_email="tim@timonweb.com",
     url="https://github.com/timonweb/django-tailwind",
@@ -28,7 +26,7 @@ setup(
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
-        "License :: OSI Approved :: Apache Software License",
+        "License :: OSI Approved :: The MIT License (MIT)",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Operating System :: OS Independent",

@@ -28,7 +28,7 @@
 
    `python manage.py tailwind start`
 
-8. Django Tailwind comes with a simple `base.html` template that can be found under 
+8. Django Tailwind comes with a simple `base.html` template that can be found under
    `yourtailwindappname/templates/base.html`. You can always extend it or delete it if you
    have own layout.
 
@@ -42,9 +42,9 @@
    />
    ```
 
-10. You should now be able to use Tailwind CSS classes in your html.
+10) You should now be able to use Tailwind CSS classes in your html.
 
-11. To build a production version of CSS run:
+11) To build a production version of CSS run:
 
     `python manage.py tailwind build`.
 
@@ -55,8 +55,8 @@ In this case, you need to set `NPM` executable path in settings.py file manually
 
 ```python
 NPM_BIN_PATH = '/usr/local/bin/npm'
-``` 
-    
+```
+
 Please note that `NPM` path of your system may be different. Try to run `which npm` in your
 command line to get the path.
 
