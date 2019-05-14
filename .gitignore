@@ -142,4 +142,4 @@ Temporary Items
 tailwind/version.py
 
 # node.js
-package-json.lock
+tailwind/app_template/static_src/package-json.lock
