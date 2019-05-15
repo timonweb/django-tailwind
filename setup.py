@@ -7,7 +7,7 @@ setup(
     name="django-tailwind",
     description="""Tailwind CSS Framework for Django projects""",
     long_description_content_type="text/markdown",
-    long_description=open("README.md").read(),
+    long_description=open("README.md", encoding="utf-8").read(),
     author="Tim Kamanin",
     author_email="tim@timonweb.com",
     url="https://github.com/timonweb/django-tailwind",
