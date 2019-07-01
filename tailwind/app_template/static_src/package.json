@@ -12,8 +12,8 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "tailwindcss": "^1.0.1",
-    "autoprefixer": "^9.5.1",
+    "tailwindcss": "^1.0.4",
+    "autoprefixer": "^9.6.0",
     "clean-css-cli": "^4.3.0",
     "node-sass": "^4.12.0",
     "postcss-cli": "^6.1.2",
