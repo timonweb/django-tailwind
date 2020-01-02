@@ -1,0 +1,7 @@
+Changelog
+=========
+
+0.6.1 - In development
+---------
+  * Updates tailwindcss to 1.1.4
+  * Updates other dependencies in package.json
