@@ -6,7 +6,7 @@
     "build-postcss": "postcss --config . --map false --output ../static/css/styles.min.css ./src/styles.scss",
     "build-cleancss": "cleancss -o ../static/css/styles.min.css ../static/css/styles.min.css",
     "build-clean": "rimraf ../static/css",
-    "start": "watch 'npm run build-postcss' ./src"
+    "start": "watch \"npm run build-postcss\" ./src"
   },
   "keywords": [],
   "author": "",
