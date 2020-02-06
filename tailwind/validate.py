@@ -28,4 +28,4 @@ class Validations:
 
     def has_settings(self):
         if not hasattr(settings, "TAILWIND_APP_NAME"):
-            raise ValidationError("TAILWIND_APP_NAME isn't set in settings.php")
+            raise ValidationError("TAILWIND_APP_NAME isn't set in settings.py")
