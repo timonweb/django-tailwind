@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "django-tailwind"
+version = "0.6.1"
+description = "Tailwind CSS Framework for Django projects"
+authors = ["Tim Kamanin <tim@timonweb.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/timonweb/django-tailwind"
+keywords = ["django", "tailwind", "css"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Utilities",
+    "Environment :: Web Environment",
+    "Framework :: Django"
+]
+packages = [
+    { include = "tailwind" }
+]
+
+[tool.poetry.dependencies]
+python = ">=3.6,<3.9"
+django = ">=2.2,<3.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.3.5"
+pytest-django = "^3.8.0"
+tox = "^3.14.3"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
