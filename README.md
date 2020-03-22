@@ -57,7 +57,7 @@ In this case, you need to set `NPM` executable path in settings.py file manually
 NPM_BIN_PATH = '/usr/local/bin/npm'
 ```
 
-For windows it might look like:
+On windows it might look like:
 ```python
 NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 ```
