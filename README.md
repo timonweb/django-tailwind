@@ -51,10 +51,15 @@
 ## NPM executable path configuration
 
 Sometimes (especially on Windows), Python executable can't find `NPM` installed in the system.
-In this case, you need to set `NPM` executable path in settings.py file manually:
+In this case, you need to set `NPM` executable path in settings.py file manually (Linux/Mac):
 
 ```python
 NPM_BIN_PATH = '/usr/local/bin/npm'
+```
+
+For windows it might look like:
+```python
+NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 ```
 
 Please note that `NPM` path of your system may be different. Try to run `which npm` in your
