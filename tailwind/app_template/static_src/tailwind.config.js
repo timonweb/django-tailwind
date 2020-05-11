@@ -1,4 +1,6 @@
 module.exports = {
+  purge: [],
+  target: 'relaxed',
   prefix: '',
   important: false,
   separator: ':',
@@ -11,6 +13,7 @@ module.exports = {
     },
     colors: {
       transparent: 'transparent',
+      current: 'currentColor',
 
       black: '#000',
       white: '#fff',
@@ -148,6 +151,7 @@ module.exports = {
       '64': '16rem',
     },
     backgroundColor: theme => theme('colors'),
+    backgroundOpacity: theme => theme('opacity'),
     backgroundPosition: {
       bottom: 'bottom',
       center: 'center',
@@ -168,6 +172,7 @@ module.exports = {
       ...theme('colors'),
       default: theme('colors.gray.300', 'currentColor'),
     }),
+    borderOpacity: theme => theme('opacity'),
     borderRadius: {
       none: '0',
       sm: '0.125rem',
@@ -205,6 +210,9 @@ module.exports = {
       move: 'move',
       'not-allowed': 'not-allowed',
     },
+    divideColor: theme => theme('borderColor'),
+    divideOpacity: theme => theme('borderOpacity'),
+    divideWidth: theme => theme('borderWidth'),
     fill: {
       current: 'currentColor',
     },
@@ -303,7 +311,7 @@ module.exports = {
       disc: 'disc',
       decimal: 'decimal',
     },
-    margin: (theme, {negative}) => ({
+    margin: (theme, { negative }) => ({
       auto: 'auto',
       ...theme('spacing'),
       ...negative(theme('spacing')),
@@ -312,7 +320,7 @@ module.exports = {
       full: '100%',
       screen: '100vh',
     },
-    maxWidth: (theme, {breakpoints}) => ({
+    maxWidth: (theme, { breakpoints }) => ({
       none: 'none',
       xs: '20rem',
       sm: '24rem',
@@ -373,6 +381,11 @@ module.exports = {
     },
     padding: theme => theme('spacing'),
     placeholderColor: theme => theme('colors'),
+    placeholderOpacity: theme => theme('opacity'),
+    space: (theme, { negative }) => ({
+      ...theme('spacing'),
+      ...negative(theme('spacing')),
+    }),
     stroke: {
       current: 'currentColor',
     },
@@ -382,6 +395,7 @@ module.exports = {
       '2': '2',
     },
     textColor: theme => theme('colors'),
+    textOpacity: theme => theme('opacity'),
     width: theme => ({
       auto: 'auto',
       ...theme('spacing'),
@@ -556,7 +570,7 @@ module.exports = {
       '90': '90deg',
       '180': '180deg',
     },
-    translate: (theme, {negative}) => ({
+    translate: (theme, { negative }) => ({
       ...theme('spacing'),
       ...negative(theme('spacing')),
       '-full': '-100%',
@@ -598,6 +612,16 @@ module.exports = {
       '700': '700ms',
       '1000': '1000ms',
     },
+    transitionDelay: {
+      '75': '75ms',
+      '100': '100ms',
+      '150': '150ms',
+      '200': '200ms',
+      '300': '300ms',
+      '500': '500ms',
+      '700': '700ms',
+      '1000': '1000ms',
+    },
   },
   variants: {
     accessibility: ['responsive', 'focus'],
@@ -607,11 +631,13 @@ module.exports = {
     appearance: ['responsive'],
     backgroundAttachment: ['responsive'],
     backgroundColor: ['responsive', 'hover', 'focus'],
+    backgroundOpacity: ['responsive', 'hover', 'focus'],
     backgroundPosition: ['responsive'],
     backgroundRepeat: ['responsive'],
     backgroundSize: ['responsive'],
     borderCollapse: ['responsive'],
     borderColor: ['responsive', 'hover', 'focus'],
+    borderOpacity: ['responsive', 'hover', 'focus'],
     borderRadius: ['responsive'],
     borderStyle: ['responsive'],
     borderWidth: ['responsive'],
@@ -619,6 +645,9 @@ module.exports = {
     boxSizing: ['responsive'],
     cursor: ['responsive'],
     display: ['responsive'],
+    divideColor: ['responsive'],
+    divideOpacity: ['responsive'],
+    divideWidth: ['responsive'],
     fill: ['responsive'],
     flex: ['responsive'],
     flexDirection: ['responsive'],
@@ -652,14 +681,17 @@ module.exports = {
     overflow: ['responsive'],
     padding: ['responsive'],
     placeholderColor: ['responsive', 'focus'],
+    placeholderOpacity: ['responsive', 'focus'],
     pointerEvents: ['responsive'],
     position: ['responsive'],
     resize: ['responsive'],
+    space: ['responsive'],
     stroke: ['responsive'],
     strokeWidth: ['responsive'],
     tableLayout: ['responsive'],
     textAlign: ['responsive'],
     textColor: ['responsive', 'hover', 'focus'],
+    textOpacity: ['responsive', 'hover', 'focus'],
     textDecoration: ['responsive', 'hover', 'focus'],
     textTransform: ['responsive'],
     userSelect: ['responsive'],
@@ -688,6 +720,7 @@ module.exports = {
     transitionProperty: ['responsive'],
     transitionTimingFunction: ['responsive'],
     transitionDuration: ['responsive'],
+    transitionDelay: ['responsive'],
   },
   corePlugins: {},
   plugins: [],
