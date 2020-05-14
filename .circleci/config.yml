@@ -53,11 +53,11 @@ jobs:
       # specify the version you desire here
       # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
       # check all Python images here: https://circleci.com/docs/2.0/circleci-images/#python
-      - image: circleci/python:3.8.1
+      - image: circleci/python:3.8.1-buster
 
 workflows:
   version: 2
   build:
     jobs:
       - "python-3.7"
-      - "python-3.8.1"
+      - "python-3.8"
