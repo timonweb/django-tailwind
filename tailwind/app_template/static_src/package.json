@@ -2,11 +2,15 @@
   "name": "django_tailwind",
   "description": "",
   "scripts": {
-    "build": "npm run build-clean && npm run build-postcss && npm run build-cleancss",
-    "build-postcss": "postcss --config . --map false --output ../static/css/styles.min.css ./src/styles.scss",
-    "build-cleancss": "cleancss -o ../static/css/styles.min.css ../static/css/styles.min.css",
-    "build-clean": "rimraf ../static/css",
-    "start": "watch 'npm run build-postcss' ./src"
+    "start": "npm run dev",
+    "build": "npm run build:clean && npm run build:sass && npm run build:postcss && npm run build:cleancss",
+    "build:clean": "rimraf ../static/css",
+    "build:sass": "node-sass --output-style compressed src/styles.scss ../static/css/styles.css",
+    "build:postcss": "postcss --config . --map false --output ../static/css/styles.css ../static/css/styles.css",
+    "build:cleancss": "cleancss -o ../static/css/styles.css ../static/css/styles.css",
+    "dev": "watch 'npm run dev:sass && npm run dev:postcss' ./src",
+    "dev:sass": "node-sass --output-style expanded --source-map true src/styles.scss ../static/css/styles.css",
+    "dev:postcss": "postcss --config . --map true --output ../static/css/styles.css ../static/css/styles.css"
   },
   "keywords": [],
   "author": "",

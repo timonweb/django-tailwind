@@ -37,7 +37,7 @@
    ```html
    <link
      rel="stylesheet"
-     href="{% static 'css/styles.min.css' %}"
+     href="{% static 'css/styles.css' %}"
      type="text/css"
    />
    ```
@@ -58,6 +58,7 @@ NPM_BIN_PATH = '/usr/local/bin/npm'
 ```
 
 On windows it might look like:
+
 ```python
 NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 ```
