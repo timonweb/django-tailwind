@@ -37,7 +37,7 @@
    ```html
    <link
      rel="stylesheet"
-     href="{% static 'css/styles.css' %}"
+     href="{% static 'css/styles.min.css' %}"
      type="text/css"
    />
    ```
