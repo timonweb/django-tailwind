@@ -1,23 +1,11 @@
 import os
 import shutil
-
 import pytest
 from django.core.management import call_command
+from tailwind.utils import get_app_path
 
 
-@pytest.yield_fixture
-def cleanup_theme_app(settings):
-    theme_app_dir = os.path.join(settings.BASE_DIR, 'theme')
+def cleanup_theme_app_dir(app_name):
+    theme_app_dir = get_app_path(app_name)
     if os.path.isdir(theme_app_dir):
         shutil.rmtree(theme_app_dir)
-    yield
-    if os.path.isdir(theme_app_dir):
-        shutil.rmtree(theme_app_dir)
-
-
-@pytest.fixture()
-def with_theme_app(cleanup_theme_app, settings):
-    call_command('tailwind', 'init', 'theme')
-    settings.INSTALLED_APPS += ['theme']
-    settings.TAILWIND_APP_NAME = 'theme'
-    yield

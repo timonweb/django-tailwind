@@ -1,5 +1,4 @@
 import os
-
 from django.apps import apps
 
 DJANGO_TAILWIND_APP_DIR = os.path.dirname(__file__)
