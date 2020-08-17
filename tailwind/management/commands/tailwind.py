@@ -67,6 +67,7 @@ Usage example:
         self.npm_command("install")
 
     def handle_build_command(self, **options):
+        os.environ["NODE_ENV"] = "production"
         self.npm_command("run", "build")
 
     def handle_start_command(self, **options):
