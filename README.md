@@ -48,6 +48,31 @@
 
     `python manage.py tailwind build`.
 
+## PurgeCSS setup
+
+To avoid importing all of Tailwind (resulting in a massive CSS filesize), set up the purge configuration in `tailwind.config.js`.
+This file is located in the `static_src` folder of the app created by `tailwind init {APP_NAME}`.
+
+For example, your `tailwind.config.js` file could look like:
+
+```js
+module.exports = {
+  purge: [
+    // Templates within theme app (e.g. base.html)
+    '../templates/**/*.html',
+    // Templates in other apps
+    '../../templates/**/*.html',
+  ],
+  ...
+}
+```
+
+Note that you may need to adjust those paths to suit your specific project layout. It is important to ensure that _all_ of your HTML files are covered (or files with contain HTML content, such as .vue or .jsx files), to enusre PurgeCSS can whitelist all of your classes.
+
+For more information on this, check out the "Controlling File Size" page of the Tailwind docs: [https://tailwindcss.com/docs/controlling-file-size/#removing-unused-css](https://tailwindcss.com/docs/controlling-file-size/#removing-unused-css) - particularly the "Removing Unused CSS" section, although the entire page is a useful reference.
+
+To help speed up development builds, PurgeCSS is only run when you use the `tailwind build` management command (to create a production build of your CSS).
+
 ## NPM executable path configuration
 
 Sometimes (especially on Windows), Python executable can't find `NPM` installed in the system.
