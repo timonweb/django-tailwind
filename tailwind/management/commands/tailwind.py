@@ -2,7 +2,7 @@ import os
 
 from django.conf import settings
 from django.core.management import call_command
-from django.core.management.base import LabelCommand, CommandError
+from django.core.management.base import CommandError, LabelCommand
 
 from ...npm import NPM, NPMException
 from ...utils import DJANGO_TAILWIND_APP_DIR, get_tailwind_src_path
@@ -17,7 +17,9 @@ Command argument is missing, please add one of the following:
   install - to install npm packages necessary to build tailwind css
   build - to compile tailwind css into production css
   start - to start watching css changes for dev
-Usage example: 
+  check-updates - to list possible updates for tailwind css and its dependencies
+  update - to update tailwind css and its dependencies
+Usage example:
   python manage.py tailwind start
 """
     npm = None
@@ -44,7 +46,9 @@ Usage example:
         if labels[0] != "init":
             self.validate_app()
             self.npm = NPM(cwd=get_tailwind_src_path(settings.TAILWIND_APP_NAME))
-        getattr(self, "handle_" + labels[0] + "_command")(*labels[1:], **options)
+        getattr(self, "handle_" + labels[0].replace("-", "_") + "_command")(
+            *labels[1:], **options
+        )
 
     def handle_init_command(self, app_name, **options):
         try:
@@ -72,6 +76,12 @@ Usage example:
 
     def handle_start_command(self, **options):
         self.npm_command("run", "start")
+
+    def handle_check_updates_command(self, **options):
+        self.npm_command("outdated")
+
+    def handle_update_command(self, **options):
+        self.npm_command("update")
 
     def npm_command(self, *args):
         try:

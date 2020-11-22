@@ -91,6 +91,35 @@ NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 Please note that `NPM` path of your system may be different. Try to run `which npm` in your
 command line to get the path.
 
+## Updating Tailwind CSS and dependencies
+
+If there's a new release of the tailwind css came out you can always update your `theme` project
+without updating this django package by using two commands: `python manage.py tailwind check-updates` and
+`python manage.py tailwind update`.
+
+### Checking if there are updates for tailwind css and its dependencies
+
+Before doing an update, you can check if there are any updates. Run the following command:
+```
+python manage.py tailwind check-updates
+```
+*Behind the scenes it runs `npm outdated` command within your `theme/static_src` directory.*
+
+If there are updates, you'll see a table dependencies with the latest compatible versions.
+If there are no updates, this command will return no output.
+
+### Updating tailwind css and its dependencies
+
+If you want to use the latest version of tailwind css, run the following command:
+
+```
+python manage.py tailwind update
+```
+*Behind the scenes it runs `npm update` command within your `theme/static_src` directory.*
+
+If there are updates, you'll see a log of updated dependencies.
+If there are no updates, this command will return no output.
+
 ## Bugs and suggestions
 
 If you have found a bug, please use the issue tracker on GitHub.
