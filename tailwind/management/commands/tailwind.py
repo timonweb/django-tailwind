@@ -51,11 +51,14 @@ Usage example:
         )
 
     def handle_init_command(self, app_name, **options):
+        version = version_input()
         try:
             call_command(
                 "startapp",
                 app_name,
-                template=os.path.join(DJANGO_TAILWIND_APP_DIR, "app_template"),
+                template=os.path.join(
+                    DJANGO_TAILWIND_APP_DIR, f"app_template_v{version}"
+                ),
             )
             self.stdout.write(
                 self.style.SUCCESS(
@@ -90,3 +93,12 @@ Usage example:
             raise CommandError(err)
         except KeyboardInterrupt:
             pass
+
+
+def version_input():
+    result = input(
+        "Which version of Tailwind CSS you want to install? Type 1 for v1, type 2 for v2: "
+    )
+    while len(result) < 1 or result[0] not in ["1", "2"]:
+        result = input("Please type 1 or 2: ")
+    return result[0]
