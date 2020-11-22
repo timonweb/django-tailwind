@@ -16,13 +16,13 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "tailwindcss": "^1.6.2",
     "autoprefixer": "^9.8.6",
     "clean-css-cli": "^4.3.0",
     "node-sass": "^4.14.1",
-    "postcss-cli": "^7.1.1",
+    "postcss-cli": "^7.1.2",
     "postcss-scss": "^2.1.1",
     "rimraf": "^3.0.2",
+    "tailwindcss": "^1.9.6",
     "watch": "^1.0.2"
   }
 }
