@@ -29,6 +29,12 @@ Usage example:
         super(Command, self).__init__(*args, **kwargs)
         self.validate = Validations()
 
+    def add_arguments(self, parser):
+        super(Command, self).add_arguments(parser)
+        parser.add_argument(
+            "-t", "--tailwind", type=str, help="Tailwind CSS version (1 or 2)"
+        )
+
     def validate_app(self):
         try:
             self.validate.has_settings()
@@ -51,13 +57,15 @@ Usage example:
         )
 
     def handle_init_command(self, app_name, **options):
-        version = version_input()
+        tailwind_version = options.get("tailwind")
+        if not is_valid_version(tailwind_version):
+            tailwind_version = version_input()
         try:
             call_command(
                 "startapp",
                 app_name,
                 template=os.path.join(
-                    DJANGO_TAILWIND_APP_DIR, f"app_template_v{version}"
+                    DJANGO_TAILWIND_APP_DIR, f"app_template_v{tailwind_version}"
                 ),
             )
             self.stdout.write(
@@ -99,6 +107,10 @@ def version_input():
     result = input(
         "Which version of Tailwind CSS you want to install? Type 1 for v1, type 2 for v2: "
     )
-    while len(result) < 1 or result[0] not in ["1", "2"]:
+    while len(result) < 1 or not is_valid_version(result[0]):
         result = input("Please type 1 or 2: ")
     return result[0]
+
+
+def is_valid_version(version):
+    return version in ["1", "2"]
