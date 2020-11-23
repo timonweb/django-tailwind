@@ -1,6 +1,15 @@
 Changelog
 =========
 
+0.11.1
+---------
+* Adds `manage.py tailwind check-updates` and `manage.py tailwind update` commands
+
+0.11.0
+---------
+* Updates tailwindcss to 1.9.6
+* Updates tailwind.config.js
+
 0.10.0
 ---------
 * Adds Django 3.1 support
