@@ -29,10 +29,10 @@
    `python manage.py tailwind start`
 
 8. Django Tailwind comes with a simple `base.html` template that can be found under
-   `yourtailwindappname/templates/base.html`. You can always extend it or delete it if you
+   `your_tailwind_app_name/templates/base.html`. You can always extend it or delete it if you
    have own layout.
 
-9. If you're not using `base.html` template provided with Django Tailwind, add `styles.min.css` to your own `base.html` template file:
+9. If you're not using `base.html` template provided with Django Tailwind, add `styles.css` to your own `base.html` template file:
 
    ```html
    <link
