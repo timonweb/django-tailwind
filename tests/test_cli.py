@@ -1,4 +1,5 @@
 import os
+import uuid
 
 import pytest
 from django.core.management import call_command
@@ -10,22 +11,26 @@ from .conftest import cleanup_theme_app_dir
 
 @pytest.mark.parametrize("tailwind_version", ["1", "2"])
 def test_tailwind_install_and_build(settings, tailwind_version):
-    call_command("tailwind", "init", "theme", "-t", tailwind_version)
-    settings.INSTALLED_APPS += ["theme"]
-    settings.TAILWIND_APP_NAME = "theme"
+    app_name = f'test_theme_{str(uuid.uuid1()).replace("-", "_")}'
+
+    call_command("tailwind", "init", app_name, "-t", tailwind_version)
+
+    settings.INSTALLED_APPS += [app_name]
+
+    settings.TAILWIND_APP_NAME = app_name
 
     assert os.path.isfile(
-        os.path.join(get_app_path("theme"), "apps.py")
+        os.path.join(get_app_path(app_name), "apps.py")
     ), 'The "theme" app has been generated'
-
     call_command("tailwind", "install")
-    assert os.path.isfile(
-        os.path.join(get_app_path("theme"), "static_src", "package.json")
+
+    assert os.path.isdir(
+        os.path.join(get_app_path(app_name), "static_src", "node_modules")
     ), "Tailwind has been installed from npm"
 
     call_command("tailwind", "build")
     assert os.path.isfile(
-        os.path.join(get_app_path("theme"), "static", "css", "styles.css")
+        os.path.join(get_app_path(app_name), "static", "css", "styles.css")
     ), "Tailwind has built a css/styles.css file"
 
-    cleanup_theme_app_dir("theme")
+    cleanup_theme_app_dir(app_name)
