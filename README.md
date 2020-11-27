@@ -2,11 +2,13 @@
 
 ## Quick start
 
-1. Install the python package django-tailwind from pip
+1. Install the `django-tailwind` package via Pip:
 
-   `pip install django-tailwind`
+   `python -m pip install django-tailwind`
 
-   Alternatively, you can download or clone this repo and run `pip install -e .`.
+   Alternatively, you can install the latest development version via:
+
+   `python -m pip install git+https://github.com/timonweb/django-tailwind.git`
 
 2. Add `tailwind` to INSTALLED_APPS in **settings.py**
 
