@@ -15,6 +15,9 @@
 3. Create a tailwind-compatible Django-app, I like to call it `theme`:
 
    `python manage.py tailwind init theme`
+   
+   *NOTE:* By default, we install v2 of Tailwind CSS. If you want v1 Tailwind CSS you need to pass an additional `--legacy` parameter to the command:
+   `python manage.py tailwind init --legacy theme`.
 
 4. Add your newly created `theme` app to INSTALLED_APPS in **settings.py**
 

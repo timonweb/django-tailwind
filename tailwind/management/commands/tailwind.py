@@ -29,6 +29,14 @@ Usage example:
         super(Command, self).__init__(*args, **kwargs)
         self.validate = Validations()
 
+    def add_arguments(self, parser):
+        super(Command, self).add_arguments(parser)
+        parser.add_argument(
+            "--legacy",
+            action="store_true",
+            help="Installs Tailwind CSS version 1 (i.e. 'legacy')",
+        )
+
     def validate_app(self):
         try:
             self.validate.has_settings()
@@ -51,11 +59,14 @@ Usage example:
         )
 
     def handle_init_command(self, app_name, **options):
+        tailwind_version = "1" if options.get("legacy") else "2"
         try:
             call_command(
                 "startapp",
                 app_name,
-                template=os.path.join(DJANGO_TAILWIND_APP_DIR, "app_template"),
+                template=os.path.join(
+                    DJANGO_TAILWIND_APP_DIR, f"app_template_v{tailwind_version}"
+                ),
             )
             self.stdout.write(
                 self.style.SUCCESS(
@@ -71,7 +82,6 @@ Usage example:
         self.npm_command("install")
 
     def handle_build_command(self, **options):
-        os.environ["NODE_ENV"] = "production"
         self.npm_command("run", "build")
 
     def handle_start_command(self, **options):
