@@ -32,7 +32,9 @@ Usage example:
     def add_arguments(self, parser):
         super(Command, self).add_arguments(parser)
         parser.add_argument(
-            "-t", "--tailwind", type=str, help="Tailwind CSS version (1 or 2)"
+            "--legacy",
+            action="store_true",
+            help="Installs Tailwind CSS version 1 (i.e. 'legacy')",
         )
 
     def validate_app(self):
@@ -57,9 +59,7 @@ Usage example:
         )
 
     def handle_init_command(self, app_name, **options):
-        tailwind_version = options.get("tailwind")
-        if not is_valid_version(tailwind_version):
-            tailwind_version = version_input()
+        tailwind_version = "1" if options.get("legacy") else "2"
         try:
             call_command(
                 "startapp",
@@ -100,16 +100,3 @@ Usage example:
             raise CommandError(err)
         except KeyboardInterrupt:
             pass
-
-
-def version_input():
-    result = input(
-        "Which version of Tailwind CSS you want to install? Type 1 for v1, type 2 for v2: "
-    )
-    while len(result) < 1 or not is_valid_version(result[0]):
-        result = input("Please type 1 or 2: ")
-    return result[0]
-
-
-def is_valid_version(version):
-    return version in ["1", "2"]
