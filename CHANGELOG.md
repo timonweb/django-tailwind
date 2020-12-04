@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.0.0 🎉
+_________
+* Adds support for Tailwind CSS 2.0
+* Moves Tailwind CSS 1.0 support under `--legacy` flag
+
 0.11.1
 ---------
 * Adds `manage.py tailwind check-updates` and `manage.py tailwind update` commands
