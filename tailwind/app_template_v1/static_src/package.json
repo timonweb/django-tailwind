@@ -8,7 +8,7 @@
     "build:sass": "node-sass --output-style compressed src/styles.scss ../static/css/styles.css",
     "build:postcss": "NODE_ENV=production postcss --config . --map false --output ../static/css/styles.css ../static/css/styles.css",
     "build:cleancss": "cleancss -o ../static/css/styles.css ../static/css/styles.css",
-    "dev": "watch 'npm run dev:sass && npm run dev:postcss' ./src",
+    "dev": "watch \"npm run dev:sass && npm run dev:postcss\" ./src",
     "dev:sass": "node-sass --output-style expanded --source-map true src/styles.scss ../static/css/styles.css",
     "dev:postcss": "postcss --config . --map true --output ../static/css/styles.css ../static/css/styles.css"
   },
