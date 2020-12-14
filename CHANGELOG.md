@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.1.0
+_________
+* Enables Purge CSS by default in Tailwind CSS v2 template
+* Improves Windows support
+
 1.0.0 🎉
 ---------
 * Adds support for Tailwind CSS 2.0
