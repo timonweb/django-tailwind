@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.1.1
+_________
+* Adds `cross-env` that enables cross-platform support for `NODE_ENV` setting.
+
 1.1.0
 _________
 * Enables Purge CSS by default in Tailwind CSS v2 template
