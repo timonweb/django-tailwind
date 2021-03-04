@@ -53,14 +53,14 @@ jobs:
       # specify the version you desire here
       # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
       # check all Python images here: https://circleci.com/docs/2.0/circleci-images/#python
-      - image: circleci/python:3.8.6-buster
+      - image: circleci/python:3.8.7-buster
   "python-3.9":
     <<: *shared
     docker:
       # specify the version you desire here
       # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
       # check all Python images here: https://circleci.com/docs/2.0/circleci-images/#python
-      - image: circleci/python:3.9.0-buster
+      - image: circleci/python:3.9.1-buster
 
 workflows:
   version: 2
