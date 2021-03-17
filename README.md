@@ -19,6 +19,9 @@
    *NOTE:* By default, we install v2 of Tailwind CSS. If you want v1 Tailwind CSS you need to pass an additional `--legacy` parameter to the command:
    `python manage.py tailwind init --legacy theme`.
 
+   *NOTE:* If you'd like to use [Tailwind's experimental JIT compiler](https://github.com/tailwindlabs/tailwindcss-jit), you can pass the additional `--jit` parameter to the command:
+   `python manage.py tailwind init --jit theme`
+
 4. Add your newly created `theme` app to INSTALLED_APPS in **settings.py**
 
 5. In settings.py, register tailwind app by adding the following string:
