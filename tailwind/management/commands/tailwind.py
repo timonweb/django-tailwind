@@ -36,6 +36,11 @@ Usage example:
             action="store_true",
             help="Installs Tailwind CSS version 1 (i.e. 'legacy')",
         )
+        parser.add_argument(
+            "--jit",
+            action="store_true",
+            help="Uses Tailwind CSS's JIT compiler (https://github.com/tailwindlabs/tailwindcss-jit)",
+        )
 
     def validate_app(self):
         try:
@@ -59,7 +64,7 @@ Usage example:
         )
 
     def handle_init_command(self, app_name, **options):
-        tailwind_version = "1" if options.get("legacy") else "2"
+        tailwind_version = "1" if options.get("legacy") else "2_jit" if options.get("jit") else "2"
         try:
             call_command(
                 "startapp",
@@ -75,6 +80,15 @@ Usage example:
                     f"Please add '{app_name}' to INSTALLED_APPS in settings.py."
                 )
             )
+            self.stdout.write(tailwind_version)
+            if tailwind_version == "2_jit" and app_name != "theme":
+                self.stdout.write(
+                    self.style.WARNING(
+                        f"Be sure to change the package.json dev script to ignore your theme directory ({app_name}).\n"
+                        f"You can use this replacement:\n"
+                        f'"dev": "watch \"npm run dev:sass && npm run dev:postcss\" ../../ -p=\'/{app_name}/\'",'
+                    )
+                )
         except Exception as err:
             raise CommandError(err)
 
