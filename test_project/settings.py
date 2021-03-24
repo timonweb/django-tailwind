@@ -16,7 +16,11 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "tailwind",
     "tests",
+    "theme",
 ]
+
+TAILWIND_APP_NAME = "theme"
+DEBUG = True
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

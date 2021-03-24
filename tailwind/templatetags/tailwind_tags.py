@@ -33,10 +33,10 @@ def tw_form(
 
     has_management_form = getattr(form, "management_form", None)
     if has_management_form:
-        template_name = "tailwind/formset.html"
+        template_name = "tailwind/forms/formset.html"
         context.update({"formset": form})
     else:
-        template_name = "tailwind/form.html"
+        template_name = "tailwind/forms/form.html"
         context.update({"form": form})
 
     return get_template(template_name).render(context)
@@ -90,10 +90,12 @@ def tw_field(
         label_attrs.update({"class": label__class})
 
     widget_attrs = extract_attributes("widget__", kwargs)
-    field.field.widget.attrs = {**(field.field.widget.attrs or {}), **widget_attrs}
+
+    widget_attrs = {**(field.field.widget.attrs or {}), **widget_attrs}
+
     if widget__class:
         existing_widget_class = field.field.widget.attrs.get("class")
-        field.field.widget.attrs["class"] = (
+        widget_attrs["class"] = (
             f"{existing_widget_class} {widget__class}"
             if existing_widget_class
             else widget__class
@@ -117,6 +119,11 @@ def add_last_empty_form(formset):
 @register.filter
 def is_checkbox(field):
     return isinstance(field.field.widget, forms.CheckboxInput)
+
+
+@register.filter
+def as_widget(field, attrs):
+    return field.as_widget(attrs=attrs)
 
 
 def extract_attributes(prefix: str, kwargs_dict):

@@ -1,12 +1,12 @@
 {% load tailwind_tags %}
 
 {% if field.is_hidden %}
-    {{ field }}
+    {{ field|as_widget:widget_attrs }}
 {% else %}
     <div id="div_{{ field.auto_id }}" class="tw-field{% if field_attrs.class %} {{ field_attrs.class }}{% endif %}{% if field.errors and form_show_errors %} tw-field-has-error{% endif %}{% if field|is_checkbox %} tw-field-is-checkbox{% endif %}"{% include "tailwind/forms/attrs.html" with attrs=field_attrs %}>
         {% if field.label %}
             {% if field|is_checkbox %}
-                {{ field }}
+                {{ field|as_widget:widget_attrs }}
             {% endif %}
 
             <label for="{{ field.id_for_label }}" class="tw-field-label{% if field.field.required %} tw-field-required{% endif %}{% if label_class %} {{ label_class }}{% endif %}{% if label_attrs.class %} {{ label_attrs.class }}{% endif %}"{% include "tailwind/forms/attrs.html" with attrs=label_attrs %}>
@@ -15,7 +15,7 @@
         {% endif %}
 
         {% if not field|is_checkbox %}
-            {{ field }}
+            {{ field|as_widget:widget_attrs }}
         {% endif %}
 
         {% for error in field.errors %}

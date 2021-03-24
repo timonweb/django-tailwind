@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load tailwind_tags %}
+
+{% block content %}
+  <style>
+    .tw-field-asterisk {
+        color: red;
+    }
+  </style>
+
+  <section class="p-4">
+    <h2 class="text-3xl mb-5 pb-2 border-b border-gray-500">Individual fields</h2>
+    <form>
+      <div class="grid grid-cols-12">
+        <div class="col-span-6">
+          {% tw_field form.text field__class="mb-3" label__class="block font-bold" widget__placeholder="First name" %}
+          {% tw_field form.textarea field__class="mb-3" label__class="block font-bold" widget__class="border-green-400" widget__placeholder="Bio" %}
+          {% tw_field form.radios field__class="mb-3" label__class="block font-bold uppercase" %}
+        </div>
+        <div class="col-span-6">
+          {% tw_field form.checkbox field__class="mb-3" label__class="font-bold" %}
+          {% tw_field form.checkboxes field__class="mb-3 border border-yellow-300 bg-yellow-100 p-4" label__class="block font-bold text-yellow-800" %}
+          {% tw_field form.file field__class="mb-3" label__class="block font-bold" %}
+          {% tw_field form.select field__class="mb-3" label__class="block font-bold" %}
+          {% tw_field form.multiselect field__class="mb-3" label__class="block font-bold text-blue-500" %}
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <section class="bg-gray-100 p-4">
+    <h2 class="text-3xl mb-5 pb-2 border-b border-gray-500">Full form</h2>
+    <form>
+      {% tw_form form field__class="mb-3" label__class="block font-bold" %}
+    </form>
+  </section>
+{% endblock content %}
