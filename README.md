@@ -15,9 +15,6 @@
 3. Create a tailwind-compatible Django-app, I like to call it `theme`:
 
    `python manage.py tailwind init theme`
-   
-   *NOTE:* By default, we install v2 of Tailwind CSS. If you want v1 Tailwind CSS you need to pass an additional `--legacy` parameter to the command:
-   `python manage.py tailwind init --legacy theme`.
 
 4. Add your newly created `theme` app to INSTALLED_APPS in **settings.py**
 
@@ -55,7 +52,7 @@
 
 ## PurgeCSS setup
 
-To avoid importing all of Tailwind (resulting in a massive CSS filesize), set up the purge configuration in `tailwind.config.js`.
+To avoid importing all Tailwind (resulting in a massive CSS filesize), set up the purge configuration in `tailwind.config.js`.
 This file is located in the `static_src` folder of the app created by `tailwind init {APP_NAME}`.
 
 For example, your `tailwind.config.js` file could look like:
