@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.0
+* Drops Tailwind v1 support;
+* Adds official Tailwind plugins: typography, form, line-clamp and aspect-ratio.
+
 ## 1.1.2
 * Removes the upper bound on the Django version.
 
