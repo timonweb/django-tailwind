@@ -11,7 +11,7 @@ shared: &shared
     - run:
         name: install node & npm
         command: |
-          sudo apt-get install nodejs npm
+          sudo apt-get -yqq update && sudo apt-get install -yqq nodejs npm
 
     # Download and cache dependencies
     - restore_cache:
