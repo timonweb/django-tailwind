@@ -128,6 +128,46 @@ python manage.py tailwind update
 If there are updates, you'll see a log of updated dependencies.
 If there are no updates, this command will return no output.
 
+## Migrating to Tailwind's experimental JIT compiler
+*NOTE:* This migration guide is only for projects currently using tailwind v2. 
+### Migration steps
+1. Install the JIT compiler 
+
+   ```
+   npm install -D @tailwindcss/jit tailwindcss postcss autoprefixer
+   ```
+2. Update your `postcss.config.js` file
+   
+   Replace: 
+   ```
+   module.exports = {
+      plugins: {
+         ...
+         tailwindcss: {},
+         ...
+      }
+   }
+   ```
+   with
+   ```
+   module.exports = {
+      plugins: {
+         ...
+         '@tailwindcss/jit': {},
+         ...
+      }
+   }
+   ```
+3. Replace the `dev` script in `package.json`
+   ```
+   "scripts" : {
+      ...
+      "dev": "watch \"npm run dev:sass && npm run dev:postcss\" ../../ -p='/theme/'",
+      ...
+   }
+   ```
+4. Done! Use the project as normal.
+
 ## Bugs and suggestions
 
 If you have found a bug, please use the issue tracker on GitHub.
