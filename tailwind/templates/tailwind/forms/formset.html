@@ -1,0 +1,7 @@
+{{ formset.management_form }}
+
+{% for form in formset %}
+  <div data-tw-formset>
+    {% include "tailwind/forms/form.html" with form=form field__class=field__class label__class=label__class widget__class=widget__class %}
+  </div>
+{% endfor %}

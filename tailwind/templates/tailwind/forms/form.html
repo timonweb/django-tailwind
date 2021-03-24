@@ -1,0 +1,17 @@
+{% load tailwind_tags %}
+
+{% if form.non_field_errors %}
+  <ul class="border-2 border-red-500">
+    {% for non_field_error in form.non_field_errors %}
+      <li class="block text-red-600 mb-2">{{ non_field_error }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+{% for field in form.hidden_fields %}
+  {{ field }}
+{% endfor %}
+
+{% for field in form.visible_fields %}
+  {% tw_field field field__class=field__class label__class=label__class widget__class=widget__class %}
+{% endfor %}
