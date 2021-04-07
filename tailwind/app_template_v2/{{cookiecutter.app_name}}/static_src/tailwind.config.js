@@ -2,6 +2,7 @@
 // If you need the full config, get it from here:
 // https://unpkg.com/browse/tailwindcss@latest/stubs/defaultConfig.stub.js
 module.exports = {
+    {% if cookiecutter.mode == "jit" %}mode: "jit",{% endif %}
     purge: [
         // Templates within theme app (e.g. base.html)
         '../templates/**/*.html',

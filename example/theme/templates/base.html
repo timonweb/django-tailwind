@@ -1,4 +1,5 @@
-{% load static %}
+
+{% load static tailwind_tags %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +12,7 @@
 		<meta name="keywords" content="">
 		<meta name="author" content="">
 
-		<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+		{% tailwind_css %}
 	</head>
 
 	<body class="bg-grey-lightest font-serif leading-normal tracking-normal">

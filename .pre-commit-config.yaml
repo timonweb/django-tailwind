@@ -16,4 +16,4 @@ repos:
         entry: isort
         language: system
         types: [python]
-exclude: tailwind/app_template_v(1|2)/apps.py
+exclude: tailwind/app_template_v2/{{cookiecutter.app_name}}/apps.py

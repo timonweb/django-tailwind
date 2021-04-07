@@ -1,0 +1,37 @@
+{
+  "name": "theme",
+  "description": "",
+  "scripts": {
+    "start": "npm run dev",
+    "build": "npm run build:clean && npm run build:postcss && npm run build:cleancss",
+    "build:clean": "rimraf ../static/css",
+    "build:postcss": "cross-env NODE_ENV=production postcss --config . --map false --output ../static/css/styles.css ./src/styles.css",
+    "build:cleancss": "cleancss -o ../static/css/styles.css ../static/css/styles.css",
+    "sync": "browser-sync start --config bs.config.js",
+    "dev:postcss": "cross-env NODE_ENV=development postcss --config . --map true --output ../static/css/styles.css -w ./src/styles.css",
+    "dev:sync": "run-p dev:postcss sync",
+    "dev": "nodemon -x npm run dev:sync -w tailwind.config.js -w postcss.config.js -w bs.config.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@tailwindcss/aspect-ratio": "^0.2.0",
+    "@tailwindcss/forms": "^0.3.2",
+    "@tailwindcss/line-clamp": "^0.2.0",
+    "@tailwindcss/typography": "^0.4.0",
+    "autoprefixer": "^10.2.5",
+    "browser-sync": "^2.26.14",
+    "clean-css-cli": "^5.2.2",
+    "cross-env": "^7.0.3",
+    "nodemon": "^2.0.7",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.2.9",
+    "postcss-cli": "^8.3.1",
+    "postcss-import": "^14.0.1",
+    "postcss-nested": "^5.0.5",
+    "postcss-simple-vars": "^6.0.3",
+    "rimraf": "^3.0.2",
+    "tailwindcss": "^2.1.1"
+  }
+}

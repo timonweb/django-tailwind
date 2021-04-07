@@ -1,5 +1,11 @@
 # The integration of Tailwind CSS framework with Django a.k.a. Django + Tailwind = ❤
 
+## Features
+* An opinionated Tailwind setup that makes your life easier;
+* Hot reloading of CSS, configuration files and Django templates. No more manual page refreshes!
+* Out of the box support for CSS imports, SASS-like variables and nesting;
+* Includes official Tailwind plugins like typography, form, line-clamp and aspect-ratio;
+
 ## Quick start
 
 1. Install the `django-tailwind` package via Pip:
@@ -14,7 +20,9 @@
 
 3. Create a tailwind-compatible Django-app, I like to call it `theme`:
 
-   `python manage.py tailwind init theme`
+   `python manage.py tailwind init`
+
+   > During the initialization step, you'll be prompted to choose between `jit` and `default` modes. Whereas `jit` mode is new and somewhat experimental in Tailwind, I suggest choosing it for the best development experience.
 
 4. Add your newly created `theme` app to INSTALLED_APPS in **settings.py**
 
@@ -34,14 +42,16 @@
    `your_tailwind_app_name/templates/base.html`. You can always extend it or delete it if you
    have own layout.
 
-9. If you're not using `base.html` template provided with Django Tailwind, add `styles.css` to your own `base.html` template file:
+9. If don't use `base.html` template provided with Django Tailwind, add `{% tailwind_css %}` to your `base.html` template file:
 
    ```html
-   <link
-     rel="stylesheet"
-     href="{% static 'css/styles.css' %}"
-     type="text/css"
-   />
+   {% load tailwind_tags %}
+   ...
+   <head>
+      ...
+      {% tailwind_css %}
+      ...
+   </head>
    ```
 
 10) You should now be able to use Tailwind CSS classes in your html.
@@ -73,7 +83,10 @@ Note that you may need to adjust those paths to suit your specific project layou
 
 For more information on this, check out the "Controlling File Size" page of the Tailwind docs: [https://tailwindcss.com/docs/controlling-file-size/#removing-unused-css](https://tailwindcss.com/docs/controlling-file-size/#removing-unused-css) - particularly the "Removing Unused CSS" section, although the entire page is a useful reference.
 
+*The following applies to the `default` mode only.* 
 To help speed up development builds, PurgeCSS is only run when you use the `tailwind build` management command (to create a production build of your CSS).
+
+If you run in `jit` mode, you get an optimized build even in dev mode, and it happens at the lightning speed.
 
 ## NPM executable path configuration
 
@@ -128,4 +141,4 @@ If you have found a bug, please use the issue tracker on GitHub.
 
 [https://github.com/timonweb/django-tailwind/issues](https://github.com/timonweb/django-tailwind/issues)
 
-2020 (c) [Tim Kamanin - A Full Stack Django Developer](https://timonweb.com)
+2019 - 2021 (c) [Tim Kamanin - A Full Stack Django Developer](https://timonweb.com)

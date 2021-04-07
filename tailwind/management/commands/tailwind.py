@@ -1,11 +1,11 @@
 import os
 
+from cookiecutter.main import cookiecutter
 from django.conf import settings
-from django.core.management import call_command
 from django.core.management.base import CommandError, LabelCommand
 
 from ...npm import NPM, NPMException
-from ...utils import DJANGO_TAILWIND_APP_DIR, get_tailwind_src_path
+from ...utils import get_tailwind_src_path
 from ...validate import ValidationError, Validations
 
 
@@ -32,9 +32,23 @@ Usage example:
     def add_arguments(self, parser):
         super(Command, self).add_arguments(parser)
         parser.add_argument(
-            "--legacy",
+            "--no-sync",
             action="store_true",
-            help="Installs Tailwind CSS version 1 (i.e. 'legacy')",
+            help="Starts Tailwind dev server without browser sync",
+        )
+        parser.add_argument(
+            "--no-jit",
+            action="store_true",
+            help="Initializes Tailwind project without JIT mode",
+        )
+        parser.add_argument(
+            "--no-input",
+            action="store_true",
+            help="Initializes Tailwind project without user prompts",
+        )
+        parser.add_argument(
+            "--app-name",
+            help="Sets default app name on Tailwind project initialization",
         )
 
     def validate_app(self):
@@ -54,20 +68,29 @@ Usage example:
         if labels[0] != "init":
             self.validate_app()
             self.npm = NPM(cwd=get_tailwind_src_path(settings.TAILWIND_APP_NAME))
+
         getattr(self, "handle_" + labels[0].replace("-", "_") + "_command")(
             *labels[1:], **options
         )
 
-    def handle_init_command(self, app_name, **options):
-        tailwind_version = "1" if options.get("legacy") else "2"
+    def handle_init_command(self, **options):
         try:
-            call_command(
-                "startapp",
-                app_name,
-                template=os.path.join(
-                    DJANGO_TAILWIND_APP_DIR, f"app_template_v{tailwind_version}"
-                ),
+            app_path = cookiecutter(
+                os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
+                output_dir=settings.BASE_DIR,
+                directory="app_template_v2",
+                no_input=options["no_input"],
+                overwrite_if_exists=False,
+                extra_context={
+                    "app_name": options["app_name"]
+                    if options.get("app_name")
+                    else "theme",
+                    "mode": "default" if options.get("no_jit") else "jit",
+                },
             )
+
+            app_name = os.path.basename(app_path)
+
             self.stdout.write(
                 self.style.SUCCESS(
                     f"Tailwind application '{app_name}' "
@@ -76,6 +99,7 @@ Usage example:
                 )
             )
         except Exception as err:
+            raise err
             raise CommandError(err)
 
     def handle_install_command(self, **options):
@@ -85,7 +109,10 @@ Usage example:
         self.npm_command("run", "build")
 
     def handle_start_command(self, **options):
-        self.npm_command("run", "start")
+        if options.get("no_sync"):
+            self.npm_command("run", "dev:postcss")
+        else:
+            self.npm_command("run", "start")
 
     def handle_check_updates_command(self, **options):
         self.npm_command("outdated")
