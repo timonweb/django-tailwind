@@ -1,4 +1,3 @@
-
 {% load static tailwind_tags %}
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +11,8 @@
 		<meta name="keywords" content="">
 		<meta name="author" content="">
 
-		{% tailwind_css %}
+		{% tailwind_preload_css v="1" %}
+		{% tailwind_css v="1" %}
 	</head>
 
 	<body class="bg-grey-lightest font-serif leading-normal tracking-normal">
@@ -21,10 +21,7 @@
 			<section class="flex items-center justify-center h-screen">
 				<h1 class="text-5xl">Django + Tailwind = ❤️</h1>
 			</section>
-
 		</div>
 
-
 	</body>
-
 </html>

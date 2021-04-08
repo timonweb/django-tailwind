@@ -1,9 +1,9 @@
 {% load static %}
 
-<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<link rel="stylesheet" href="{% static 'css/styles.css' %}{% if v %}?v={{ v }}{% endif %}">
 
 {% if debug %}
   <script id="__bs_script__">//<![CDATA[
-  document.write("<script async src='//HOST:8383/browser-sync/browser-sync-client.js?v=2.26.14'><\/script>".replace("HOST", location.hostname));
+  document.write("<script async src='//HOST:8383/browser-sync/browser-sync-client.js'><\/script>".replace("HOST", location.hostname));
   //]]></script>
 {% endif %}
