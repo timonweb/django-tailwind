@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "django-tailwind"
-version = "1.2.0"
+version = "2.0.0"
 description = "Tailwind CSS Framework for Django projects"
 authors = ["Tim Kamanin <tim@timonweb.com>"]
 license = "MIT"
@@ -21,12 +21,13 @@ classifiers = [
     "Framework :: Django"
 ]
 packages = [
-    { include = "tailwind" }
+    { include = "tailwind", from = "src" }
 ]
 
 [tool.poetry.dependencies]
 python = "^3.7"
 django = ">=2.2"
+cookiecutter = "^1.7.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.3.5"
