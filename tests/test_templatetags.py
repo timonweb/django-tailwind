@@ -1,7 +1,8 @@
 from django.template import Context, Template
 
 
-def test_tailwind_css_in_production():
+def test_tailwind_css_in_production(settings):
+    settings.TAILWIND_APP_NAME = "theme"
     output = Template(
         """
         {% load tailwind_tags %}
@@ -9,11 +10,12 @@ def test_tailwind_css_in_production():
         """
     ).render(Context({"debug": False}))
 
-    assert '<link rel="stylesheet" href="/static/css/styles.css">' in output
+    assert '<link rel="stylesheet" href="/static/theme/css/styles.css">' in output
     assert "//HOST:8383/browser-sync/browser-sync-client.js" not in output
 
 
-def test_tailwind_css_in_production_with_version():
+def test_tailwind_css_in_production_with_version(settings):
+    settings.TAILWIND_APP_NAME = "theme"
     output = Template(
         """
         {% load tailwind_tags %}
@@ -21,11 +23,12 @@ def test_tailwind_css_in_production_with_version():
         """
     ).render(Context({"debug": False}))
 
-    assert '<link rel="stylesheet" href="/static/css/styles.css?v=123">' in output
+    assert '<link rel="stylesheet" href="/static/theme/css/styles.css?v=123">' in output
     assert "//HOST:8383/browser-sync/browser-sync-client.js" not in output
 
 
-def test_tailwind_css_in_debug():
+def test_tailwind_css_in_debug(settings):
+    settings.TAILWIND_APP_NAME = "theme"
     output = Template(
         """
         {% load tailwind_tags %}
@@ -33,11 +36,12 @@ def test_tailwind_css_in_debug():
         """
     ).render(Context({"debug": True}))
 
-    assert '<link rel="stylesheet" href="/static/css/styles.css">' in output
+    assert '<link rel="stylesheet" href="/static/theme/css/styles.css">' in output
     assert "//HOST:8383/browser-sync/browser-sync-client.js" in output
 
 
-def test_tailwind_css_in_debug_with_version():
+def test_tailwind_css_in_debug_with_version(settings):
+    settings.TAILWIND_APP_NAME = "theme"
     output = Template(
         """
         {% load tailwind_tags %}
@@ -45,11 +49,12 @@ def test_tailwind_css_in_debug_with_version():
         """
     ).render(Context({"debug": True}))
 
-    assert '<link rel="stylesheet" href="/static/css/styles.css?v=123">' in output
+    assert '<link rel="stylesheet" href="/static/theme/css/styles.css?v=123">' in output
     assert "//HOST:8383/browser-sync/browser-sync-client.js" in output
 
 
-def test_tailwind_preload_css():
+def test_tailwind_preload_css(settings):
+    settings.TAILWIND_APP_NAME = "theme"
     output = Template(
         """
         {% load tailwind_tags %}
@@ -57,17 +62,21 @@ def test_tailwind_preload_css():
         """
     ).render(Context())
 
-    assert '<link rel="preload" href="/static/css/styles.css" as="style">' in output
+    assert (
+        '<link rel="preload" href="/static/theme/css/styles.css" as="style">' in output
+    )
 
 
-def test_tailwind_preload_css_with_version():
+def test_tailwind_preload_css_with_version(settings):
+    settings.TAILWIND_APP_NAME = "theme"
     output = Template(
         """
         {% load tailwind_tags %}
         {% tailwind_preload_css v=123 %}
         """
-    ).render(Context({}))
+    ).render(Context())
 
     assert (
-        '<link rel="preload" href="/static/css/styles.css?v=123" as="style">' in output
+        '<link rel="preload" href="/static/theme/css/styles.css?v=123" as="style">'
+        in output
     )

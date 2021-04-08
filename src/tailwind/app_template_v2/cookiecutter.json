@@ -1,4 +1,7 @@
 {
   "app_name": "",
-  "mode": ["default", "jit"]
+  "mode": ["default", "jit"],
+  "_copy_without_render": [
+    "templates/base.html"
+  ]
 }

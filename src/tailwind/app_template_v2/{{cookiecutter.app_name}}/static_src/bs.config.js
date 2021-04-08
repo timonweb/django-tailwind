@@ -21,7 +21,7 @@ module.exports = {
     open: false,
     reloadOnRestart: true,
     files: [
-        '../static/css/styles.css',
+        '../static/{{ cookiecutter.app_name }}/css/styles.css',
         ...tailwindConfig.purge
     ]
 };
