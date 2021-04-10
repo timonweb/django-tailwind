@@ -1,15 +1,15 @@
 ## Migrating from Django-Tailwind v1 to v2
 
-> Please note, that the instructions below are for upgrading the Django package, not the actual Tailwind CSS dependency.
+> Please note that the instructions below are for upgrading the Django package, not the actual Tailwind CSS dependency.
 
-*Django Tailwind2* `v2` introduces lots of new features that aren't available to projects, that were generated with the
-previous version. Thus if you want to get all the goodies `v2` offers, you need to update your Django `theme` app.
+*Django Tailwind2* `v2` introduces lots of new features that aren't available to projects generated with the
+previous version of the package. Thus if you want to get all the goodies `v2` offers, you need to update your Django `theme` app.
 
 Depending on how many customizations you've introduced, the process might be smooth or bumpy.
 
 ### Upgrade steps
 
-Let's assume, you've been using *Django Tailwind* for a while and you your `TAILWIND_APP_NAME` is `theme`.
+Let's assume you've been using *Django Tailwind* for a while, and your `TAILWIND_APP_NAME` is `theme`.
 
 1. Edit `INSTALLED_APPS` in `settings.py` and remove the `'theme'` app.
 2. Rename your `theme` app directory to `theme-legacy`.
@@ -25,12 +25,12 @@ Let's assume, you've been using *Django Tailwind* for a while and you your `TAIL
    we've dropped *SASS* support, but *POSTCSS* should work just fine. Unless you've used advanced *SASS* features, which
    is unlikely;
 7. Open `theme-legacy/static_src/tailwind.config.js` and compare it to `theme/static_src/tailwind.config.js`, if you
-   have customizations there, like custom colors, variables, etc, copy them over
+   have customizations there, like custom colors, variables, etc., copy them over
    to `theme/static_src/tailwind.config.js`;
 8. Pay close attention to the `plugins` listed in `theme/static_src/tailwind.config.js`. We now include there four
    official
-   *Tailwind CSS* plugins. If you see that your forms look weird after the upgrade, that means probably you don't need
-   the `@tailwindcss/forms` so remove the following line:
+   *Tailwind CSS* plugins. If you see that your forms look weird after the upgrade, most likely you don't need
+   the official `@tailwindcss/forms` package, so disable it by removing the following line:
    ```html
    require('@tailwindcss/forms'),
    ```

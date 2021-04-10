@@ -2,7 +2,7 @@
 
 # Definitions
 
-Before we begin, in this document we use the *Tailwind* word when we talk about two things: the CSS framework and the Django package.
+This document uses the *Tailwind* word when we talk about two things: the CSS framework and the Django package.
 
 So let's agree that we'll use:
 * **Django Tailwind**, when we talk about this very package;

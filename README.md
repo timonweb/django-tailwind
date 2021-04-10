@@ -1,12 +1,12 @@
 # Tailwind CSS integration for Django a.k.a. Django + Tailwind = 💚
 
 ## Goal
-The goal of this project is to provide a comfortable way of using *Tailwind CSS* framework within a Django project.
+This project aims to provide a comfortable way of using the *Tailwind CSS* framework within a Django project.
 
 ## Features
 * An opinionated *Tailwind CSS* setup that makes your life easier;
-* Hot reloading of CSS, configuration files and *Django* templates. No more manual page refreshes!
-* Out of the box support for CSS imports, SASS-like variables and nesting;
+* Hot reloading of CSS, configuration files, and *Django* templates. No more manual page refreshes!
+* Out of the box support for CSS imports, SASS-like variables, and nesting;
 * Includes official *Tailwind CSS* plugins like *typography*, *form*, *line-clamp*, and *aspect-ratio*;
 
 ## Requirements

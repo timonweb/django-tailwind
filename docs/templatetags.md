@@ -20,7 +20,7 @@ The `{% tailwind_css %}` tag generates a stylesheet link for the `'theme'` app a
 ```
 
 ### Asset versioning
-The tag also supports asset versioning via `v=` parameter, like this:
+The tag also supports asset versioning via the `v=` parameter, like this:
 
 ```html
 {% tailwind_css v='1' %}
@@ -29,10 +29,10 @@ The tag also supports asset versioning via `v=` parameter, like this:
 Depending on your production setup, you might need or not need this functionality, so it's optional.
 
 ### Hot reloading
-Another feature this tag enables is it includes the `browser-sync` script that reloads a page, whenever template changes.
+This tag also includes the `browser-sync` script that reloads a page whenever the template changes.
 This script is only included on the page when two conditions are met:
 * The debug mode is enabled in `settings.py`: `DEBUG=True`;
-* Your IP address matches `INTERNAL_IPS` defined in `settings.py`. For local development it usually should contain `127.0.0.1` to work properly:
+* Your IP address matches `INTERNAL_IPS` defined in `settings.py`. For local development, it usually should contain `127.0.0.1` to work properly:
   ```python
   INTERNAL_IPS = ['127.0.0.1']
   ```
