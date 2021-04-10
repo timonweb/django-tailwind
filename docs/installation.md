@@ -2,7 +2,7 @@
 
 ## Step-by-step instructions
 
-1. Install the *django-tailwind* package via `pip`:
+1. Install the `django-tailwind` package via `pip`:
 
    ```bash
    python -m pip install django-tailwind
@@ -11,7 +11,7 @@
    Alternatively, you can install the latest development version via:
 
    ```bash
-   python -m pip install git+https://github.com/timonweb/django-tailwind.git`
+   python -m pip install git+https://github.com/timonweb/django-tailwind.git
    ```
    
 2. Add `'tailwind'` to `INSTALLED_APPS` in `settings.py`:
@@ -96,7 +96,7 @@ For more information on this, check out the *"Controlling File Size"* page of th
 *The following applies to the `default` mode only.* 
 To help speed up development builds, PurgeCSS is only run when you use the `tailwind build` management command (to create a production build of your CSS).
 
-If you run Tailwind CSS in `jit` mode, you get an optimized build even in dev mode, and it happens at the lightning speed.
+If you run *Tailwind CSS* in `jit` mode, you get an optimized build even in dev mode, and it happens at the lightning speed.
 
 ## `npm` executable path configuration
 

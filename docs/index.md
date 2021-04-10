@@ -14,5 +14,7 @@ Contents
 --------
 * [Installation](installation.md)
 * [Usage](usage.md)
+* [Settings](settings.md)
 * [Template tags](templatetags.md)
-* [Upgrading](upgrading.md)
+* [Migration](migration.md)
+* [Updating Tailwind CSS](updating.md)

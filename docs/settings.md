@@ -3,6 +3,15 @@
 *Django Tailwind* comes with preconfigured settings.
 You can override them in the `settings.py` of your Django project.
 
+## `TAILWIND_APP_NAME`
+Is the name of the *Tailwind* theme Django app that contains your *Tailwind CSS* styles. I prefer to call it `'theme'`. You generate such app during the installation phase by
+running the following command:
+```html
+python manage.py tailwind init
+```
+For more information on the installation process, please refer to the [Installation](installation.md) section.
+
+
 ## `NPM_BIN_PATH`
 Is the path to the `npm` executable in your system.
 
