@@ -1,6 +1,6 @@
 {% load static %}
 
-<link rel="stylesheet" href="{% static tailwind_app_name|add:'/css/styles.css' %}{% if v %}?v={{ v }}{% endif %}">
+<link rel="stylesheet" href="{% static 'css/dist/styles.css' %}{% if v %}?v={{ v }}{% endif %}">
 
 {% if debug %}
   <script id="__bs_script__">//<![CDATA[

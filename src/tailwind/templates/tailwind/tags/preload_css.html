@@ -1,3 +1,3 @@
 {% load static %}
 
-<link rel="preload" href="{% static tailwind_app_name|add:'/css/styles.css' %}{% if v %}?v={{ v }}{% endif %}" as="style">
+<link rel="preload" href="{% static 'css/dist/styles.css' %}{% if v %}?v={{ v }}{% endif %}" as="style">

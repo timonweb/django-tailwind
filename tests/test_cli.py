@@ -46,7 +46,7 @@ def test_tailwind_install_and_build(settings, has_jit):
 
     call_command("tailwind", "build")
     assert os.path.isfile(
-        os.path.join(get_app_path(app_name), "static", app_name, "css", "styles.css")
+        os.path.join(get_app_path(app_name), "static", "css", "dist", "styles.css")
     ), "Tailwind has built a css/styles.css file"
 
     cleanup_theme_app_dir(app_name)
