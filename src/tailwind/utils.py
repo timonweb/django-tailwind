@@ -22,3 +22,7 @@ def get_package_json_path(app_name):
 def get_package_json_contents(app_name):
     with open(get_package_json_path(app_name), "r") as f:
         return json.load(f)
+
+
+def is_path_absolute(path):
+    return path.startswith("/") or path.startswith("http")
