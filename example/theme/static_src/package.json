@@ -10,7 +10,7 @@
     "sync": "browser-sync start --config bs.config.js",
     "dev:postcss": "cross-env NODE_ENV=development postcss --config . --map true --output ../static/theme/css/styles.css -w ./src/styles.css",
     "dev:sync": "run-p dev:postcss sync",
-    "dev": "nodemon -x npm run dev:sync -w tailwind.config.js -w postcss.config.js -w bs.config.js"
+    "dev": "nodemon -x \"npm run dev:sync\" -w tailwind.config.js -w postcss.config.js -w bs.config.js -e js"
   },
   "keywords": [],
   "author": "",
