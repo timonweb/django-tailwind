@@ -16,10 +16,10 @@ Python 3.7 or newer with Django >= 2.2 or newer.
 The full documentation is at https://django-tailwind.readthedocs.io/
 
 ## Installation
-Check docs for the [Installation](./docs/installation.md) instructions.
+Check docs for the [Installation](https://django-tailwind.readthedocs.io/en/latest/installation.html) instructions.
 
 ## Migration from *Django-Tailwind v1.x*:
-Check docs for the [Migration](./docs/migration.md) instructions.
+Check docs for the [Migration](https://django-tailwind.readthedocs.io/en/latest/migration.html) instructions.
 
 ## Bugs and suggestions
 If you have found a bug, please use the issue tracker on GitHub.
