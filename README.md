@@ -16,6 +16,11 @@ Python 3.7 or newer with Django >= 2.2 or newer.
 The full documentation is at https://django-tailwind.readthedocs.io/
 
 ## Installation
+Via PIP:
+```bash
+pip install django-tailwind
+```
+
 Check docs for the [Installation](https://django-tailwind.readthedocs.io/en/latest/installation.html) instructions.
 
 ## Migration from *Django-Tailwind v1.x*:
