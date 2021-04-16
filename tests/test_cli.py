@@ -37,7 +37,7 @@ def test_tailwind_install_and_build(settings, has_jit):
         if has_jit:
             assert 'mode: "jit",' in tailwind_config.read()
         else:
-            assert 'mode: "jit",' not in tailwind_config.read()
+            assert 'mode: "aot",' in tailwind_config.read()
 
     call_command("tailwind", "install")
     assert os.path.isdir(

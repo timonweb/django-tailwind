@@ -85,7 +85,9 @@ Usage example:
                     "app_name": options["app_name"]
                     if options.get("app_name")
                     else "theme",
-                    "mode": "default" if options.get("no_jit") else "jit",
+                    "Tailwind build mode": "ahead of time (aot)"
+                    if options.get("no_jit")
+                    else "just in time (jit)",
                 },
             )
 
@@ -99,7 +101,6 @@ Usage example:
                 )
             )
         except Exception as err:
-            raise err
             raise CommandError(err)
 
     def handle_install_command(self, **options):
