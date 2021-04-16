@@ -27,7 +27,8 @@
    ```bash
    python manage.py tailwind init
    ```
-   > During the initialization step, you'll be prompted to choose between `jit` and `default` modes. Whereas `jit` mode is new and somewhat experimental in *Tailwind CSS*, I suggest choosing it for the best development experience.
+   > During the initialization step, you'll be prompted to choose between **Just in time (`jit`)** and **Ahead of time (`aot`)** modes. Whereas `jit` mode is new and somewhat experimental in *Tailwind CSS*, I suggest choosing it for the best development experience.
+   > You can change the mode later via a simple config update. Check [jit vs aot](./jit-vs-aot.md) for more info.
 
 4. Add your newly created `'theme'` app to `INSTALLED_APPS` in `settings.py`:
    ```python
