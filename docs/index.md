@@ -15,6 +15,7 @@ Contents
 * [Installation](installation.md)
 * [Usage](usage.md)
 * [Settings](settings.md)
+* [mode: Just in time VS Ahead of time](jit-vs-aot.md)
 * [Template tags](templatetags.md)
 * [Migration](migration.md)
 * [Updating Tailwind CSS](updating.md)
