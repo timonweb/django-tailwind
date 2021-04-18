@@ -27,8 +27,8 @@
    ```bash
    python manage.py tailwind init
    ```
-   > During the initialization step, you'll be prompted to choose between **Just in time (`jit`)** and **Ahead of time (`aot`)** modes. Whereas `jit` mode is new and somewhat experimental in *Tailwind CSS*, I suggest choosing it for the best development experience.
-   > You can change the mode later via a simple config update. Check [jit vs aot](./jit-vs-aot.md) for more info.
+   > During the initialization step, you'll be asked to choose between **Just in time (`jit`)** and **Ahead of time (`aot`)** modes. While the `jit` mode is new and somewhat experimental in *Tailwind CSS*, I suggest choosing it for the best development experience.
+   > You can change the mode later with a simple configuration update. Check the [jit vs aot](./jit-vs-aot.md) for more information.
 
 4. Add your newly created `'theme'` app to `INSTALLED_APPS` in `settings.py`:
    ```python
@@ -39,22 +39,22 @@
    ]
    ```
 
-5. Register the generated `'theme'` app by adding the following string in the `settings.py`:
+5. Register the generated `'theme'` app by adding the following line to `settings.py` file:
 
    ```python
    TAILWIND_APP_NAME = 'theme'
    ```
 
-6. Run the following command to install all necessary dependencies of *Tailwind CSS*:
+6. To install all the necessary *Tailwind CSS* dependencies, run the following command:
 
    ```bash
    python manage.py tailwind install
    ```
 
-7. *Django Tailwind* comes with a simple `base.html` template located at
-   `your_tailwind_app_name/templates/base.html`. You can always extend it or delete it if you already have a layout.
+7. The *Django Tailwind* comes with a simple `base.html` template located at
+   `your_tailwind_app_name/templates/base.html`. You can always extend or delete it if you already have a layout.
 
-8. If you don't use `base.html` template provided with *Django Tailwind*, add `{% tailwind_css %}` to the `base.html` template file:
+8. If you are not using the `base.html` template that comes with *Django Tailwind*, add `{% tailwind_css %}` to the `base.html` template:
 
    ```html
    {% load tailwind_tags %}
@@ -66,16 +66,16 @@
    </head>
    ```
    
-   The `{% tailwind_css %}` tag loads proper stylesheets and, when you're in the `DEBUG` mode, attaches to the `browser-sync` service for hot reloading of assets and pages.
+   The `{% tailwind_css %}` tag loads appropriate stylesheets and, when you're in `DEBUG` mode, connects to the `browser-sync` service that enables hot reloading of assets and pages.
 
-9. Ok, you should now be able to use *Tailwind CSS* classes in HTML.
+9. Ok, now you should be able to use *Tailwind CSS* classes in HTML.
 
 ## PurgeCSS setup
 
-To avoid importing all Tailwind CSS classes (that will result in a massive CSS file size), set up the `purge` configuration in `tailwind.config.js`.
-This file is located in the `static_src` folder of the app created by `python manage.py tailwind init {APP_NAME}`.
+To avoid importing all Tailwind CSS classes (which will result in a massive CSS file size), configure the `purge` rules in `tailwind.config.js`.
+This file is in the `static_src` folder of the theme app created by `python manage.py tailwind init {APP_NAME}`.
 
-For example, your `theme/static_src/tailwind.config.js` file could look like:
+For example, your `theme/static_src/tailwind.config.js` file might look like this:
 
 ```js
 module.exports = {
@@ -89,33 +89,33 @@ module.exports = {
 }
 ```
 
-Note that you may need to adjust those paths to suit your specific project layout. It is crucial to ensure that *all* of your HTML files (or files containing HTML content, such as `.vue` or `.jsx` files) are covered under the `purge` rule.
+Note that you may need to adjust those paths to suit your specific project layout. It is crucial to make sure that *all* HTML files (or files containing HTML content, such as `.vue` or `.jsx` files) are covered by the `purge` rule.
 
-For more information on the `purge` setup, check out the *"Controlling File Size"* page of the Tailwind CSS docs: [https://tailwindcss.com/docs/controlling-file-size/#removing-unused-css](https://tailwindcss.com/docs/controlling-file-size/#removing-unused-css) - particularly the *"Removing Unused CSS"* section, although the entire page is a helpful reference.
+For more information about setting `purge`, check out the *"Controlling File Size"* page of the Tailwind CSS docs: [https://tailwindcss.com/docs/controlling-file-size/#removing-unused-css](https://tailwindcss.com/docs/controlling-file-size/#removing-unused-css) - particularly the *"Removing Unused CSS"* section, although the entire page is a useful reference.
 
 *The following applies to the `default` mode only.* 
-To help speed up development builds, PurgeCSS is only run when you use the `python manage.py tailwind build` management command (creates a production CSS build).
+To speed up development builds, PurgeCSS only runs when you use the `python manage.py tailwind build` management command (creates a production CSS build).
 
-If you run *Tailwind CSS* in `jit` mode, you get an optimized build even in the development mode, and it happens at lightning speed.
+If you run *Tailwind CSS* in `jit` mode, you will get an optimized build even in development mode, and it happens at lightning speed.
 
-## `npm` executable path configuration
+## Configuration of the path to the `npm` executable
 
-*Tailwind CSS* requires you to have *Node.js* installed on your machine.
-*Node.js* is a *JavaScript* runtime that allows running *JavaScript* code outside a browser. Most (if not all) of the current frontend tools depend on *Node.js*.
+*Tailwind CSS* requires *Node.js* to be installed on your machine.
+*Node.js* is a *JavaScript* runtime that allows you to run *JavaScript* code outside the browser. Most (if not all) of the current frontend tools depend on *Node.js*.
 
 If you don't have *Node.js* installed on your machine, please follow installation instructions from [the official Node.js page](https://nodejs.org/).
 
-Sometimes (especially on *Windows*), *Python* executable cannot find the `npm` binary installed in the system.
-In this case, you need to set the `npm` executable path in *settings.py* file manually (*Linux/Mac*):
+Sometimes (especially on *Windows*), the *Python* executable cannot find the `npm` binary installed on your system.
+In this case, you need to set the path to the `npm` executable in *settings.py* file manually (*Linux/Mac*):
 
 ```python
 NPM_BIN_PATH = '/usr/local/bin/npm'
 ```
 
-On *Windows* it might look like:
+On *Windows* it might look like this:
 
 ```python
 NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 ```
 
-Please note that the path for `npm` executable in your system may be different. To obtain the `npm` path in your system, try running the `which npm` command in a terminal.
+Please note that the path to the `npm` executable may be different on your system. To get the `npm` path on your system, try running the command `which npm` in your terminal.

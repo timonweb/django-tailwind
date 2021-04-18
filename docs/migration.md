@@ -1,35 +1,34 @@
 ## Migrating from Django-Tailwind v1 to v2
 
-> Please note that the instructions below are for upgrading the Django package, not the actual Tailwind CSS dependency.
+> Please note that the instructions below are for upgrading the Django package, not for the actual dependency on Tailwind CSS.
 
-*Django Tailwind2* `v2` introduces lots of new features that aren't available to projects generated with the
+*Django Tailwind2* `v2` introduces many new features that aren't available to projects generated with the
 previous version of the package. Thus if you want to get all the goodies `v2` offers, you need to update your Django `theme` app.
 
-Depending on how many customizations you've introduced, the process might be smooth or bumpy.
+Depending on how many customizations you have, the process can be smooth or bumpy.
 
-### Upgrade steps
+### Steps to upgrade
 
 Let's assume you've been using *Django Tailwind* for a while, and your `TAILWIND_APP_NAME` is `theme`.
 
-1. Edit `INSTALLED_APPS` in `settings.py` and remove the `'theme'` app.
-2. Rename your `theme` app directory to `theme-legacy`.
+1. Edit `INSTALLED_APPS` in `settings.py` file and remove the `'theme'` app.
+2. Rename the `theme` app directory to `theme-legacy`.
 3. Generate a new *Tailwind* theme app:
 
    ```bash
    python manage.py tailwind init
    ```
-   Name it like your previous app was named: `theme`.
-4. Add `'theme'` back to `INSTALLED_APPS`;
+   Name it the same as your previous app: `theme`.
+4. Add the `'theme'` back to `INSTALLED_APPS`;
 5. Copy `theme-legacy/static_src/src` to `theme/static_src/src`;
 6. If you have a file named `theme/static_src/src/styles.scss`, rename it to `theme/static_src/src/styles.css`. In `v2`
-   we've dropped *SASS* support, but *POSTCSS* should work just fine. Unless you've used advanced *SASS* features, which
+   we dropped support for *SASS*, but *POSTCSS* should work just fine. Unless you've used advanced *SASS* features, which
    is unlikely;
-7. Open `theme-legacy/static_src/tailwind.config.js` and compare it to `theme/static_src/tailwind.config.js`, if you
-   have customizations there, like custom colors, variables, etc., copy them over
-   to `theme/static_src/tailwind.config.js`;
-8. Pay close attention to the `plugins` listed in `theme/static_src/tailwind.config.js`. We now include there four
+7. Open `theme-legacy/static_src/tailwind.config.js` and compare it with `theme/static_src/tailwind.config.js`, if you
+   have customizations there, like custom colors, variables, etc., copy them to `theme/static_src/tailwind.config.js`;
+8. Notice the `plugins` listed in `theme/static_src/tailwind.config.js`. We've now included the four
    official
-   *Tailwind CSS* plugins. If you see that your forms look weird after the upgrade, most likely you don't need
+   *Tailwind CSS* plugins there. If you see that your forms look weird after the update, you probably don't need
    the official `@tailwindcss/forms` package, so disable it by removing the following line:
    ```html
    require('@tailwindcss/forms'),
@@ -67,4 +66,4 @@ Let's assume you've been using *Django Tailwind* for a while, and your `TAILWIND
        python manage.py tailwind start
        ```
 
-13. If all went well, you should now be on the latest *Django Tailwind* version with your previous styles preserved.
+13. If all went well, you should now be on the latest version of *Django Tailwind* with your previous styles intact.
