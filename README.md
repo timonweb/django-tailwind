@@ -1,7 +1,5 @@
 # Tailwind CSS integration for Django a.k.a. Django + Tailwind = 💚
-
-> NOTE: This branch is on beta of `v2`. All docs and instructions listed here are for that version.
-> If you're looking for docs for the current stable version (`v1.2`) please find them here: https://github.com/timonweb/django-tailwind/blob/v1/README.md.
+![Django Tailwind Demo](https://raw.githubusercontent.com/timonweb/django-tailwind/master/docs/django-tailwind-demo-800.gif)
 
 ## Goal
 This project aims to provide a comfortable way of using the *Tailwind CSS* framework within a Django project.
