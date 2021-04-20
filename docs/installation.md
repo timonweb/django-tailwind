@@ -44,17 +44,25 @@
    ```python
    TAILWIND_APP_NAME = 'theme'
    ```
+   
+6. Make sure that `INTERNAL_IPS` list is present in the `settings.py` file and contains the `127.0.0.1` ip address:
 
-6. To install all the necessary *Tailwind CSS* dependencies, run the following command:
+   ```python
+   INTERNAL_IPS = [
+       "127.0.0.1",
+   ]
+   ```
+
+7. Install *Tailwind CSS* dependencies, by running the following command:
 
    ```bash
    python manage.py tailwind install
    ```
 
-7. The *Django Tailwind* comes with a simple `base.html` template located at
+8. The *Django Tailwind* comes with a simple `base.html` template located at
    `your_tailwind_app_name/templates/base.html`. You can always extend or delete it if you already have a layout.
 
-8. If you are not using the `base.html` template that comes with *Django Tailwind*, add `{% tailwind_css %}` to the `base.html` template:
+9. If you are not using the `base.html` template that comes with *Django Tailwind*, add `{% tailwind_css %}` to the `base.html` template:
 
    ```html
    {% load tailwind_tags %}
@@ -68,7 +76,7 @@
    
    The `{% tailwind_css %}` tag loads appropriate stylesheets and, when you're in `DEBUG` mode, connects to the `browser-sync` service that enables hot reloading of assets and pages.
 
-9. Ok, now you should be able to use *Tailwind CSS* classes in HTML.
+10. Ok, now you should be able to use *Tailwind CSS* classes in HTML.
 
 ## PurgeCSS setup
 

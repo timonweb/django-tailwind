@@ -20,13 +20,21 @@ Let's assume you've been using *Django Tailwind* for a while, and your `TAILWIND
    ```
    Name it the same as your previous app: `theme`.
 4. Add the `'theme'` back to `INSTALLED_APPS`;
-5. Copy `theme-legacy/static_src/src` to `theme/static_src/src`;
-6. If you have a file named `theme/static_src/src/styles.scss`, rename it to `theme/static_src/src/styles.css`. In `v2`
+5. Make sure that `INTERNAL_IPS` list is present in the `settings.py` file and contains the `127.0.0.1` ip address:
+
+        ```python
+        INTERNAL_IPS = [
+            "127.0.0.1",
+        ]
+        ```
+   
+6. Copy `theme-legacy/static_src/src` to `theme/static_src/src`;
+7. If you have a file named `theme/static_src/src/styles.scss`, rename it to `theme/static_src/src/styles.css`. In `v2`
    we dropped support for *SASS*, but *POSTCSS* should work just fine. Unless you've used advanced *SASS* features, which
    is unlikely;
-7. Open `theme-legacy/static_src/tailwind.config.js` and compare it with `theme/static_src/tailwind.config.js`, if you
+8. Open `theme-legacy/static_src/tailwind.config.js` and compare it with `theme/static_src/tailwind.config.js`, if you
    have customizations there, like custom colors, variables, etc., copy them to `theme/static_src/tailwind.config.js`;
-8. Notice the `plugins` listed in `theme/static_src/tailwind.config.js`. We've now included the four
+9. Notice the `plugins` listed in `theme/static_src/tailwind.config.js`. We've now included the four
    official
    *Tailwind CSS* plugins there. If you see that your forms look weird after the update, you probably don't need
    the official `@tailwindcss/forms` package, so disable it by removing the following line:
@@ -34,8 +42,8 @@ Let's assume you've been using *Django Tailwind* for a while, and your `TAILWIND
    require('@tailwindcss/forms'),
    ```
    from the `theme/static_src/tailwind.config.js`.
-9. Copy `theme-legacy/templates` to `theme/templates`;
-10. Open `theme/templates/base.html` and add `{% load tailwind_tags %}` to the beginning of the file. Then, replace:
+10. Copy `theme-legacy/templates` to `theme/templates`;
+11. Open `theme/templates/base.html` and add `{% load tailwind_tags %}` to the beginning of the file. Then, replace:
 
       ```html
       <link
@@ -52,7 +60,7 @@ Let's assume you've been using *Django Tailwind* for a while, and your `TAILWIND
       ```
 
    
-11. To install dependencies, run the following command:
+12. To install dependencies, run the following command:
 
       ```python
       python manage.py tailwind install
@@ -60,10 +68,10 @@ Let's assume you've been using *Django Tailwind* for a while, and your `TAILWIND
    
    
 
-12. Now start the development server:
+13. Now start the development server:
 
        ```python
        python manage.py tailwind start
        ```
 
-13. If all went well, you should now be on the latest version of *Django Tailwind* with your previous styles intact.
+14. If all went well, you should now be on the latest version of *Django Tailwind* with your previous styles intact.
