@@ -76,11 +76,19 @@
    
    The `{% tailwind_css %}` tag loads appropriate stylesheets and, when you're in `DEBUG` mode, connects to the `browser-sync` service that enables hot reloading of assets and pages.
 
-10. Ok, now you should be able to use *Tailwind CSS* classes in HTML.
+10. Ok, now you should be able to use *Tailwind CSS* classes in HTML. Start the development server by running the following command in your terminal:
+   
+      ```bash
+      python manage.py tailwind start
+      ```
+ 
+   Check out [Usage](./usage.md) section for information about the production mode.
 
-## PurgeCSS setup
+## Optional configurations
 
-To avoid importing all Tailwind CSS classes (which will result in a massive CSS file size), configure the `purge` rules in `tailwind.config.js`.
+### Purge rules configuration
+
+Depending on your project structure, you might need to configure the `purge` rules in `tailwind.config.js`.
 This file is in the `static_src` folder of the theme app created by `python manage.py tailwind init {APP_NAME}`.
 
 For example, your `theme/static_src/tailwind.config.js` file might look like this:
@@ -92,6 +100,12 @@ module.exports = {
     '../templates/**/*.html',
     // Templates in other apps
     '../../templates/**/*.html',
+    // Ignore files in node_modules 
+    '!../../**/node_modules',
+    // Include JavaScript files that might contain Tailwind CSS classes      
+    '../../**/*.js',
+    // Include Python files that might contain Tailwind CSS classes
+    '../../**/*.py'      
   ],
   ...
 }
@@ -101,12 +115,13 @@ Note that you may need to adjust those paths to suit your specific project layou
 
 For more information about setting `purge`, check out the *"Controlling File Size"* page of the Tailwind CSS docs: [https://tailwindcss.com/docs/controlling-file-size/#removing-unused-css](https://tailwindcss.com/docs/controlling-file-size/#removing-unused-css) - particularly the *"Removing Unused CSS"* section, although the entire page is a useful reference.
 
-*The following applies to the `default` mode only.* 
-To speed up development builds, PurgeCSS only runs when you use the `python manage.py tailwind build` management command (creates a production CSS build).
+Under the **Ahead of time** (`aot`) mode, PurgeCSS only runs when you use the `python manage.py tailwind build` management command (creates a production CSS build).
 
-If you run *Tailwind CSS* in `jit` mode, you will get an optimized build even in development mode, and it happens at lightning speed.
+If you run *Tailwind CSS* in the **Just in time** (`jit`) mode, you will get an optimized build even in development mode, and it happens at lightning speed.
 
-## Configuration of the path to the `npm` executable
+Checkout the [JIT vs AOT](./jit-vs-aot.md) section for more information about *Tailwind CSS* compilation modes.
+
+### Configuration of the path to the `npm` executable
 
 *Tailwind CSS* requires *Node.js* to be installed on your machine.
 *Node.js* is a *JavaScript* runtime that allows you to run *JavaScript* code outside the browser. Most (if not all) of the current frontend tools depend on *Node.js*.
