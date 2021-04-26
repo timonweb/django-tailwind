@@ -2,7 +2,7 @@
 
 ## 2.0.1
 
-- Updates `purge` rules `tailwind.config.js` to include other Django app templates by default;
+- Updates `purge` rules in `tailwind.config.js` to include other Django app templates by default;
 
 ## 2.0.0
 
