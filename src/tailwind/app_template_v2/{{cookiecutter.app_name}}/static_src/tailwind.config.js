@@ -16,9 +16,10 @@ module.exports = {
 
     purge: [
         /**
-         * HTML. Paths to Django template files that will contain Tailwind CSS classes (<tailwind_app_name>/templates).
+         * HTML. Paths to Django template files that will contain Tailwind CSS classes.
          */
-        /*  Templates within theme app (e.g. base.html) */
+
+        /*  Templates within theme app (<tailwind_app_name>/templates), e.g. base.html. */
         '../templates/**/*.html',
 
         /* 
