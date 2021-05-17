@@ -1,0 +1,20 @@
+version: "3.7"
+
+x-app: &default-app
+  build:
+    context: "."
+  volumes:
+    - .:/app
+  restart: "unless-stopped"
+
+services:
+  web:
+    <<: *default-app
+    command: "python manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+  tailwind:
+    <<: *default-app
+    command: "python manage.py tailwind start"
+    ports:
+      - "8383:8383"

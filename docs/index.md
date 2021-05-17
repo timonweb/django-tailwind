@@ -19,3 +19,4 @@ Contents
 * [Template tags](templatetags.md)
 * [Migration](migration.md)
 * [Updating Tailwind CSS](updating.md)
+* [Running in docker](docker.md)
