@@ -24,8 +24,6 @@ ENV DEBUG="${DEBUG}" \
 
 COPY --chown=python:python . .
 
-WORKDIR /app
-
 RUN SECRET_KEY=nothing python manage.py tailwind install --no-input;
 RUN SECRET_KEY=nothing python manage.py tailwind build --no-input;
 RUN SECRET_KEY=nothing python manage.py collectstatic --no-input;
