@@ -8,13 +8,15 @@ x-app: &default-app
   restart: "unless-stopped"
 
 services:
-  web:
-    <<: *default-app
-    command: "python manage.py runserver 0.0.0.0:8000"
-    ports:
-      - "8000:8000"
   tailwind:
     <<: *default-app
-    command: "python manage.py tailwind start"
+    command: sh -c "sh tailwindstart"
     ports:
       - "8383:8383"
+  web:
+    <<: *default-app
+    command: sh -c "wait-for tailwind:8383 -t 10000 -- python manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    depends_on: 
+      - tailwind

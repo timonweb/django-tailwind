@@ -1,0 +1,13 @@
+#!/bin/sh
+
+DIR="/app/theme/static_src/node_modules/"
+if [ -d "$DIR" ]; then
+python manage.py tailwind start
+else
+echo "Installing node modules"
+python manage.py tailwind install --no-input
+python manage.py tailwind build --no-input
+python manage.py collectstatic --no-input
+python manage.py tailwind start
+echo "Finished installing node modules"
+fi
