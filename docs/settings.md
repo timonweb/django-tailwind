@@ -10,6 +10,9 @@ python manage.py tailwind init
 ```
 Please refer to the [Installation](installation.md) section for more information on the installation process.
 
+## `TAILWIND_DEV_MODE`
+Determines whether the `browserync` snippet is added to the page via the `{% tailwind_css %}` tag. It is set to `DEBUG` by default,
+but you can override this value.
 
 ## `NPM_BIN_PATH`
 It defines a path to the `npm` executable in your system.
