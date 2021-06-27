@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.2.0 (IN PROGRESS)
+
+- Adds support for Tailwind CSS v2.2;
+- Updates Tailwind CSS dependencies;
+- Adds `TAILWIND_DEV_MODE` config variable;
+
 ## 2.0.1
 
 - Updates `purge` rules in `tailwind.config.js` to include other Django app templates by default;
