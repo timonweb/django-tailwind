@@ -1,3 +1,36 @@
+## Upgrading from Tailwind CSS 2.1 to 2.2
+
+*Tailwind CSS* `2.2` has introduced a few breaking changes which means you have to update your `TAILWIND_APP` configuration.
+
+In the following steps, we assume that your `TAILWIND_APP_NAME` is `theme`; replace it with your theme name if it is different.
+
+1. Open the `theme/static_src/postcss.config.js` and remove the following two lines from it:
+
+
+    ```javascript
+        tailwindcss: {},
+        autoprefixer: {},
+    ```
+
+    In `2.2` *Tailwind CSS* comes bundled with *autoprefixer*, and *tailwindcss* is replaced via the all-new command-line tool.
+
+2. Open the `theme/static_src/package.json` and update its `scripts` section to look like:
+
+
+    ```json
+    "scripts": {
+        "start": "npm run dev",
+        "build": "npm run build:clean && npm run build:tailwind",
+        "build:clean": "rimraf ../static/css/dist",
+        "build:tailwind": "cross-env NODE_ENV=production npx tailwindcss -p -i ./src/styles.css -o ../static/css/dist/styles.css --minify",
+        "sync": "browser-sync start --config bs.config.js",
+        "dev:tailwind": "cross-env NODE_ENV=development npx tailwindcss -p -i ./src/styles.css -o ../static/css/dist/styles.css -w",
+        "dev:sync": "run-p dev:tailwind sync",
+        "dev": "nodemon -x \"npm run dev:sync\" -w tailwind.config.js -w postcss.config.js -w bs.config.js -e js"
+    },
+    ```
+
+
 ## Migrating from Django-Tailwind v1 to v2
 
 > Please note that the instructions below are for upgrading the Django package, not for the actual dependency on Tailwind CSS.
