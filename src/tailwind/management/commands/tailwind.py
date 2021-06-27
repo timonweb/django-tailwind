@@ -1,8 +1,9 @@
 import os
 
 from cookiecutter.main import cookiecutter
-from django.conf import settings
 from django.core.management.base import CommandError, LabelCommand
+
+from tailwind import get_config
 
 from ...npm import NPM, NPMException
 from ...utils import get_tailwind_src_path
@@ -54,7 +55,7 @@ Usage example:
     def validate_app(self):
         try:
             self.validate.has_settings()
-            app_name = getattr(settings, "TAILWIND_APP_NAME")
+            app_name = get_config("TAILWIND_APP_NAME")
             self.validate.is_installed(app_name)
             self.validate.is_tailwind_app(app_name)
         except ValidationError as err:
@@ -67,7 +68,7 @@ Usage example:
         self.validate.acceptable_label(labels[0])
         if labels[0] != "init":
             self.validate_app()
-            self.npm = NPM(cwd=get_tailwind_src_path(settings.TAILWIND_APP_NAME))
+            self.npm = NPM(cwd=get_tailwind_src_path(get_config("TAILWIND_APP_NAME")))
 
         getattr(self, "handle_" + labels[0].replace("-", "_") + "_command")(
             *labels[1:], **options

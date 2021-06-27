@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "django-tailwind"
-version = "2.2.0-beta"
+version = "2.2.0-beta1"
 description = "Tailwind CSS Framework for Django projects"
 authors = ["Tim Kamanin <tim@timonweb.com>"]
 license = "MIT"

@@ -1,6 +1,7 @@
 from django import template
 
-from ..conf import TAILWIND_CSS_PATH, TAILWIND_DEV_MODE
+from tailwind import get_config
+
 from ..utils import is_path_absolute
 
 register = template.Library()
@@ -9,10 +10,10 @@ register = template.Library()
 @register.inclusion_tag("tailwind/tags/css.html")
 def tailwind_css(v=None):
     return {
-        "debug": TAILWIND_DEV_MODE,
+        "dev_mode": get_config("TAILWIND_DEV_MODE"),
         "v": v,
-        "tailwind_css_path": TAILWIND_CSS_PATH,
-        "is_static_path": not is_path_absolute(TAILWIND_CSS_PATH),
+        "tailwind_css_path": get_config("TAILWIND_CSS_PATH"),
+        "is_static_path": not is_path_absolute(get_config("TAILWIND_CSS_PATH")),
     }
 
 
@@ -20,6 +21,6 @@ def tailwind_css(v=None):
 def tailwind_preload_css(v=None):
     return {
         "v": v,
-        "tailwind_css_path": TAILWIND_CSS_PATH,
-        "is_static_path": not is_path_absolute(TAILWIND_CSS_PATH),
+        "tailwind_css_path": get_config("TAILWIND_CSS_PATH"),
+        "is_static_path": not is_path_absolute(get_config("TAILWIND_CSS_PATH")),
     }

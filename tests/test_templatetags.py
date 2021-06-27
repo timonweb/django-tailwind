@@ -8,7 +8,7 @@ def test_tailwind_css_in_production(settings):
         {% load tailwind_tags %}
         {% tailwind_css %}
         """
-    ).render(Context({"debug": False}))
+    ).render(Context({}))
 
     assert '<link rel="stylesheet" href="/static/css/dist/styles.css">' in output
     assert "//HOST:8383/browser-sync/browser-sync-client.js" not in output
@@ -21,7 +21,7 @@ def test_tailwind_css_in_production_with_version(settings):
         {% load tailwind_tags %}
         {% tailwind_css v=123 %}
         """
-    ).render(Context({"debug": False}))
+    ).render(Context({}))
 
     assert '<link rel="stylesheet" href="/static/css/dist/styles.css?v=123">' in output
     assert "//HOST:8383/browser-sync/browser-sync-client.js" not in output
@@ -29,12 +29,13 @@ def test_tailwind_css_in_production_with_version(settings):
 
 def test_tailwind_css_in_debug(settings):
     settings.TAILWIND_APP_NAME = "theme"
+    settings.TAILWIND_DEV_MODE = True
     output = Template(
         """
         {% load tailwind_tags %}
         {% tailwind_css %}
         """
-    ).render(Context({"debug": True}))
+    ).render(Context({}))
 
     assert '<link rel="stylesheet" href="/static/css/dist/styles.css">' in output
     assert "//HOST:8383/browser-sync/browser-sync-client.js" in output
@@ -42,12 +43,13 @@ def test_tailwind_css_in_debug(settings):
 
 def test_tailwind_css_in_debug_with_version(settings):
     settings.TAILWIND_APP_NAME = "theme"
+    settings.TAILWIND_DEV_MODE = True
     output = Template(
         """
         {% load tailwind_tags %}
         {% tailwind_css v=123 %}
         """
-    ).render(Context({"debug": True}))
+    ).render(Context({}))
 
     assert '<link rel="stylesheet" href="/static/css/dist/styles.css?v=123">' in output
     assert "//HOST:8383/browser-sync/browser-sync-client.js" in output

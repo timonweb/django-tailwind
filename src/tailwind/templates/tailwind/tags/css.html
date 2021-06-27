@@ -2,7 +2,7 @@
 
 <link rel="stylesheet" href="{% if is_static_path %}{% static tailwind_css_path %}{% else %}{{ tailwind_css_path }}{% endif %}{% if v %}?v={{ v }}{% endif %}">
 
-{% if debug %}
+{% if dev_mode %}
   <script id="__bs_script__">//<![CDATA[
   document.write("<script async src='//HOST:8383/browser-sync/browser-sync-client.js'><\/script>".replace("HOST", location.hostname));
   //]]></script>
