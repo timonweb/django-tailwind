@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.2.0 (IN PROGRESS)
+## 2.2.0
 
 - Adds support for Tailwind CSS v2.2;
 - Updates Tailwind CSS dependencies;
