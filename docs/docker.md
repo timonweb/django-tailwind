@@ -1,6 +1,6 @@
 # Running in Docker
 
-You can find a Docker example under `example` directory.
+You can find a Docker example under the `example` directory.
 
 Check the included `example/Dockerfile` and `example/docker-compose.yml` for more information.
 
