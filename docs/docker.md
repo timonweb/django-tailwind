@@ -2,8 +2,7 @@
 
 You can find a Docker example under `example` directory.
 
-Check the included `example/Dockerfile` and `example/docker-compose.yml` for
-more information.
+Check the included `example/Dockerfile` and `example/docker-compose.yml` for more information.
 
 Here's how to start the `example` project via Docker:
 
