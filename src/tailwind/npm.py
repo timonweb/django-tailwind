@@ -20,7 +20,7 @@ class NPM:
 
     def command(self, *args):
         try:
-            subprocess.run([self.npm_bin_path] + list(args), cwd=self.cwd)
+            subprocess.run([self.npm_bin_path] + list(args), cwd=self.cwd, shell=True)
             return True
         except OSError:
             raise NPMException(
