@@ -31,6 +31,6 @@
     "postcss-nested": "^5.0.5",
     "postcss-simple-vars": "^6.0.3",
     "rimraf": "^3.0.2",
-    "tailwindcss": "~2.2.4"
+    "tailwindcss": "~2.2.15"
   }
 }
