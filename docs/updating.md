@@ -1,6 +1,6 @@
 # Updating *Tailwind CSS* and its dependencies
 
-If a new release of the *Tailwind CSS* comes out, you can update your `theme` project without updating *Django Tailwind*.
+When a new release of *Tailwind CSS* comes out, you can update your `theme` project without updating *Django Tailwind*.
 
 ## Checking if there are updates for *Tailwind CSS* and its dependencies
 

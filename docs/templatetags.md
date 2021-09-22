@@ -5,7 +5,7 @@
 ## {% tailwind_css %} tag
 
 ### Usage
-The `{% tailwind_css %}` tag generates a stylesheet link for the `'theme'` app and that's all you need to include*Tailwind's CSS* on a page:
+The `{% tailwind_css %}` tag generates a stylesheet link for the `'theme'` app and that's all you need to include *Tailwind's CSS* on a page:
 
 ```html
 {% load tailwind_tags %}
@@ -26,7 +26,7 @@ The tag also supports asset versioning via the `v=` parameter, like this:
 {% tailwind_css v='1' %}
 ```
 
-Depending on your production setup, you might need or not need this functionality, so it's optional.
+Depending on your production setup, you may or may not need this functionality, so it's optional.
 
 ### Hot reloading
 This tag also includes the `browser-sync` script that reloads a page whenever the template changes.

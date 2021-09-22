@@ -28,7 +28,7 @@
    python manage.py tailwind init
    ```
    > During the initialization step, you'll be asked to choose between **Just in time (`jit`)** and **Ahead of time (`aot`)** modes. While the `jit` mode is new and somewhat experimental in *Tailwind CSS*, I suggest choosing it for the best development experience.
-   > You can change the mode later with a simple configuration update. Check the [jit vs aot](./jit-vs-aot.md) for more information.
+   > You can change the mode later with a simple configuration update. Check the [jit vs aot](./jit-vs-aot.md) section for more information.
 
 4. Add your newly created `'theme'` app to `INSTALLED_APPS` in `settings.py`:
    ```python
@@ -45,7 +45,7 @@
    TAILWIND_APP_NAME = 'theme'
    ```
    
-6. Make sure that `INTERNAL_IPS` list is present in the `settings.py` file and contains the `127.0.0.1` ip address:
+6. Make sure that the `INTERNAL_IPS` list is present in the `settings.py` file and contains the `127.0.0.1` ip address:
 
    ```python
    INTERNAL_IPS = [
@@ -82,7 +82,7 @@
       python manage.py tailwind start
       ```
  
-   Check out [Usage](./usage.md) section for information about the production mode.
+   Check out the [Usage](./usage.md) section for information about the production mode.
 
 ## Optional configurations
 
@@ -119,7 +119,7 @@ Under the **Ahead of time** (`aot`) mode, PurgeCSS only runs when you use the `p
 
 If you run *Tailwind CSS* in the **Just in time** (`jit`) mode, you will get an optimized build even in development mode, and it happens at lightning speed.
 
-Checkout the [JIT vs AOT](./jit-vs-aot.md) section for more information about *Tailwind CSS* compilation modes.
+See the [JIT vs AOT](./jit-vs-aot.md) section for more information about *Tailwind CSS* compilation modes.
 
 ### Configuration of the path to the `npm` executable
 
