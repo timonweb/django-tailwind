@@ -11,7 +11,7 @@ def test_tailwind_css_in_production(settings):
     ).render(Context({}))
 
     assert '<link rel="stylesheet" href="/static/css/dist/styles.css">' in output
-    assert "//HOST:8383/browser-sync/browser-sync-client.js" not in output
+    assert "browser-sync/browser-sync-client.js" not in output
 
 
 def test_tailwind_css_in_production_with_version(settings):
@@ -24,7 +24,7 @@ def test_tailwind_css_in_production_with_version(settings):
     ).render(Context({}))
 
     assert '<link rel="stylesheet" href="/static/css/dist/styles.css?v=123">' in output
-    assert "//HOST:8383/browser-sync/browser-sync-client.js" not in output
+    assert "browser-sync/browser-sync-client.js" not in output
 
 
 def test_tailwind_css_in_debug(settings):
