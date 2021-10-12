@@ -112,7 +112,7 @@ Usage example:
 
     def handle_start_command(self, **options):
         if options.get("no_sync"):
-            self.npm_command("run", "dev:postcss")
+            self.npm_command("run", "dev:tailwind")
         else:
             self.npm_command("run", "start")
 
