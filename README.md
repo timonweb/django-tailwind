@@ -11,7 +11,7 @@ This project aims to provide a comfortable way of using the *Tailwind CSS* frame
 * Includes official *Tailwind CSS* plugins like *typography*, *form*, *line-clamp*, and *aspect-ratio*;
 
 ## Requirements
-Python 3.7 or newer with Django >= 2.2 or newer.
+Python 3.8 or newer with Django >= 3.0 or newer.
 
 ## Documentation
 The full documentation is at https://django-tailwind.readthedocs.io/
