@@ -26,19 +26,19 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.7"
-django = ">=2.2"
-cookiecutter = "^1.7.2"
+python = "^3.8"
+django = ">=4.0"
+cookiecutter = "^1.7.3"
 
 [tool.poetry.dev-dependencies]
-pytest = "^5.3.5"
-pytest-django = "^3.8.0"
-tox = "^3.14.3"
-pre-commit = "^2.6.0"
-isort = "^5.6.4"
-flake8 = "^3.8.4"
-black = "^20.8b1"
-Sphinx = "^3.5.3"
+pytest = "^6.2.5"
+pytest-django = "^4.5.2"
+tox = "^3.24.4"
+pre-commit = "^2.16.0"
+isort = "^5.10.1"
+flake8 = "^4.0.1"
+black = "^21.12b0"
+Sphinx = "^4.3.1"
 recommonmark = "^0.7.1"
 sphinx-rtd-theme = "^0.5.2"
 
