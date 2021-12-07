@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.3.0
+
+- Drops support for Python 3.7 and Django 2.x;
+- Updates Tailwind CSS to 2.2.19;
+
 ## 2.2.0
 
 - Adds support for Tailwind CSS v2.2;
