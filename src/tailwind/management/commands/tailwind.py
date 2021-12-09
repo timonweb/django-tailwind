@@ -79,7 +79,7 @@ Usage example:
             app_path = cookiecutter(
                 os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
                 output_dir=os.getcwd(),
-                directory="app_template_v2",
+                directory="app_template",
                 no_input=options["no_input"],
                 overwrite_if_exists=False,
                 extra_context={
