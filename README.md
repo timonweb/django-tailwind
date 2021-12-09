@@ -9,6 +9,7 @@ This project aims to provide a comfortable way of using the *Tailwind CSS* frame
 * Hot reloading of CSS, configuration files, and *Django* templates. No more manual page refreshes!
 * Out of the box support for CSS imports, SASS-like variables, and nesting;
 * Includes official *Tailwind CSS* plugins like *typography*, *form*, *line-clamp*, and *aspect-ratio*;
+* Supports the latest *Tailwind CSS* `v3.x`;
 
 ## Requirements
 Python 3.8 or newer with Django >= 3.0 or newer.
