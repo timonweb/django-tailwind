@@ -1,6 +1,5 @@
 {
   "app_name": "",
-  "Tailwind build mode": ["just in time (jit)", "ahead of time (aot)"],
   "_copy_without_render": [
     "templates/base.html"
   ]

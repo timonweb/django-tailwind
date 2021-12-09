@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.0
+
+- Upgrades project template to be compatible with Tailwind CSS `v3.0`;
+- Drops Tailwind CSS `v2.x` support;
+- If you're not starting fresh, [follow the upgrade guide](https://tailwindcss.com/docs/upgrade-guide) to upgrade existing Tailwind CSS `v2.x` to `v3.x`;
+
 ## 2.3.0
 
 - Drops support for Python 3.7 and Django 2.x;

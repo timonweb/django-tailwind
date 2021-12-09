@@ -38,11 +38,6 @@ Usage example:
             help="Starts Tailwind dev server without browser sync",
         )
         parser.add_argument(
-            "--no-jit",
-            action="store_true",
-            help="Initializes Tailwind project without JIT mode",
-        )
-        parser.add_argument(
             "--no-input",
             action="store_true",
             help="Initializes Tailwind project without user prompts",
@@ -79,16 +74,13 @@ Usage example:
             app_path = cookiecutter(
                 os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
                 output_dir=os.getcwd(),
-                directory="app_template_v2",
+                directory="app_template",
                 no_input=options["no_input"],
                 overwrite_if_exists=False,
                 extra_context={
                     "app_name": options["app_name"]
                     if options.get("app_name")
-                    else "theme",
-                    "Tailwind build mode": "ahead of time (aot)"
-                    if options.get("no_jit")
-                    else "just in time (jit)",
+                    else "theme"
                 },
             )
 
