@@ -6,14 +6,6 @@
  */
 
 module.exports = {
-    /**
-     * Stylesheet generation mode.
-     *
-     * Set mode to "jit" if you want to generate your styles on-demand as you author your templates;
-     * Set mode to "aot" if you want to generate the stylesheet in advance and purge later (aka legacy mode).
-     */
-    mode: "{% if cookiecutter['Tailwind build mode'] == "just in time (jit)" %}jit{% else %}aot{% endif %}",
-
     content: [
         /**
          * HTML. Paths to Django template files that will contain Tailwind CSS classes.

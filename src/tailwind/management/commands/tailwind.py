@@ -38,11 +38,6 @@ Usage example:
             help="Starts Tailwind dev server without browser sync",
         )
         parser.add_argument(
-            "--no-jit",
-            action="store_true",
-            help="Initializes Tailwind project without JIT mode",
-        )
-        parser.add_argument(
             "--no-input",
             action="store_true",
             help="Initializes Tailwind project without user prompts",
@@ -85,10 +80,7 @@ Usage example:
                 extra_context={
                     "app_name": options["app_name"]
                     if options.get("app_name")
-                    else "theme",
-                    "Tailwind build mode": "ahead of time (aot)"
-                    if options.get("no_jit")
-                    else "just in time (jit)",
+                    else "theme"
                 },
             )
 
