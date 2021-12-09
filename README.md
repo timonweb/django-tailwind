@@ -24,9 +24,6 @@ pip install django-tailwind
 
 Check docs for the [Installation](https://django-tailwind.readthedocs.io/en/latest/installation.html) instructions.
 
-## Migration from *Django-Tailwind v1.x*:
-Check docs for the [Migration](https://django-tailwind.readthedocs.io/en/latest/migration.html) instructions.
-
 ## Bugs and suggestions
 If you have found a bug, please use the issue tracker on GitHub.
 
