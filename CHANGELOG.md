@@ -2,7 +2,7 @@
 
 ## 3.0.1
 
-- Fixes minimum Django version requirement. Set it back to `2.2`.
+- Fixes minimum Django version requirement. Sets it back to `2.2`.
 
 ## 3.0.0
 
