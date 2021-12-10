@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.1
+
+- Fixes minimum Django version requirement. Set it back to `2.2`.
+
 ## 3.0.0
 
 - Upgrades project template to be compatible with Tailwind CSS `v3.0`;
