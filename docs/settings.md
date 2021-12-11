@@ -27,6 +27,13 @@ The default value is:
 NPM_BIN_PATH = 'npm'
 ```
 
+Please note, that on *Windows* the path might look completely different (pay attention to "backslashes" in the path):
+
+```python
+NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
+```
+
+
 ## `TAILWIND_CSS_PATH`
 This defines a path to the generated *Tailwind CSS* stylesheet. If you have created a theme app via the `python manage.py tailwind init` command,
 chances are you don't need to change this value. 

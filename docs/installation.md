@@ -27,9 +27,7 @@
    ```bash
    python manage.py tailwind init
    ```
-   > During the initialization step, you'll be asked to choose between **Just in time (`jit`)** and **Ahead of time (`aot`)** modes. While the `jit` mode is new and somewhat experimental in *Tailwind CSS*, I suggest choosing it for the best development experience.
-   > You can change the mode later with a simple configuration update. Check the [jit vs aot](./jit-vs-aot.md) section for more information.
-
+   
 4. Add your newly created `'theme'` app to `INSTALLED_APPS` in `settings.py`:
    ```python
    INSTALLED_APPS = [
@@ -86,16 +84,18 @@
 
 ## Optional configurations
 
-### Purge rules configuration
+### Content (formerly Purge) rules configuration
 
-Depending on your project structure, you might need to configure the `purge` rules in `tailwind.config.js`.
+The `content` section of your `tailwind.config.js` file is where you configure the paths to all of your HTML templates, JavaScript components, and any other source files that contain *Tailwind* class names.
+
+Depending on your project structure, you might need to configure the `content` rules in `tailwind.config.js`.
 This file is in the `static_src` folder of the theme app created by `python manage.py tailwind init {APP_NAME}`.
 
 For example, your `theme/static_src/tailwind.config.js` file might look like this:
 
 ```js
 module.exports = {
-  purge: [
+  content: [
     // Templates within theme app (e.g. base.html)
     '../templates/**/*.html',
     // Templates in other apps
@@ -111,15 +111,9 @@ module.exports = {
 }
 ```
 
-Note that you may need to adjust those paths to suit your specific project layout. It is crucial to make sure that *all* HTML files (or files containing HTML content, such as `.vue` or `.jsx` files) are covered by the `purge` rule.
+Note that you may need to adjust those paths to suit your specific project layout. It is crucial to make sure that *all* HTML files (or files containing HTML content, such as `.vue` or `.jsx` files) are covered by the `content` rule.
 
-For more information about setting `purge`, check out the *"Controlling File Size"* page of the Tailwind CSS docs: [https://tailwindcss.com/docs/controlling-file-size/#removing-unused-css](https://tailwindcss.com/docs/controlling-file-size/#removing-unused-css) - particularly the *"Removing Unused CSS"* section, although the entire page is a useful reference.
-
-Under the **Ahead of time** (`aot`) mode, PurgeCSS only runs when you use the `python manage.py tailwind build` management command (creates a production CSS build).
-
-If you run *Tailwind CSS* in the **Just in time** (`jit`) mode, you will get an optimized build even in development mode, and it happens at lightning speed.
-
-See the [JIT vs AOT](./jit-vs-aot.md) section for more information about *Tailwind CSS* compilation modes.
+For more information about setting `content`, check out the *"Content Configuration"* page of the Tailwind CSS docs: [https://tailwindcss.com/docs/content-configuration](https://tailwindcss.com/docs/content-configuration).
 
 ### Configuration of the path to the `npm` executable
 
@@ -141,4 +135,4 @@ On *Windows* it might look like this:
 NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 ```
 
-Please note that the path to the `npm` executable may be different on your system. To get the `npm` path on your system, try running the command `which npm` in your terminal.
+Please note that the path to the `npm` executable may be different for your system. To get the `npm` path, try running the command `which npm` in your terminal.
