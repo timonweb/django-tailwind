@@ -90,7 +90,9 @@ Usage example:
                 self.style.SUCCESS(
                     f"Tailwind application '{app_name}' "
                     f"has been successfully created. "
-                    f"Please add '{app_name}' to INSTALLED_APPS in settings.py."
+                    f"Please add '{app_name}' to INSTALLED_APPS in settings.py,"
+                    f"Then run the following command to install Tailwind CSS "
+                    f"dependencies: `python manage.py tailwind install`"
                 )
             )
         except Exception as err:
