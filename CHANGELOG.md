@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.1.1 - In progress
+## 3.1.1
 
 - Brings removed `browser-sync` snippet to support legacy configs;
 - Follow [migrating from `browser-sync` to `django-browser-reload`](./docs/django_browser_reload.md) instructions if you've upgraded.

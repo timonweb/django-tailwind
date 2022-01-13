@@ -10,6 +10,7 @@ register = template.Library()
 @register.inclusion_tag("tailwind/tags/css.html")
 def tailwind_css(v=None):
     return {
+        "dev_mode": get_config("TAILWIND_DEV_MODE"),
         "v": v,
         "tailwind_css_path": get_config("TAILWIND_CSS_PATH"),
         "is_static_path": not is_path_absolute(get_config("TAILWIND_CSS_PATH")),
