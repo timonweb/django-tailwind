@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.1.0
+
+- Replaces `nodemon` and `browser-sync` with `django-browser-reload`;
+- Removes `TAILWIND_DEV_MODE` setting, the development mode now is deemed when `DEBUG=True`;
+- Updates *Tailwind CSS* dependencies to their latest versions;
+
 ## 3.0.1
 
 - Fixes minimum Django version requirement. Sets it back to `2.2`.
