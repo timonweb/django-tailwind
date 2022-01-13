@@ -54,9 +54,9 @@ Please follow the following migration steps.
    cd theme/static_src 
    ```
    
-6. Remove `bs.config.js` file from the `theme/static_src` directory, you don't need it anymore.
+6. Remove `bs.config.js` file from the `theme/static_src` directory.
 
-7. Open `package.json` file in `theme/static_src` directory, and remove the following commands under `scripts`: `sync`, `dev:sync`, `dev`. You won't need them anymore.
+7. Open `package.json` file in `theme/static_src` directory, and remove the following commands under `scripts`: `sync`, `dev:sync`, `dev`.
 
 8. Staying in `package.json`, rename the `dev:tailwind` command under `scripts` to `dev`. That's the only command we need for development from now on.
 
