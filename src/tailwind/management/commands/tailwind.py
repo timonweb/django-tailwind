@@ -73,7 +73,7 @@ Usage example:
                 no_input=options["no_input"],
                 overwrite_if_exists=False,
                 extra_context={
-                    "app_name": options["app_name"]
+                    "app_name": options["app_name"].strip()
                     if options.get("app_name")
                     else "theme"
                 },
