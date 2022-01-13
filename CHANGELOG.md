@@ -5,6 +5,7 @@
 - Replaces `nodemon` and `browser-sync` with `django-browser-reload`;
 - Removes `TAILWIND_DEV_MODE` setting, the development mode now is deemed when `DEBUG=True`;
 - Updates *Tailwind CSS* dependencies to their latest versions;
+- Removes `--no-sync` flag for `python manage.py tailwind start` command;
 
 ## 3.0.1
 
