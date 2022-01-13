@@ -33,11 +33,6 @@ Usage example:
     def add_arguments(self, parser):
         super(Command, self).add_arguments(parser)
         parser.add_argument(
-            "--no-sync",
-            action="store_true",
-            help="Starts Tailwind dev server without browser sync",
-        )
-        parser.add_argument(
             "--no-input",
             action="store_true",
             help="Initializes Tailwind project without user prompts",
@@ -90,7 +85,9 @@ Usage example:
                 self.style.SUCCESS(
                     f"Tailwind application '{app_name}' "
                     f"has been successfully created. "
-                    f"Please add '{app_name}' to INSTALLED_APPS in settings.py."
+                    f"Please add '{app_name}' to INSTALLED_APPS in settings.py, "
+                    f"then run the following command to install Tailwind CSS "
+                    f"dependencies: `python manage.py tailwind install`"
                 )
             )
         except Exception as err:
@@ -103,10 +100,7 @@ Usage example:
         self.npm_command("run", "build")
 
     def handle_start_command(self, **options):
-        if options.get("no_sync"):
-            self.npm_command("run", "dev:tailwind")
-        else:
-            self.npm_command("run", "start")
+        self.npm_command("run", "start")
 
     def handle_check_updates_command(self, **options):
         self.npm_command("outdated")

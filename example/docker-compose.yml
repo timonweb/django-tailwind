@@ -20,5 +20,3 @@ services:
     # Without tty, no stdin, and tailwind watcher aborts
     # https://github.com/tailwindlabs/tailwindcss/issues/5324
     tty: true
-    ports:
-      - "8383:8383"

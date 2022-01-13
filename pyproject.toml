@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "django-tailwind"
-version = "3.0.1"
+version = "3.1.0"
 description = "Tailwind CSS Framework for Django projects"
 authors = ["Tim Kamanin <tim@timonweb.com>"]
 license = "MIT"
@@ -29,6 +29,7 @@ packages = [
 python = "^3.8"
 django = ">=2.2.25"
 cookiecutter = "^1.7.3"
+django-browser-reload = "^1.3.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"

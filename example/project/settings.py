@@ -23,15 +23,19 @@ SECRET_KEY = "7c@h1io9=5@8m%fqlyvnx&!x0zm556-g@+dpvu4ab+tsjkm@vm"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["0.0.0.0"]
+ALLOWED_HOSTS = ["*"]
 
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
-
 # Application definition
-INSTALLED_APPS = ["django.contrib.staticfiles", "tailwind", "theme"]
+INSTALLED_APPS = [
+    "django.contrib.staticfiles",
+    "tailwind",
+    "django_browser_reload",
+    "theme",
+]
 
 TAILWIND_APP_NAME = "theme"
 TAILWIND_DEV_MODE = DEBUG
@@ -41,6 +45,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 ROOT_URLCONF = "project.urls"
