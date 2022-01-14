@@ -16,7 +16,7 @@ Contents
 * [Usage](usage.md)
 * [Settings](settings.md)
 * [Template tags](templatetags.md)
-* [Migrating from `browser-sync` to `django-browser-reload`](django_browser_reload.md)
+* [Migrating from "browser-sync" to "django-browser-reload"](django_browser_reload.md)
 * [Upgrading from v2 to v3](upgrade.md)
 * [Updating Tailwind CSS and its dependencies](updating.md)
 * [Running in docker](docker.md)
