@@ -34,7 +34,6 @@
    INSTALLED_APPS = [
      # other Django apps
      'tailwind',
-     'django_browser_reload',
      'theme'
    ]
    ```
