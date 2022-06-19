@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.2.0
+- Upgrades Tailwind CSS dependencies;
+- Upgrades Django dependencies;
+
 ## 3.1.1
 
 - Brings removed `browser-sync` snippet to support legacy configs;
