@@ -1,4 +1,5 @@
 import subprocess
+import sys
 
 from tailwind import get_config
 
@@ -20,8 +21,10 @@ class NPM:
 
     def command(self, *args):
         try:
-            subprocess.run([self.npm_bin_path] + list(args), cwd=self.cwd)
+            subprocess.run([self.npm_bin_path] + list(args), cwd=self.cwd, check=True)
             return True
+        except subprocess.CalledProcessError:
+            sys.exit(1)
         except OSError:
             raise NPMException(
                 "\nIt looks like node.js and/or npm is not installed or cannot be found.\n\n"
