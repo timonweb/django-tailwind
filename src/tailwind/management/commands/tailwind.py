@@ -1,12 +1,11 @@
 import os
 
-from cookiecutter.main import cookiecutter
 from django.core.management.base import CommandError, LabelCommand
 
 from tailwind import get_config
 
 from ...npm import NPM, NPMException
-from ...utils import get_tailwind_src_path
+from ...utils import get_tailwind_src_path, install_pip_package
 from ...validate import ValidationError, Validations
 
 
@@ -63,6 +62,13 @@ Usage example:
         getattr(self, "handle_" + labels[0].replace("-", "_") + "_command")(*labels[1:], **options)
 
     def handle_init_command(self, **options):
+        try:
+            from cookiecutter.main import cookiecutter
+        except ImportError:
+            self.stdout.write("Cookiecutter is not found, installing...")
+            install_pip_package("cookiecutter")
+            from cookiecutter.main import cookiecutter
+
         try:
             app_path = cookiecutter(
                 os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
