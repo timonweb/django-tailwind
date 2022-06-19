@@ -1,6 +1,5 @@
 import subprocess
-
-from tailwind import get_config
+import sys
 
 
 class NPMException(Exception):
@@ -12,7 +11,7 @@ class NPM:
     npm_bin_path = None
 
     def __init__(self, cwd=None, npm_bin_path=None):
-        self.npm_bin_path = npm_bin_path if npm_bin_path else get_config("NPM_BIN_PATH")
+        self.npm_bin_path = npm_bin_path
         self.cwd = cwd
 
     def cd(self, cwd):
@@ -20,7 +19,8 @@ class NPM:
 
     def command(self, *args):
         try:
-            subprocess.run([self.npm_bin_path] + list(args), cwd=self.cwd)
+            npm_bin = [self.npm_bin_path] if self.npm_bin_path else [sys.executable, "-m", "nodejs.npm"]
+            subprocess.run(npm_bin + list(args), cwd=self.cwd)
             return True
         except OSError:
             raise NPMException(

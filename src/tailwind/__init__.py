@@ -3,7 +3,7 @@ from django.conf import settings
 
 def get_config(setting_name):
     return {
-        "NPM_BIN_PATH": getattr(settings, "NPM_BIN_PATH", "npm"),
+        "NPM_BIN_PATH": getattr(settings, "NPM_BIN_PATH", None),
         # 'TAILWIND_DEV_MODE' is deprecated. Leaving it here
         # to support legacy browser-sync based configs.
         "TAILWIND_DEV_MODE": getattr(settings, "TAILWIND_DEV_MODE", False),
