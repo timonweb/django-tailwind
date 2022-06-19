@@ -32,4 +32,4 @@ If you have found a bug, please use the issue tracker on GitHub.
 
 [https://github.com/timonweb/django-tailwind/issues](https://github.com/timonweb/django-tailwind/issues)
 
-2019 - 2021 (c) [Tim Kamanin - A Full Stack Django Developer](https://timonweb.com)
+2019 - 2022 (c) [Tim Kamanin - A Full Stack Django Developer](https://timonweb.com)
