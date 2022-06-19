@@ -1,6 +1,7 @@
 import json
 import os
 
+import pip._internal as pip
 from django.apps import apps
 
 DJANGO_TAILWIND_APP_DIR = os.path.dirname(__file__)
@@ -26,3 +27,7 @@ def get_package_json_contents(app_name):
 
 def is_path_absolute(path):
     return path.startswith("/") or path.startswith("http")
+
+
+def install_pip_package(package):
+    pip.main(["install", package])
