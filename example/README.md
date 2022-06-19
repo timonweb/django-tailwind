@@ -5,7 +5,7 @@
 To run the example project:
 
 1. Install dependencies via `pip`:
-   
+
     ```bash
     pip install -r requirements.txt
     ```
@@ -16,9 +16,9 @@ To run the example project:
     python manage.py runserver
     ```
 
-3. Open `http://localhost:8000` in a browser. You should see the main page.   
+3. Open `http://localhost:8000` in a browser. You should see the main page.
 
-   
+
 ## Docker setup
 
 1. Build containers via `docker-compose`:
@@ -33,4 +33,4 @@ To run the example project:
     docker-compose up
     ```
 
-3. Open `http://localhost:8000` in a browser. You should see the main page.   
+3. Open `http://localhost:8000` in a browser. You should see the main page.

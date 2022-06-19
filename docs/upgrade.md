@@ -3,7 +3,7 @@
 If you're coming from *Django-Tailwind* `2.x`, your *Tailwind CSS* project probably depends on *Tailwind CSS* `2.x`. If
 you want to use latest features of the version `3.x`, you need to upgrade your *Tailwind CSS* app from `2.x` to `3`.
 
-In the following instructions, I assume that your *Tailwind CSS* app name is set as `TAILWIND_APP_NAME = 'theme'` in `settings.py`. 
+In the following instructions, I assume that your *Tailwind CSS* app name is set as `TAILWIND_APP_NAME = 'theme'` in `settings.py`.
 
 If it's different for you, please replace the `theme` with an app name of your choice, while following my steps.
 
@@ -14,7 +14,7 @@ Let's do this!
      ```bash
      pip install --upgrade django-tailwind
      ```
-   
+
 2. Next, update dependencies and plugins via `npm`. Go to **theme/static_src** directory and run the following command:
 
      ```bash

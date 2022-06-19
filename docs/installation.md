@@ -29,7 +29,7 @@
    ```
 
 4. Add your newly created `'theme'` app to `INSTALLED_APPS` in `settings.py`:
-   
+
    ```python
    INSTALLED_APPS = [
      # other Django apps
@@ -140,9 +140,9 @@ module.exports = {
         '../templates/**/*.html',
         // Templates in other apps
         '../../templates/**/*.html',
-        // Ignore files in node_modules 
+        // Ignore files in node_modules
         '!../../**/node_modules',
-        // Include JavaScript files that might contain Tailwind CSS classes      
+        // Include JavaScript files that might contain Tailwind CSS classes
         '../../**/*.js',
         // Include Python files that might contain Tailwind CSS classes
         '../../**/*.py'

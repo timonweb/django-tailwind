@@ -16,13 +16,9 @@ def test_tailwind_install_and_build(settings):
     settings.INSTALLED_APPS += [app_name]
     settings.TAILWIND_APP_NAME = app_name
 
-    assert os.path.isfile(
-        os.path.join(get_app_path(app_name), "apps.py")
-    ), 'The "theme" app has been generated'
+    assert os.path.isfile(os.path.join(get_app_path(app_name), "apps.py")), 'The "theme" app has been generated'
 
-    tailwind_config_path = os.path.join(
-        get_app_path(app_name), "static_src", "tailwind.config.js"
-    )
+    tailwind_config_path = os.path.join(get_app_path(app_name), "static_src", "tailwind.config.js")
     assert os.path.isfile(tailwind_config_path), "tailwind.config.js is present"
 
     call_command("tailwind", "install")

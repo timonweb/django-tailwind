@@ -76,9 +76,7 @@ def test_tailwind_preload_css(settings):
         """
     ).render(Context())
 
-    assert (
-        '<link rel="preload" href="/static/css/dist/styles.css" as="style">' in output
-    )
+    assert '<link rel="preload" href="/static/css/dist/styles.css" as="style">' in output
 
 
 def test_tailwind_preload_css_with_version(settings):
@@ -90,7 +88,4 @@ def test_tailwind_preload_css_with_version(settings):
         """
     ).render(Context())
 
-    assert (
-        '<link rel="preload" href="/static/css/dist/styles.css?v=123" as="style">'
-        in output
-    )
+    assert '<link rel="preload" href="/static/css/dist/styles.css?v=123" as="style">' in output

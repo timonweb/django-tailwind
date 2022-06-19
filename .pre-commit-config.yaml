@@ -1,19 +1,38 @@
 repos:
-  - repo: local
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.1.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-ast
+      - id: check-case-conflict
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: check-yaml
+      - id: debug-statements
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: mixed-line-ending
+      - id: requirements-txt-fixer
+  - repo: https://github.com/psf/black
+    rev: 22.3.0
     hooks:
       - id: black
-        name: black
-        entry: black
-        language: system
-        types: [python]
-      - id: flake8
-        name: flake8
-        entry: flake8 --config=tox.ini
-        language: system
-        types: [python]
+        args: [ --line-length=119 ]
+  - repo: https://github.com/pycqa/isort
+    rev: 5.10.1
+    hooks:
       - id: isort
-        name: isort
-        entry: isort
-        language: system
-        types: [python]
-exclude: tailwind/app_template/{{cookiecutter.app_name}}/apps.py
+        args: [ "--profile", "black", "--filter-files" ]
+  - repo: https://github.com/PyCQA/flake8
+    rev: 4.0.1
+    hooks:
+      - id: flake8
+        entry: flake8 --config=tox.ini
+        additional_dependencies:
+          - flake8-bugbear
+          - flake8-comprehensions
+          - flake8-tidy-imports
+          - flake8-typing-imports
+exclude: src/tailwind/app_template/{{cookiecutter.app_name}}/apps.py

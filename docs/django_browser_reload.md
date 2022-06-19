@@ -49,11 +49,11 @@ Please follow the following migration steps.
       ```
 
 5. Now, `cd` to your `TAILWIND_APP_NAME` `static_src` directory. In my case, `TAILWIND_APP_NAME` is `theme`, thus I `cd` to `theme/static_src`:
-    
+
    ```bash
-   cd theme/static_src 
+   cd theme/static_src
    ```
-   
+
 6. Remove `bs.config.js` file from the `theme/static_src` directory.
 
 7. Open `package.json` file in `theme/static_src` directory, and remove the following commands under `scripts`: `sync`, `dev:sync`, `dev`.
@@ -65,5 +65,5 @@ Please follow the following migration steps.
     ```bash
     npm uninstall browser-sync nodemon npm-run-all
     ```
-   
+
 10. Run `python manage.py tailwind start` to make sure everything runs properly.

@@ -36,7 +36,7 @@ NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 
 ## `TAILWIND_CSS_PATH`
 This defines a path to the generated *Tailwind CSS* stylesheet. If you have created a theme app via the `python manage.py tailwind init` command,
-chances are you don't need to change this value. 
+chances are you don't need to change this value.
 
 However, if you integrated *Tailwind CSS* in another way or want to use a *CDN* version of the bundle, you might want to change the path.
 
