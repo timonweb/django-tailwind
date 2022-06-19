@@ -67,7 +67,7 @@ Usage example:
         try:
             from cookiecutter.main import cookiecutter
         except ImportError:
-            self.stdout.write("Installing cookiecutter...")
+            self.stdout.write("Cookiecutter is not found, installing...")
             install_pip_package("cookiecutter")
             from cookiecutter.main import cookiecutter
 
