@@ -2,11 +2,10 @@ import os
 
 from cookiecutter.main import cookiecutter
 from django.core.management.base import CommandError, LabelCommand
+from nodejs import npm
 
 from tailwind import get_config
 
-from ...npm import NPM, NPMException
-from ...utils import get_tailwind_src_path
 from ...validate import ValidationError, Validations
 
 
@@ -58,7 +57,6 @@ Usage example:
         self.validate.acceptable_label(labels[0])
         if labels[0] != "init":
             self.validate_app()
-            self.npm = NPM(cwd=get_tailwind_src_path(get_config("TAILWIND_APP_NAME")))
 
         getattr(self, "handle_" + labels[0].replace("-", "_") + "_command")(*labels[1:], **options)
 
@@ -88,24 +86,16 @@ Usage example:
             raise CommandError(err)
 
     def handle_install_command(self, **options):
-        self.npm_command("install")
+        npm.run(["install"])
 
     def handle_build_command(self, **options):
-        self.npm_command("run", "build")
+        npm.run(["run", "build"])
 
     def handle_start_command(self, **options):
-        self.npm_command("run", "start")
+        npm.run(["start"])
 
     def handle_check_updates_command(self, **options):
-        self.npm_command("outdated")
+        npm.run(["outdated"])
 
     def handle_update_command(self, **options):
-        self.npm_command("update")
-
-    def npm_command(self, *args):
-        try:
-            self.npm.command(*args)
-        except NPMException as err:
-            raise CommandError(err)
-        except KeyboardInterrupt:
-            pass
+        npm.run(["update"])
