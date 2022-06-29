@@ -19,10 +19,10 @@ class NPM:
     def cd(self, cwd):
         self.cwd = cwd
 
-    def command(self, *args):
-        times_cwd_ran = 0 if args.get('times_cwd_ran') is None else args.get('times_cwd_ran')
+    def command(self, *args, **kwargs):
+        times_cwd_ran = 0 if kwargs.get('times_cwd_ran') is None else kwargs.get('times_cwd_ran')
         try:
-            subprocess.run([self.npm_bin_path] + list(args), cwd=self.cwd, check=True)
+            subprocess.run([self.npm_bin_path] + list(args), cwd=self.cwd,check=kwargs.get('check', True), shell=True)
             return True
         except subprocess.CalledProcessError:
             sys.exit(1)
@@ -38,6 +38,7 @@ class NPM:
                     'NPM_BIN_PATH = "/usr/local/bin/npm"'
                 )
             else:
-                self.npm_bin_path = 'node'
-                self.command(times_cwd_ran=times_cwd_ran+1,*args)
+                self.npm_bin_path = 'npm'
+                self.command(times_cwd_ran=times_cwd_ran+1,check=False,*args, **kwargs)
                 return True
+                
