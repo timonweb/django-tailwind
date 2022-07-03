@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class TailwindConfig(AppConfig):
+class DjangoTailwindConfig(AppConfig):
     name = "django_tailwind"

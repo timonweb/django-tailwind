@@ -28,6 +28,7 @@ packages = [
 python = "^3.8"
 django = ">=2.2.28"
 django-browser-reload = "^1.6.0"
+tailwind = "^3.1.5-beta.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.2"

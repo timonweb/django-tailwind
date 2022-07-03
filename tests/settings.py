@@ -8,7 +8,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
-INSTALLED_APPS = ["django.contrib.staticfiles", "tailwind"]
+INSTALLED_APPS = ["django.contrib.staticfiles", "django_tailwind"]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
