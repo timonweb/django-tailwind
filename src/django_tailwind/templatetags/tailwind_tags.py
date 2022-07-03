@@ -1,6 +1,6 @@
 from django import template
 
-from tailwind import get_config
+from django_tailwind import get_config
 
 from ..utils import is_path_absolute
 

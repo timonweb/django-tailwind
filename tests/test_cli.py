@@ -3,7 +3,7 @@ import uuid
 
 from django.core.management import call_command
 
-from tailwind.utils import get_app_path
+from django_tailwind.utils import get_app_path
 
 from .conftest import cleanup_theme_app_dir
 

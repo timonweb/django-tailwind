@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class TailwindConfig(AppConfig):
-    name = "tailwind"
+    name = "django_tailwind"

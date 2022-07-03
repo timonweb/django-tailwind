@@ -1,7 +1,7 @@
 import os
 import shutil
 
-from tailwind.utils import get_app_path
+from django_tailwind.utils import get_app_path
 
 
 def cleanup_theme_app_dir(app_name):

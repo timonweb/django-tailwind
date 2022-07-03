@@ -1,7 +1,7 @@
 import subprocess
 import sys
 
-from tailwind import get_config
+from django_tailwind import get_config
 
 
 class NPMException(Exception):

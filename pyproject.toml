@@ -21,7 +21,7 @@ classifiers = [
     "Framework :: Django"
 ]
 packages = [
-    { include = "tailwind", from = "src" }
+    { include = "django_tailwind", from = "src" }
 ]
 
 [tool.poetry.dependencies]

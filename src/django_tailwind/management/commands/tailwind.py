@@ -2,7 +2,7 @@ import os
 
 from django.core.management.base import CommandError, LabelCommand
 
-from tailwind import get_config
+from django_tailwind import get_config
 
 from ...npm import NPM, NPMException
 from ...utils import get_tailwind_src_path, install_pip_package
