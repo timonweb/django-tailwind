@@ -1,3 +1,4 @@
+<h1 align="Center">Django-Tailwind</h1>
 # Tailwind CSS integration for Django a.k.a. Django + Tailwind = 💚
 ![Django Tailwind Demo](https://raw.githubusercontent.com/timonweb/django-tailwind/master/docs/django-tailwind-demo-800.gif)
 
