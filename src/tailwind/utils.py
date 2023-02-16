@@ -1,7 +1,6 @@
 import json
 import os
 
-import pip._internal as pip
 from django.apps import apps
 
 DJANGO_TAILWIND_APP_DIR = os.path.dirname(__file__)
@@ -30,4 +29,6 @@ def is_path_absolute(path):
 
 
 def install_pip_package(package):
+    import pip._internal as pip
+
     pip.main(["install", package])
