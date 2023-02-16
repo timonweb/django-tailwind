@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.5.0
+- Upgrades Tailwind CSS dependencies;
+- Updates Django dev dependencies;
+
+## 3.4.0
+- Upgrades Tailwind CSS dependencies;
+- Updates Django dev dependencies;
+
 ## 3.3.0
 - Makes `cookiecutter` dependency optional by installing it automatically when `python manage.py tailwind init` is run;
 - Updates Django dev dependencies;
