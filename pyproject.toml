@@ -25,21 +25,21 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.8.1"
 django = ">=3.2.14"
 django-browser-reload = "^1.6.0"
 
 [tool.poetry.dev-dependencies]
-pytest = "^7.1.2"
+pytest = "^7.2.1"
 pytest-django = "^4.5.2"
-tox = "^3.25.0"
-pre-commit = "^2.19.0"
-isort = "^5.10.1"
-flake8 = "^4.0.1"
-black = "^22.3.0"
+tox = "^4.4.5"
+pre-commit = "^3.0.4"
+isort = "^5.12.0"
+flake8 = "^6.0.0"
+black = "^23.1.0"
 Sphinx = "^4.3.1"
 recommonmark = "^0.7.1"
-sphinx-rtd-theme = "^1.0.0"
+sphinx-rtd-theme = "^1.2.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
