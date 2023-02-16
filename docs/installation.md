@@ -65,7 +65,7 @@
    the `base.html` template:
 
    ```html
-   {% load tailwind_tags %}
+   {% load static tailwind_tags %}
    ...
    <head>
       ...
