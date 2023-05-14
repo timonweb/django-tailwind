@@ -1,4 +1,7 @@
+import time
+
 from django import template
+from django.conf import settings
 
 from tailwind import get_config
 
@@ -9,6 +12,11 @@ register = template.Library()
 
 @register.inclusion_tag("tailwind/tags/css.html")
 def tailwind_css(v=None):
+
+    if v is None and settings.DEBUG:
+        # append suffix to force reload of css in dev mode
+        v = int(time.time())
+
     return {
         "dev_mode": get_config("TAILWIND_DEV_MODE"),
         "v": v,
