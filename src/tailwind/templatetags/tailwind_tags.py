@@ -12,7 +12,6 @@ register = template.Library()
 
 @register.inclusion_tag("tailwind/tags/css.html")
 def tailwind_css(v=None):
-
     if v is None and settings.DEBUG:
         # append suffix to force reload of css in dev mode
         v = int(time.time())
