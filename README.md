@@ -28,8 +28,7 @@ pip install django-tailwind
 Check docs for the [Installation](https://django-tailwind.readthedocs.io/en/latest/installation.html) instructions.
 
 ## Bugs and suggestions
-If you have found a bug, please use the issue tracker on GitHub.
 
-[https://github.com/timonweb/django-tailwind/issues](https://github.com/timonweb/django-tailwind/issues)
+Please see [CONTRIBUTING](CONTRIBUTING.md).
 
 2019 - 2022 (c) [Tim Kamanin - A Full Stack Django Developer](https://timonweb.com)
