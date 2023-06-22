@@ -1,2 +1,2 @@
 django
-django-tailwind
+django-tailwind[reload]
