@@ -1,4 +1,5 @@
 import time
+
 from django.template import Context, Template
 
 
@@ -55,7 +56,7 @@ def test_tailwind_css_in_legacy_tailwind_dev_mode(settings):
         """
     ).render(Context({}))
 
-    assert f'<link rel="stylesheet" href="/static/css/dist/styles.css">' in output
+    assert '<link rel="stylesheet" href="/static/css/dist/styles.css">' in output
     assert "//HOST:8383/browser-sync/browser-sync-client.js" in output
 
 
