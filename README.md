@@ -25,6 +25,12 @@ Via PIP:
 pip install django-tailwind
 ```
 
+[RECOMMENDED IN DEV] If you want to use automatic page reloads during development use the `[reload]` extras, which installs the `django-browser-reload` package in addition:
+
+ ```bash
+ python -m pip install django-tailwind[reload]
+ ```
+
 Check docs for the [Installation](https://django-tailwind.readthedocs.io/en/latest/installation.html) instructions.
 
 ## Bugs and suggestions
