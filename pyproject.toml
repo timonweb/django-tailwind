@@ -28,7 +28,7 @@ packages = [
 [tool.poetry.dependencies]
 python = "^3.8.1"
 django = ">=3.2.14"
-django-browser-reload = "^1.6.0"
+django-browser-reload = {version = "^1.6.0", optional = true}
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.2.1"
@@ -41,6 +41,9 @@ black = "^23.1.0"
 Sphinx = "^4.3.1"
 recommonmark = "^0.7.1"
 sphinx-rtd-theme = "^1.2.0"
+
+[tool.poetry.extras]
+reload = ["django-browser-reload"]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
