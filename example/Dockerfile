@@ -29,5 +29,6 @@ WORKDIR /app
 RUN SECRET_KEY=nothing python manage.py tailwind install --no-input;
 RUN SECRET_KEY=nothing python manage.py tailwind build --no-input;
 RUN SECRET_KEY=nothing python manage.py collectstatic --no-input;
+RUN apt remove -y nodejs
 
 CMD ["python", "manage.py", "runserver"]
