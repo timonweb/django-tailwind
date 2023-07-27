@@ -181,11 +181,17 @@ this case, you need to set the path to the `npm` executable in *settings.py* fil
 NPM_BIN_PATH = '/usr/local/bin/npm'
 ```
 
-On *Windows* it might look like this:
+On *Windows*, you may have npm on `$PATH` but it's `npm.cmd` rather than `npm`. If so, please override the default `NPM_BIN_PATH = 'npm'`:
+
+```python
+NPM_BIN_PATH = 'npm.cmd'
+```
+
+Alternatively, you can also set the full path to `npm.cmd`. It might look like this:
 
 ```python
 NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 ```
 
 Please note that the path to the `npm` executable may be different for your system. To get the `npm` path, try running
-the command `which npm` in your terminal.
+the command `which npm` in your terminal. (On *Windows*, please try `where npm` or `Get-Command npm`)
