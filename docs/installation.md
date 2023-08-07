@@ -13,7 +13,7 @@
    in addition:
 
    ```bash
-   python -m pip install django-tailwind[reload]
+   python -m pip install 'django-tailwind[reload]'
    ```
 
    Alternatively, you can install the latest development version via:
