@@ -33,7 +33,7 @@
 3. Create a *Tailwind CSS* compatible *Django* app, I like to call it `theme`:
 
    ```bash
-   python manage.py tailwind init
+   python manage.py tailwind init theme
    ```
 
 4. Add your newly created `'theme'` app to `INSTALLED_APPS` in `settings.py`:
