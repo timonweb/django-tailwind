@@ -6,6 +6,7 @@
 - Ensures Django 5.0 support;
 - Drops Python 3.8 support;
 - Ensures Python 3.12 support;
+- Updates docs for Windows users;
 
 
 ## 3.6.0
