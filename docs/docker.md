@@ -1,4 +1,4 @@
-# Running in Docker
+# Running in Docker (Development mode)
 
 You can find a Docker example under the `example` directory.
 
