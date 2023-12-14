@@ -3,6 +3,8 @@
 ## 3.7.0 [In Progress...]
 - Upgrades Tailwind CSS dependencies;
 - Removes `@tailwindcss/line-clamp` dependency as it's now included in Tailwind by default;
+- Drops Python 3.8 support
+
 
 ## 3.6.0
 - Adds support for Django 4.2.

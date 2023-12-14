@@ -1,6 +1,6 @@
 {
   "name": "theme",
-  "version": "3.6.0",
+  "version": "3.7.0",
   "description": "",
   "scripts": {
     "start": "npm run dev",
@@ -15,15 +15,15 @@
   "license": "MIT",
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",
-    "@tailwindcss/forms": "^0.5.3",
+    "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/line-clamp": "^0.4.4",
-    "@tailwindcss/typography": "^0.5.9",
+    "@tailwindcss/typography": "^0.5.10",
     "cross-env": "^7.0.3",
-    "postcss": "^8.4.24",
+    "postcss": "^8.4.32",
     "postcss-import": "^15.1.0",
     "postcss-nested": "^6.0.1",
     "postcss-simple-vars": "^7.0.1",
-    "rimraf": "^5.0.1",
-    "tailwindcss": "^3.3.2"
+    "rimraf": "^5.0.5",
+    "tailwindcss": "^3.3.6"
   }
 }
