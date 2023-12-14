@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.6.0
+- Adds support for Django 4.2.
+- Stops caching CSS in DEBUG mode.
+- Makes django-browser-reload dependency optional to install by using the [reload] extras.
+- Adds instructions on how to contribute
+
 ## 3.5.0
 - Upgrades Tailwind CSS dependencies;
 - Updates Django dev dependencies;
