@@ -14,7 +14,7 @@ This project aims to provide a comfortable way of using the *Tailwind CSS* frame
 > [For instructions on upgrading from `v2` to `v3`, see this post on my blog](https://timonweb.com/django/django-tailwind-with-support-for-the-latest-tailwind-css-v3-is-out/).
 
 ## Requirements
-Python 3.8 or newer with Django >= 3.2 or newer.
+Python 3.10 or newer with Django >= 3.2 or newer.
 
 ## Documentation
 The full documentation is at https://django-tailwind.readthedocs.io/
