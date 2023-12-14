@@ -4,7 +4,7 @@
 - Upgrades Tailwind CSS dependencies;
 - Removes `@tailwindcss/line-clamp` dependency as it's now included in Tailwind by default;
 - Ensures Django 5.0 support;
-- Drops Python 3.8 support;
+- Drops Python 3.8, 3.9 support;
 - Ensures Python 3.12 support;
 - Updates docs for Windows users;
 
