@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.8.0
+- Upgrades Tailwind CSS to `v3.4`. See what's new in [Tailwind CSS v3.4](https://tailwindcss.com/blog/tailwindcss-v3-4).
+
 ## 3.7.0
 - Upgrades Tailwind CSS dependencies;
 - Removes `@tailwindcss/line-clamp` dependency as it's now included in Tailwind by default;
