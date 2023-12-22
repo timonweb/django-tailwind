@@ -1,5 +1,6 @@
 import subprocess
 import sys
+import os
 
 from tailwind import get_config
 
@@ -21,7 +22,7 @@ class NPM:
 
     def command(self, *args):
         try:
-            subprocess.run([self.npm_bin_path] + list(args), cwd=self.cwd, check=True)
+            subprocess.run([self.npm_bin_path] + list(args), cwd=self.cwd, check=True, shell=True if os.name == 'nt' else False)
             return True
         except subprocess.CalledProcessError:
             sys.exit(1)
