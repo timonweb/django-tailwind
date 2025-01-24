@@ -38,3 +38,5 @@ Check docs for the [Installation](https://django-tailwind.readthedocs.io/en/late
 Please see [CONTRIBUTING](CONTRIBUTING.md).
 
 2019 - 2023 (c) [Tim Kamanin - A Full Stack Django Developer](https://timonweb.com)
+
+2024 - present (c) [Ryan Sevelj] - Fork Maintainer

@@ -1,8 +1,14 @@
 [tool.poetry]
-name = "django-tailwind"
-version = "3.8.0"
-description = "Tailwind CSS Framework for Django projects"
-authors = ["Tim Kamanin <tim@timonweb.com>"]
+name = "django-tailwind-4"
+version = "0.1.0"
+description = "Tailwind 4 CSS Framework for Django projects"
+authors = [
+    "Tim Kamanin <tim@timonweb.com>",
+    "Ryan Sevelj <rsevs3@gmail.com>"
+]
+maintainers = [
+  "Ryan Sevelj <rsevs3@gmail.com>"
+]
 license = "MIT"
 readme = "README.md"
 homepage = "https://github.com/timonweb/django-tailwind"
@@ -47,3 +53,7 @@ reload = ["django-browser-reload"]
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[[tool.poetry.source]]
+name = "testpypi"
+url = "https://test.pypi.org/legacy/"
