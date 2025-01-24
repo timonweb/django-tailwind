@@ -1,14 +1,20 @@
 [tool.poetry]
-name = "django-tailwind"
-version = "3.8.0"
-description = "Tailwind CSS Framework for Django projects"
-authors = ["Tim Kamanin <tim@timonweb.com>"]
+name = "django-tailwind-4"
+version = "0.1.0"
+description = "Tailwind 4 CSS Framework for Django projects"
+authors = [
+    {name = "Tim Kamanin" email = "tim@timonweb.com>"},
+    {name = "Ryan Sevelj" email = "rsevs3@gmail.com"},
+]
+maintainers = [
+  {name = "Ryan Sevelj", email = "rsevs3@gmail.com"},
+]
 license = "MIT"
 readme = "README.md"
-homepage = "https://github.com/timonweb/django-tailwind"
+homepage = "https://github.com/rsevs3/django-tailwind-4"
 keywords = ["django", "tailwind", "css"]
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3.10",
@@ -27,19 +33,19 @@ packages = [
 [tool.poetry.dependencies]
 python = "^3.10.0"
 django = ">=3.2.14"
-django-browser-reload = {version = "^1.12.1", optional = true}
+django-browser-reload = {version = "^1.17.0", optional = true}
 
 [tool.poetry.dev-dependencies]
-pytest = "^7.4.3"
-pytest-django = "^4.7.0"
-tox = "^4.11.4"
-pre-commit = "^3.6.0"
+pytest = "^8.3.4"
+pytest-django = "^4.9.0"
+tox = "^4.24.1"
+pre-commit = "^4.1.0"
 isort = "^5.13.2"
-flake8 = "^6.1.0"
-black = "^23.12.0"
-Sphinx = "^4.3.1"
+flake8 = "^7.1.1"
+black = "^24.10.0"
+Sphinx = "^8.1.3"
 recommonmark = "^0.7.1"
-sphinx-rtd-theme = "^1.2.0"
+sphinx-rtd-theme = "^3.0.2"
 
 [tool.poetry.extras]
 reload = ["django-browser-reload"]
