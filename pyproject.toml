@@ -53,12 +53,13 @@ dev = [
 Homepage = "https://github.com/rsevs3/django-tailwind-4"
 Documentation = "https://django-tailwind-4.readthedocs.io"
 Tracker = "https://github.com/rsevs3/django-tailwind-4/issues"
-
-[tool.setuptools.packages.find]
-include = ["tailwind*"]
+Changelog = "https://github.com/rsevs3/django-tailwind-4/releases"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 
 [tool.setuptools]
 zip-safe = false
+
+[tool.setuptools.packages]
+find = {where = ["src"]}
