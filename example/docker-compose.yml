@@ -1,5 +1,3 @@
-version: "3.7"
-
 x-app: &default-app
   build:
     context: "."

@@ -20,10 +20,12 @@ USER python
 
 COPY --chown=python:python requirements*.txt ./
 
-RUN pip install -r requirements.txt
+RUN pip install --upgrade pip
+RUN pip install --no-cache-dir -r requirements.txt
+RUN pip list
 
-ENV DEBUG="${DEBUG}" \
-    PYTHONUNBUFFERED="true" \
+# ENV DEBUG="${DEBUG}" \
+ENV PYTHONUNBUFFERED="true" \
     PATH="${PATH}:/home/python/.local/bin" \
     USER="python"
 
@@ -31,8 +33,11 @@ COPY --chown=python:python . .
 
 WORKDIR /app
 
-RUN SECRET_KEY=nothing python manage.py tailwind install --no-input;
-RUN SECRET_KEY=nothing python manage.py tailwind build --no-input;
-RUN SECRET_KEY=nothing python manage.py collectstatic --no-input;
+RUN python manage.py tailwind install --no-input;
+RUN python manage.py tailwind build --no-input;
+RUN python manage.py collectstatic --no-input;
+# RUN SECRET_KEY=nothing python manage.py tailwind install --no-input;
+# RUN SECRET_KEY=nothing python manage.py tailwind build --no-input;
+# RUN SECRET_KEY=nothing python manage.py collectstatic --no-input;
 
 CMD ["python", "manage.py", "runserver"]
