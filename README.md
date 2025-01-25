@@ -25,13 +25,13 @@ The full documentation is at https://django-tailwind-4.readthedocs.io
 ## Installation
 Via PIP:
 ```bash
-pip install django-tailwind
+pip install django-tailwind-4
 ```
 
 [RECOMMENDED IN DEV] If you want to use automatic page reloads during development use the `[reload]` extras, which installs the `django-browser-reload` package in addition:
 
  ```bash
- pip install 'django-tailwind[reload]'
+ pip install 'django-tailwind-4[reload]'
  ```
 
 Check docs for the [Installation](https://django-tailwind-4.readthedocs.io/en/latest/installation.html) instructions.

@@ -18,9 +18,9 @@ from recommonmark.transform import AutoStructify
 
 # -- Project information -----------------------------------------------------
 
-project = "Django-Tailwind"
-copyright = "2021, Tim Kamanin"
-author = "Tim Kamanin"
+project = "Django-Tailwind-4"
+copyright = "2025, Ryan Sevelj"
+author = "Ryan Sevelj"
 
 # The full version, including alpha/beta/rc tags
 release = "2.0.0"

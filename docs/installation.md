@@ -2,10 +2,10 @@
 
 ## Step-by-step instructions
 
-1. Install the `django-tailwind` package via `pip`:
+1. Install the `django-tailwind-4` package via `pip`:
 
    ```bash
-   python -m pip install django-tailwind
+   python -m pip install django-tailwind-4
    ```
 
    If you want to use automatic page reloads during development (see steps 10-12 below)
@@ -13,13 +13,13 @@
    in addition:
 
    ```bash
-   python -m pip install 'django-tailwind[reload]'
+   python -m pip install 'django-tailwind-4[reload]'
    ```
 
    Alternatively, you can install the latest development version via:
 
    ```bash
-   python -m pip install git+https://github.com/timonweb/django-tailwind.git
+   python -m pip install git+https://github.com/rsevs3/django-tailwind-4.git
    ```
 
 2. Add `'tailwind'` to `INSTALLED_APPS` in `settings.py`:
