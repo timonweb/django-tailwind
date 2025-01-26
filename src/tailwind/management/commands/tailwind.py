@@ -94,7 +94,7 @@ Usage example:
             raise CommandError(err)
 
     def handle_install_command(self, **options):
-        self.npm_command("install")
+        self.npm_command("install", "--no-package-lock")
 
     def handle_build_command(self, **options):
         self.npm_command("run", "build")
