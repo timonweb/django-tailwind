@@ -8,6 +8,8 @@ DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
+USE_TZ = False
+
 INSTALLED_APPS = ["django.contrib.staticfiles", "tailwind"]
 
 MIDDLEWARE = [

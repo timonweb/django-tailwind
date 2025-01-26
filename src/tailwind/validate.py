@@ -1,3 +1,4 @@
+import json
 import os
 
 from django.apps import apps
@@ -28,8 +29,22 @@ class Validations:
             raise ValidationError(f"{app_name} is not in INSTALLED_APPS")
 
     def is_tailwind_app(self, app_name):
-        if not os.path.isfile(os.path.join(get_tailwind_src_path(app_name), "tailwind.config.js")):
-            raise ValidationError(f"'{app_name}' isn't a Tailwind app")
+        package_json_path = os.path.join(
+            get_tailwind_src_path(app_name), "package.json"
+        )
+        if not os.path.isfile(package_json_path):
+            raise ValidationError(
+                f"'{app_name}' isn't a Tailwind app - missing package.json"
+            )
+
+        with open(package_json_path) as f:
+            package_data = json.loads(f.read())
+
+        dev_deps = package_data.get("devDependencies", {})
+        if "@tailwindcss/cli" not in dev_deps:
+            raise ValidationError(
+                f"'{app_name}' isn't a Tailwind app - missing @tailwindcss/cli dependency"
+            )
 
     def has_settings(self):
         if not hasattr(settings, "TAILWIND_APP_NAME"):
