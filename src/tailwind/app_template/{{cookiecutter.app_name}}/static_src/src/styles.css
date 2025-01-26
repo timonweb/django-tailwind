@@ -1,1 +1,39 @@
-@import "tailwindcss";
+/*
+* This is where you can configure the folders that Tailwind will scan.
+* 
+* For detailed documents, check the Tailwind docs at:
+*
+* https://tailwindcss.com/docs/detecting-classes-in-source-files#explicitly-registering-sources
+*
+* This default configuration will scan all folder in your root project directory.
+*
+* Here is an example configuration that will only scan your templates/ folder:
+* 
+* @import "tailwindcss" source(none);
+*
+* @source "../../../templates";
+*/
+
+@import "tailwindcss" source("../../../");
+
+
+/*
+* If you would like to customise you theme, you can do that here too.
+*
+* https://tailwindcss.com/docs/theme
+*
+*/
+
+@theme {}
+
+
+/*
+* You can install tailwind plugins like below.
+*
+* https://tailwindcss.com/docs/functions-and-directives#plugin-directive
+*
+*/
+
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/typography";
+@plugin "@tailwindcss/aspect-ratio";

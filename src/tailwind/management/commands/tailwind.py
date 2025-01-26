@@ -59,7 +59,9 @@ Usage example:
             self.validate_app()
             self.npm = NPM(cwd=get_tailwind_src_path(get_config("TAILWIND_APP_NAME")))
 
-        getattr(self, "handle_" + labels[0].replace("-", "_") + "_command")(*labels[1:], **options)
+        getattr(self, "handle_" + labels[0].replace("-", "_") + "_command")(
+            *labels[1:], **options
+        )
 
     def handle_init_command(self, **options):
         try:
@@ -76,7 +78,11 @@ Usage example:
                 directory="app_template",
                 no_input=options["no_input"],
                 overwrite_if_exists=False,
-                extra_context={"app_name": options["app_name"].strip() if options.get("app_name") else "theme"},
+                extra_context={
+                    "app_name": options["app_name"].strip()
+                    if options.get("app_name")
+                    else "theme"
+                },
             )
 
             app_name = os.path.basename(app_path)
