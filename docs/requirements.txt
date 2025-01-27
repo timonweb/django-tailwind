@@ -1,3 +1,6 @@
-recommonmark >= 0.7.1
-Sphinx >= 4.3.1
-sphinx-rtd-theme >= 1.2.0
+furo==2023.9.10
+graphviz==0.20.3
+myst-parser==2.0.0
+Sphinx==7.2.6
+sphinx-copybutton==0.5.2
+sphinx_inline_tabs==2023.4.21

@@ -1,0 +1,27 @@
+..  Every reST source file in this project must include the 'extras.rst.txt' file, which provides some extra formatting options.
+
+.. 'extras.rst.txt'  can be found at
+  https://github.com/imAsparky/junction-box/tree/main/docs/source/extras.rst.txt
+
+.. ----------
+.. text roles
+.. ----------
+
+.. role:: emph(emphasis)
+.. role:: html(code)
+.. role:: js(code)
+.. role:: rst(code)
+.. role:: sep(strong)
+.. role:: typoscript(code)
+.. role:: ts(typoscript)
+   :class: typoscript
+.. role:: yaml(code)
+.. default-role:: code
+
+.. ---------
+.. highlight
+.. ---------
+
+.. Code blocks default to Python.
+
+.. highlight:: python
