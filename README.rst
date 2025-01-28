@@ -5,7 +5,7 @@ Tailwind CSS integration for Django a.k.a. Django + Tailwind = 💚
 .. note::
    This is a maintained fork of Tim Kamanin's original django-tailwind project. The original project is no longer maintained. This fork updates the project to work with the latest version of Tailwind CSS while preserving the original functionality.
 
-.. image:: https://raw.githubusercontent.com/rsevs3/django-tailwind-4/main/docs/source/img/django-demo-tailwind-800.gif
+.. image:: https://github.com/rsevs3/django-tailwind-4/blob/main/docs/source/img/django-tailwind-demo-800.gif
    :alt: Django + Tailwind Demo
 
 Goal
