@@ -13,7 +13,7 @@ Step-by-step instructions
 
    If you want to use automatic page reloads during development (see steps 10-12 below) use the ``[reload]`` extras, which installs the ``django-browser-reload`` package in addition:
 
-   .. code-block:: shel
+   .. code-block:: shell
 
       python -m pip install 'django-tailwind-4[reload]'
 
@@ -125,33 +125,19 @@ Optional configurations
 Content (formerly Purge) rules configuration
 ____________________________________________
 
-The ``content`` section of your ``tailwind.config.js`` file is where you configure the paths to all of your HTML templates, JavaScript components, and any other source files that contain Tailwind class names.
+Previously with Tailwind v3, you had to specify all of the files to wach for Tailwind classes. This is no longer the case and Tailwind v4 will scan all of the files and folders in the path that is specified. You do not need to specify scanning ``*.html``, ``*.js`` and ``*.py`` files individually. ``django-tailwind-4`` is set to scan all of the folders in you root Django project folder.
 
-Depending on your project structure, you might need to configure the ``content`` rules in ``tailwind.config.js``. This file is in the ``static_src`` folder of the theme app created by ``python manage.py tailwind init {APP_NAME}``.
+If you would like more granual control of the folders that are being watched, you can change the configuration in ``{my-tailwind-app-name}/static_src/src/styles.css`` and modify like this example:
 
-For example, your ``theme/static_src/tailwind.config.js`` file might look like this:
+.. code-block:: css
 
-.. code-block:: javascript
+   @import "tailwindcss" source(none);
 
-   module.exports = {
-       content: [
-           // Templates within theme app (e.g. base.html)
-           '../templates/**/*.html',
-           // Templates in other apps
-           '../../templates/**/*.html',
-           // Ignore files in node_modules
-           '!../../**/node_modules',
-           // Include JavaScript files that might contain Tailwind CSS classes
-           '../../**/*.js',
-           // Include Python files that might contain Tailwind CSS classes
-           '../../**/*.py'
-       ],
-       ...
-   }
+   @source "../../../templates";
 
-Note that you may need to adjust those paths to suit your specific project layout. It is crucial to make sure that all HTML files (or files containing HTML content, such as ``.vue`` or ``.jsx`` files) are covered by the ``content`` rule.
+Note that you may need to adjust those paths to suit your specific project layout.
 
-For more information about setting ``content``, check out the “Content Configuration” page of the Tailwind CSS docs: `https://tailwindcss.com/docs/content-configuration <https://tailwindcss.com/docs/content-configuration>`_.
+For more information about configuring Tailwind
 
 Configuration of the path to the npm executable
 _______________________________________________
