@@ -2,17 +2,9 @@
 ![Django Tailwind Demo](https://raw.githubusercontent.com/timonweb/django-tailwind/master/docs/django-tailwind-demo-800.gif)
 
 ## Goal
-
 This project aims to provide a comfortable way of using the *Tailwind CSS* framework within a Django project.
 
-## This Fork
-
-This is Bugsink's fork of the project while we [figure out whether the original project went
-unmaintained](https://github.com/timonweb/django-tailwind/issues/208). If the original turns out to be still alive I'm
-happy to abandon this. But as long as it isn't, we can at least move forward here.
-
 ## Features
-
 * An opinionated *Tailwind CSS* setup that makes your life easier;
 * Hot reloading of CSS, configuration files, and *Django* templates. No more manual page refreshes!
 * Out of the box support for CSS imports, SASS-like variables, and nesting;
