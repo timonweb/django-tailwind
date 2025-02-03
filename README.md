@@ -22,7 +22,7 @@ happy to abandon this. But as long as it isn't, we can at least move forward her
 > [For instructions on upgrading from `v2` to `v3`, see this post on my blog](https://timonweb.com/django/django-tailwind-with-support-for-the-latest-tailwind-css-v3-is-out/).
 
 ## Requirements
-Python 3.10 or newer with Django >= 3.2 or newer.
+Python 3.9 or newer with Django >= 3.2 or newer.
 
 ## Documentation
 The full documentation is at https://django-tailwind.readthedocs.io/
