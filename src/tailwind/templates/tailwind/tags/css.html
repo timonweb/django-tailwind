@@ -1,6 +1,6 @@
 {% load static %}
 
-<link rel="stylesheet" href="{% if is_static_path %}{% static tailwind_css_path %}{% else %}{{ tailwind_css_path }}{% endif %}{% if v %}?v={{ v }}{% endif %}">
+<link rel="stylesheet" type="text/css" href="{% if is_static_path %}{% static tailwind_css_path %}{% else %}{{ tailwind_css_path }}{% endif %}{% if v %}?v={{ v }}{% endif %}">
 
 {# dev_mode is deprecated. Leaving it here to support legacy browser-sync based configs #}
 {% if dev_mode %}
