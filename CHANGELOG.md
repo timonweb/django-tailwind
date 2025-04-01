@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.9.0
+- Adds `--no-package-lock` option to `python manage.py tailwind install` command to optionally skip creating `package-lock.json` file;
+- Upgrades Tailwind CSS to `v3.4.17`;
+- Drops support for Python 3.10;
+- Drops support for Django 3.2;
+
 ## 3.8.0
 - Upgrades Tailwind CSS to `v3.4`. See what's new in [Tailwind CSS v3.4](https://tailwindcss.com/blog/tailwindcss-v3-4).
 
