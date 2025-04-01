@@ -40,6 +40,11 @@ Usage example:
             "--app-name",
             help="Sets default app name on Tailwind project initialization",
         )
+        parser.add_argument(
+            "--no-package-lock",
+            action="store_true",
+            help="Disables package-lock.json creation during install",
+        )
 
     def validate_app(self):
         try:
@@ -94,7 +99,11 @@ Usage example:
             raise CommandError(err)
 
     def handle_install_command(self, **options):
-        self.npm_command("install")
+        args = ["install"]
+        if options["no_package_lock"]:
+            args.append("--no-package-lock")
+
+        self.npm_command(*args)
 
     def handle_build_command(self, **options):
         self.npm_command("run", "build")

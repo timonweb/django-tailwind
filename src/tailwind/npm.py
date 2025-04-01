@@ -21,6 +21,7 @@ class NPM:
 
     def command(self, *args):
         try:
+            print([self.npm_bin_path] + list(args))
             subprocess.run([self.npm_bin_path] + list(args), cwd=self.cwd, check=True)
             return True
         except subprocess.CalledProcessError:

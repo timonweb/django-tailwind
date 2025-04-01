@@ -29,7 +29,7 @@ ENV DEBUG="${DEBUG}" \
 
 COPY --chown=python:python . .
 
-RUN SECRET_KEY=nothing python manage.py tailwind install --no-input;
+RUN SECRET_KEY=nothing python manage.py tailwind install --no-package-lock --no-input;
 RUN SECRET_KEY=nothing python manage.py tailwind build --no-input;
 RUN SECRET_KEY=nothing python manage.py collectstatic --no-input;
 
