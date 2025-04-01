@@ -1,0 +1,6 @@
+{
+  "app_name": "",
+  "_copy_without_render": [
+    "templates/base.html"
+  ]
+}

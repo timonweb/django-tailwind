@@ -37,6 +37,12 @@ Usage example:
             help="Initializes Tailwind project without user prompts",
         )
         parser.add_argument(
+            "--tailwind-version",
+            default="4",
+            choices=["3", "4"],
+            help="Specifies the Tailwind version to install",
+        )
+        parser.add_argument(
             "--app-name",
             help="Sets default app name on Tailwind project initialization",
         )
@@ -78,7 +84,7 @@ Usage example:
             app_path = cookiecutter(
                 os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
                 output_dir=os.getcwd(),
-                directory="app_template",
+                directory=f"app_template_v{options['tailwind_version']}",
                 no_input=options["no_input"],
                 overwrite_if_exists=False,
                 extra_context={"app_name": options["app_name"].strip() if options.get("app_name") else "theme"},

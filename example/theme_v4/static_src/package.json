@@ -1,0 +1,25 @@
+{
+  "name": "theme_v4",
+  "version": "4.0.0",
+  "description": "",
+  "scripts": {
+    "start": "npm run dev",
+    "build": "npm run build:clean && npm run build:tailwind",
+    "build:clean": "rimraf ../static/css/dist",
+    "build:tailwind": "cross-env NODE_ENV=production npx @tailwindcss/cli --postcss -i ./src/styles.css -o ../static/css/dist/styles.css --minify",
+    "dev": "cross-env NODE_ENV=development npx @tailwindcss/cli --postcss -i ./src/styles.css -o ../static/css/dist/styles.css -w",
+    "tailwindcss": "npx @tailwindcss/cli"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.0",
+    "cross-env": "^7.0.3",
+    "postcss": "^8.5.3",
+    "postcss-nested": "^7.0.2",
+    "postcss-simple-vars": "^7.0.1",
+    "rimraf": "^6.0.1",
+    "tailwindcss": "^4.1.0"
+  }
+}

@@ -28,7 +28,7 @@ class Validations:
             raise ValidationError(f"{app_name} is not in INSTALLED_APPS")
 
     def is_tailwind_app(self, app_name):
-        if not os.path.isfile(os.path.join(get_tailwind_src_path(app_name), "tailwind.config.js")):
+        if not os.path.isfile(os.path.join(get_tailwind_src_path(app_name), "package.json")):
             raise ValidationError(f"'{app_name}' isn't a Tailwind app")
 
     def has_settings(self):

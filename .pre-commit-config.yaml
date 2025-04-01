@@ -35,4 +35,4 @@ repos:
           - flake8-comprehensions
           - flake8-tidy-imports
           - flake8-typing-imports
-exclude: src/tailwind/app_template/{{cookiecutter.app_name}}/apps.py
+exclude: 'src/tailwind/app_template_v3/{{cookiecutter.app_name}}/apps.py|src/tailwind/app_template_v4/{{cookiecutter.app_name}}/apps.py'
