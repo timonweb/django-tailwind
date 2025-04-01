@@ -2,7 +2,7 @@ FROM python:3.12-slim-bookworm
 
 WORKDIR /app
 
-ARG NODE_MAJOR=18
+ARG NODE_MAJOR=22
 
 RUN apt-get update \
   && apt-get install -y ca-certificates curl gnupg \

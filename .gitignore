@@ -143,3 +143,5 @@ tailwind/version.py
 
 # Poetry
 poetry.lock
+
+example/theme/static_src/package-lock.json
