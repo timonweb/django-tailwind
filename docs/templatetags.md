@@ -2,10 +2,10 @@
 
 *Django Tailwind* introduces a couple of template tags for your convenience.
 
-## {% tailwind_css %} tag
+## `{% tailwind_css %}` tag
 
 ### Usage
-The `{% tailwind_css %}` tag generates a stylesheet link for the `'theme'` app and that's all you need to include *Tailwind's CSS* on a page:
+The `{% tailwind_css %}` tag generates a stylesheet link for the `'theme'` app, allowing you to include *Tailwind's CSS* on a page:
 
 ```html
 {% load tailwind_tags %}
@@ -28,10 +28,9 @@ The tag also supports asset versioning via the `v=` parameter, like this:
 
 Depending on your production setup, you may or may not need this functionality, so it's optional.
 
-## {% tailwind_preload_css %} tag
+## `{% tailwind_preload_css %}` tag
 
-The tag generates a preload directive for your stylesheet, which improves loading performance in production.
-Place it above the `{% tailwind_css %}` tag:
+This tag generates a preload directive for your stylesheet, which improves loading performance in production. Place it above the `{% tailwind_css %}` tag:
 
 ```html
 {% load tailwind_tags %}

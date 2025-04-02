@@ -6,19 +6,19 @@ Check the included `example/Dockerfile` and `example/docker-compose.yml` for mor
 
 Here's how to start the `example` project via Docker:
 
-1. Go into the `example` directory;
+1. Navigate to the `example` directory:
 
    ```bash
    cd example
    ```
 
-2. Build containers via `docker-compose`:
+2. Build the containers using `docker-compose`:
 
    ```bash
    docker-compose build
    ```
 
-3. Start containers:
+3. Start the containers:
 
    ```bash
    docker-compose up
