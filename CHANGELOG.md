@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.0.0
+- Adds support for Tailwind CSS v4+;
+- Sets Tailwind CSS v4+ as the default version, with the option to use v3.x via `--tailwind-version 3` flag;
+
 ## 3.9.1
 - Brings Python 3.10 support back;
 - Adds Python 3.13 support;
