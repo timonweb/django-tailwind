@@ -77,8 +77,15 @@ Usage example:
             from cookiecutter.main import cookiecutter
         except ImportError:
             self.stdout.write("Cookiecutter is not found, installing...")
-            install_pip_package("cookiecutter")
-            from cookiecutter.main import cookiecutter
+            try:
+                raise ModuleNotFoundError
+                install_pip_package("cookiecutter")
+                from cookiecutter.main import cookiecutter
+            except ModuleNotFoundError:
+                raise CommandError(
+                    "Failed to install 'cookiecutter' via pip. Please install it manually "
+                    "(https://pypi.org/project/cookiecutter/) and run 'python manage.py tailwind init' again."
+                )
 
         try:
             app_path = cookiecutter(
