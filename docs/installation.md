@@ -36,6 +36,13 @@
    python manage.py tailwind init
    ```
 
+   > Note: By default, we create app compatible with Tailwind CSS version 4, if you want to create an app compatible
+   > with Tailwind CSS version 3, you can use the `--tailwind-version 3` flag:
+
+    ```bash
+    python manage.py tailwind init --tailwind-version 3
+    ```
+
 4. Add your newly created `'theme'` app to `INSTALLED_APPS` in `settings.py`:
 
    ```python
@@ -57,6 +64,12 @@
    ```bash
    python manage.py tailwind install
    ```
+   > Note: If for some reason you don't want `package-lock.json` to be created, you can use the `--no-package-lock`
+   flag:
+
+    ```bash
+    python manage.py tailwind install --no-package-lock
+    ```
 
 7. The *Django Tailwind* comes with a simple `base.html` template located at
    `your_tailwind_app_name/templates/base.html`. You can always extend or delete it if you already have a layout.
@@ -78,7 +91,7 @@
 
 
 9. Let's also add and configure `django_browser_reload`, which takes care of automatic page and css refreshes in the
-    development mode. Add it to `INSTALLED_APPS` in `settings.py`:
+   development mode. Add it to `INSTALLED_APPS` in `settings.py`:
 
     ```python
     INSTALLED_APPS = [
@@ -99,7 +112,8 @@
     ]
     ```
 
-    The middleware should be listed after any that encode the response, such as Django’s `GZipMiddleware`. The middleware
+    The middleware should be listed after any that encode the response, such as Django’s `GZipMiddleware`. The
+    middleware
     automatically inserts the required script tag on HTML responses before `</body>` when `DEBUG` is `True.`
 
 11. Include `django_browser_reload` URL in your root `url.py`:
@@ -123,7 +137,7 @@
 
 ## Optional configurations
 
-### Content (formerly Purge) rules configuration
+### Content (formerly Purge) rules configuration (for Tailwind CSS v3)
 
 The `content` section of your `tailwind.config.js` file is where you configure the paths to all of your HTML templates,
 JavaScript components, and any other source files that contain *Tailwind* class names.
@@ -157,6 +171,26 @@ HTML files (or files containing HTML content, such as `.vue` or `.jsx` files) ar
 For more information about setting `content`, check out the *"Content Configuration"* page of the Tailwind CSS
 docs: [https://tailwindcss.com/docs/content-configuration](https://tailwindcss.com/docs/content-configuration).
 
+### @source directive configuration (for Tailwind CSS v4)
+
+The `content` section from Tailwind CSS v3 has been replaced with the `@source` directive in Tailwind CSS v4.
+The `@source` directive is a new way to specify the source files that Tailwind CSS should scan for class names. It's
+placed
+in the `style.css` file.
+
+By default, it looks like this:
+
+```css
+@source "../../**/*.{html,py,js}";
+```
+
+This means that Tailwind CSS will scan all HTML, Python, and JavaScript files in in all directories starting from the
+three directories above the `style.css` file. Depending on your project structure, you might need to adjust the
+`@source` directive to suit your specific project layout.
+
+For more information about setting `@source`, check out the *"Source Configuration"* page of the Tailwind CSS docs:
+[https://tailwindcss.com/docs/detecting-classes-in-source-files#explicitly-registering-sources](https://tailwindcss.com/docs/detecting-classes-in-source-files#explicitly-registering-sources).
+
 ### Configuration of the path to the `npm` executable
 
 *Tailwind CSS* requires *Node.js* to be installed on your machine.
@@ -173,7 +207,8 @@ this case, you need to set the path to the `npm` executable in *settings.py* fil
 NPM_BIN_PATH = '/usr/local/bin/npm'
 ```
 
-On *Windows*, you may have npm on `$PATH` but it's `npm.cmd` rather than `npm`. (You can call it from the terminal because `$PATHEXT` contains `.cmd`.) If so, please override the default `NPM_BIN_PATH = 'npm'`:
+On *Windows*, you may have npm on `$PATH` but it's `npm.cmd` rather than `npm`. (You can call it from the terminal
+because `$PATHEXT` contains `.cmd`.) If so, please override the default `NPM_BIN_PATH = 'npm'`:
 
 ```python
 NPM_BIN_PATH = 'npm.cmd'
@@ -192,5 +227,6 @@ If you share codes with others, you can search `$PATH` (and `$PATHEXT` on Window
 
 ```python
 from shutil import which
+
 NPM_BIN_PATH = which("npm")
 ```
