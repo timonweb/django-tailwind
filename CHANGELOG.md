@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.9.1
+- Brings Python 3.10 support back;
+- Adds Python 3.13 support;
+
 ## 3.9.0
 - Adds `--no-package-lock` option to `python manage.py tailwind install` command to optionally skip creating `package-lock.json` file;
 - Upgrades Tailwind CSS to `v3.4.17`;
