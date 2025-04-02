@@ -2,13 +2,13 @@
 
 # Definitions
 
-This document uses the *Tailwind* word when we talk about two things: the CSS framework and the Django package.
+This document uses the term *Tailwind* to refer to two things: the CSS framework and the Django package.
 
-So let's agree that we'll use:
-* **Django Tailwind**, when we talk about this very package;
-* **Tailwind CSS**, when we talk about the CSS framework;
+To avoid confusion, we'll use:
+* **Django Tailwind** when referring to this package;
+* **Tailwind CSS** when referring to the CSS framework.
 
-So **Django Tailwind** was created to make **Tailwind CSS** and Django play together (💚).
+**Django Tailwind** was created to integrate **Tailwind CSS** with Django (💚).
 
 Contents
 --------
@@ -18,4 +18,4 @@ Contents
 * [Template tags](templatetags.md)
 * [Migrating from browser-sync to django-browser-reload](django_browser_reload.md)
 * [Updating Tailwind CSS and its dependencies](updating.md)
-* [Running in docker](docker.md)
+* [Running in Docker](docker.md)
