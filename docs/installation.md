@@ -8,7 +8,7 @@
    python -m pip install django-tailwind
    ```
 
-   If you want to use automatic page reloads during development (see steps 10-12 below)
+   If you want to use automatic page reloads during development (see steps 9-12 below),
    use the `[reload]` extras, which installs the `django-browser-reload` package
    in addition:
 
@@ -23,6 +23,7 @@
    ```
 
 2. Add `'tailwind'` to `INSTALLED_APPS` in `settings.py`:
+
    ```python
    INSTALLED_APPS = [
      # other Django apps
@@ -36,7 +37,7 @@
    python manage.py tailwind init
    ```
 
-   > Note: By default, we create app compatible with Tailwind CSS version 4, if you want to create an app compatible
+   > Note: By default, we create an app compatible with Tailwind CSS version 4. If you want to create an app compatible
    > with Tailwind CSS version 3, you can use the `--tailwind-version 3` flag:
 
     ```bash
@@ -53,19 +54,19 @@
    ]
    ```
 
-5. Register the generated `'theme'` app by adding the following line to `settings.py` file:
+5. Register the generated `'theme'` app by adding the following line to `settings.py`:
 
    ```python
    TAILWIND_APP_NAME = 'theme'
    ```
 
-6. Install *Tailwind CSS* dependencies, by running the following command:
+6. Install *Tailwind CSS* dependencies by running the following command:
 
    ```bash
    python manage.py tailwind install
    ```
-   > Note: If for some reason you don't want `package-lock.json` to be created, you can use the `--no-package-lock`
-   flag:
+
+   > Note: If for some reason you don't want `package-lock.json` to be created, you can use the `--no-package-lock` flag:
 
     ```bash
     python manage.py tailwind install --no-package-lock
@@ -75,7 +76,7 @@
    `your_tailwind_app_name/templates/base.html`. You can always extend or delete it if you already have a layout.
 
 8. If you are not using the `base.html` template that comes with *Django Tailwind*, add `{% tailwind_css %}` to
-   the `base.html` template:
+   your `base.html` template:
 
    ```html
    {% load static tailwind_tags %}
@@ -89,8 +90,7 @@
 
    The `{% tailwind_css %}` tag includes Tailwind's stylesheet.
 
-
-9. Let's also add and configure `django_browser_reload`, which takes care of automatic page and css refreshes in the
+9. Let's also add and configure `django_browser_reload`, which takes care of automatic page and CSS refreshes in
    development mode. Add it to `INSTALLED_APPS` in `settings.py`:
 
     ```python
@@ -113,25 +113,24 @@
     ```
 
     The middleware should be listed after any that encode the response, such as Django’s `GZipMiddleware`. The
-    middleware
-    automatically inserts the required script tag on HTML responses before `</body>` when `DEBUG` is `True.`
+    middleware automatically inserts the required script tag on HTML responses before `</body>` when `DEBUG` is `True`.
 
-11. Include `django_browser_reload` URL in your root `url.py`:
+11. Include `django_browser_reload` URL in your root `urls.py`:
 
-       ```python
-       from django.urls import include, path
-       urlpatterns = [
-           ...,
-           path("__reload__/", include("django_browser_reload.urls")),
-       ]
-       ```
+    ```python
+    from django.urls import include, path
+    urlpatterns = [
+        ...,
+        path("__reload__/", include("django_browser_reload.urls")),
+    ]
+    ```
 
 12. Finally, you should be able to use *Tailwind CSS* classes in HTML. Start the development server by running the
     following command in your terminal:
 
-      ```bash
-      python manage.py tailwind start
-      ```
+    ```bash
+    python manage.py tailwind start
+    ```
 
     Check out the [Usage](./usage.md) section for information about the production mode.
 
@@ -175,8 +174,7 @@ docs: [https://tailwindcss.com/docs/content-configuration](https://tailwindcss.c
 
 The `content` section from Tailwind CSS v3 has been replaced with the `@source` directive in Tailwind CSS v4.
 The `@source` directive is a new way to specify the source files that Tailwind CSS should scan for class names. It's
-placed
-in the `style.css` file.
+placed in the `style.css` file.
 
 By default, it looks like this:
 
@@ -184,7 +182,7 @@ By default, it looks like this:
 @source "../../**/*.{html,py,js}";
 ```
 
-This means that Tailwind CSS will scan all HTML, Python, and JavaScript files in in all directories starting from the
+This means that Tailwind CSS will scan all HTML, Python, and JavaScript files in all directories starting from the
 three directories above the `style.css` file. Depending on your project structure, you might need to adjust the
 `@source` directive to suit your specific project layout.
 
@@ -197,11 +195,11 @@ For more information about setting `@source`, check out the *"Source Configurati
 *Node.js* is a *JavaScript* runtime that allows you to run *JavaScript* code outside the browser. Most (if not all) of
 the current frontend tools depend on *Node.js*.
 
-If you don't have *Node.js* installed on your machine, please follow installation instructions
+If you don't have *Node.js* installed on your machine, please follow the installation instructions
 from [the official Node.js page](https://nodejs.org/).
 
 Sometimes (especially on *Windows*), the *Python* executable cannot find the `npm` binary installed on your system. In
-this case, you need to set the path to the `npm` executable in *settings.py* file manually (*Linux/Mac*):
+this case, you need to set the path to the `npm` executable in the *settings.py* file manually (*Linux/Mac*):
 
 ```python
 NPM_BIN_PATH = '/usr/local/bin/npm'
@@ -223,7 +221,7 @@ NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 Please note that the path to the `npm` executable may be different for your system. To get the `npm` path, try running
 the command `which npm` in your terminal. (On *Windows*, please try `where npm` or `Get-Command npm`)
 
-If you share codes with others, you can search `$PATH` (and `$PATHEXT` on Windows) dynamically in *settings.py*:
+If you share code with others, you can search `$PATH` (and `$PATHEXT` on Windows) dynamically in *settings.py*:
 
 ```python
 from shutil import which
