@@ -30,10 +30,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "tailwind",
     "django_browser_reload",
-    "theme_v4",
+    "theme",
 ]
 
-TAILWIND_APP_NAME = "theme_v4"
+TAILWIND_APP_NAME = "theme"
 TAILWIND_DEV_MODE = DEBUG
 
 MIDDLEWARE = [
