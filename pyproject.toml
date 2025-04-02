@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "django-tailwind"
-version = "3.9.0"
+version = "3.9.1"
 description = "Tailwind CSS Framework for Django projects"
 authors = ["Tim Kamanin <tim@timonweb.com>"]
 license = "MIT"
@@ -25,7 +25,7 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.11.0"
+python = "^3.10"
 django = ">=4.2.20"
 django-browser-reload = { version = "^1.18.0", optional = true }
 
@@ -37,7 +37,7 @@ pre-commit = "^4.2.0"
 isort = "^6.0.1"
 flake8 = "^7.2.0"
 black = "^25.1.0"
-Sphinx = "^8.2.3"
+Sphinx = "^8.1.3"
 recommonmark = "^0.7.1"
 sphinx-rtd-theme = "^3.0.2"
 
