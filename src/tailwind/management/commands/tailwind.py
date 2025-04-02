@@ -78,7 +78,6 @@ Usage example:
         except ImportError:
             self.stdout.write("Cookiecutter is not found, installing...")
             try:
-                raise ModuleNotFoundError
                 install_pip_package("cookiecutter")
                 from cookiecutter.main import cookiecutter
             except ModuleNotFoundError:
