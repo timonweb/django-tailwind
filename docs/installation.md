@@ -37,6 +37,15 @@
    python manage.py tailwind init
    ```
 
+   If you are using [pdm](https://pdm-project.org/), you might need to ensure `pip` is installed in your virtualenv:
+
+   ```bash
+   pdm run python -m ensurepip
+   ```
+
+   See [pdm's documentation](https://pdm-project.org/en/latest/usage/venv/#including-pip-in-your-virtual-environment)
+   for more information.
+
    > Note: By default, we create an app compatible with Tailwind CSS version 4. If you want to create an app compatible
    > with Tailwind CSS version 3, you can use the `--tailwind-version 3` flag:
 
