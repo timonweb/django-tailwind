@@ -30,7 +30,7 @@ python = "^3.10"
 django = ">=4.2.20"
 django-browser-reload = { version = "^1.18.0", optional = true }
 
-[tool.poetry.dev-dependencies]
+[poetry.group.dev.dependencies]
 pytest = "^8.3.5"
 pytest-django = "^4.11.0"
 tox = "^4.25.0"
