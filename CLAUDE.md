@@ -137,4 +137,61 @@ src/tailwind/
 └── templates/                      # Template tag templates
 ```
 
+## Testing Guidelines
+
+### BDD-Style Test Documentation
+
+All tests should use BDD-style docstrings following the GIVEN-WHEN-THEN format:
+
+```python
+def test_example_functionality(settings):
+    """
+    GIVEN a specific initial state or configuration
+    WHEN a particular action is performed
+    THEN the expected outcome should occur
+    """
+    # Test implementation
+```
+
+### Test Categories
+
+**Integration Tests**: Test real functionality with minimal mocking
+- Focus on actual file operations, command execution, and system integration
+- Use temporary directories for file system tests
+- Mock only external dependencies that would cause tests to hang or fail
+
+**Unit Tests**: Test individual components in isolation
+- Template tag rendering and output
+- Configuration validation
+- String formatting and parsing
+
+### Test Patterns
+
+- Use `tempfile.TemporaryDirectory()` for file system tests
+- Mock `subprocess.run` only when necessary to prevent external command execution
+- Use real Django management command testing with `call_command()`
+- Clean up test artifacts with helper functions like `cleanup_theme_app_dir()`
+
+### Example Test Structure
+
+```python
+def test_command_creates_files(settings):
+    """
+    GIVEN a Django project with Tailwind configured
+    WHEN the tailwind init command is run
+    THEN the necessary files and directories should be created
+    """
+    # Setup
+    app_name = f'test_theme_{str(uuid.uuid1()).replace("-", "_")}'
+
+    # Action
+    call_command("tailwind", "init", "--app-name", app_name, "--no-input")
+
+    # Assertions
+    assert os.path.exists(expected_file_path)
+
+    # Cleanup
+    cleanup_theme_app_dir(app_name)
+```
+
 The package follows Django's standard app structure and uses Poetry for dependency management.

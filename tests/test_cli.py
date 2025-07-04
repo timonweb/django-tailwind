@@ -11,6 +11,11 @@ from .conftest import cleanup_theme_app_dir
 
 @pytest.mark.parametrize("no_package_lock", [True, False])
 def test_tailwind_install_and_build_v3(no_package_lock, settings):
+    """
+    GIVEN a new Tailwind v3 app is initialized
+    WHEN the install and build commands are run with optional package-lock settings
+    THEN the app structure, dependencies, and CSS output should be created correctly
+    """
     app_name = f'test_theme_{str(uuid.uuid1()).replace("-", "_")}'
 
     call_command("tailwind", "init", "--app-name", app_name, "--no-input", "--tailwind-version", "3")
@@ -51,6 +56,11 @@ def test_tailwind_install_and_build_v3(no_package_lock, settings):
 
 @pytest.mark.parametrize("no_package_lock", [True, False])
 def test_tailwind_install_and_build_v4(no_package_lock, settings):
+    """
+    GIVEN a new Tailwind v4 app is initialized
+    WHEN the install and build commands are run with optional package-lock settings
+    THEN the app structure, dependencies, and CSS output should be created correctly without tailwind.config.js
+    """
     app_name = f'test_theme_{str(uuid.uuid1()).replace("-", "_")}'
 
     call_command("tailwind", "init", "--app-name", app_name, "--no-input")

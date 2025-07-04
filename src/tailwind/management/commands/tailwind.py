@@ -1,4 +1,5 @@
 import os
+import subprocess
 
 from django.core.management.base import CommandError, LabelCommand
 
@@ -125,8 +126,6 @@ Usage example:
         self.npm_command("run", "start")
 
     def handle_dev_command(self, **options):
-        import subprocess
-
         # Check if honcho is installed
         try:
             subprocess.run(["honcho", "--version"], check=True, capture_output=True)
