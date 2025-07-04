@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.1.0
+- Adds new `dev` command that starts Django development server and Tailwind watcher simultaneously;
+- Automatically installs Honcho if not available when using `dev` command;
+- Creates `Procfile.tailwind` for customizable process management;
+- Updates documentation with `dev` command usage;
+
 ## 4.0.0
 - Adds support for Tailwind CSS v4+;
 - Sets Tailwind CSS v4+ as the default version, with the option to use v3.x via `--tailwind-version 3` flag;
