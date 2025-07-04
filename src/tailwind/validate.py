@@ -17,6 +17,7 @@ class Validations:
             "install",
             "npm",
             "start",
+            "dev",
             "build",
             "check-updates",
             "update",

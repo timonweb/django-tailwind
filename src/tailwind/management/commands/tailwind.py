@@ -17,6 +17,7 @@ Command argument is missing, please add one of the following:
   install - to install npm packages necessary to build tailwind css
   build - to compile tailwind css into production css
   start - to start watching css changes for dev
+  dev - to start Django server and Tailwind watcher simultaneously
   check-updates - to list possible updates for tailwind css and its dependencies
   update - to update tailwind css and its dependencies
 Usage example:
@@ -122,6 +123,42 @@ Usage example:
 
     def handle_start_command(self, **options):
         self.npm_command("run", "start")
+
+    def handle_dev_command(self, **options):
+        import subprocess
+
+        # Check if honcho is installed
+        try:
+            subprocess.run(["honcho", "--version"], check=True, capture_output=True)
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            self.stdout.write("Honcho is not installed. Installing honcho...")
+            try:
+                install_pip_package("honcho")
+                self.stdout.write(self.style.SUCCESS("Honcho installed successfully!"))
+            except Exception as err:
+                raise CommandError(f"Failed to install honcho: {err}")
+
+        # Check if Procfile.tailwind exists, create if not
+        procfile_path = os.path.join(os.getcwd(), "Procfile.tailwind")
+        if not os.path.exists(procfile_path):
+            self.stdout.write("Creating Procfile.tailwind...")
+            procfile_content = """django: python manage.py runserver
+tailwind: python manage.py tailwind start"""
+            with open(procfile_path, "w") as f:
+                f.write(procfile_content)
+            self.stdout.write(
+                self.style.SUCCESS(
+                    "Procfile.tailwind created! You can customize the Django runserver command in this file."
+                )
+            )
+
+        # Start honcho with the Procfile
+        try:
+            subprocess.run(["honcho", "-f", "Procfile.tailwind", "start"], check=True)
+        except subprocess.CalledProcessError as err:
+            raise CommandError(f"Failed to start honcho: {err}")
+        except KeyboardInterrupt:
+            self.stdout.write("\nStopping development servers...")
 
     def handle_check_updates_command(self, **options):
         self.npm_command("outdated")
