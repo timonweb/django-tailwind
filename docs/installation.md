@@ -220,11 +220,3 @@ NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 
 Please note that the path to the `npm` executable may be different for your system. To get the `npm` path, try running
 the command `which npm` in your terminal. (On *Windows*, please try `where npm` or `Get-Command npm`)
-
-If you share code with others, you can search `$PATH` (and `$PATHEXT` on Windows) dynamically in *settings.py*:
-
-```python
-from shutil import which
-
-NPM_BIN_PATH = which("npm")
-```
