@@ -125,14 +125,21 @@
     ]
     ```
 
-12. Finally, you should be able to use *Tailwind CSS* classes in HTML. Start the development server by running the
-    following command in your terminal:
+12. Finally, you should be able to use *Tailwind CSS* classes in HTML. You have two options to start development:
+
+    **Option 1 (Recommended):** Start both Django and Tailwind development servers simultaneously:
+
+    ```bash
+    python manage.py tailwind dev
+    ```
+
+    **Option 2:** Start only the Tailwind watcher (you'll need to run `python manage.py runserver` separately):
 
     ```bash
     python manage.py tailwind start
     ```
 
-    Check out the [Usage](./usage.md) section for information about the production mode.
+    Check out the [Usage](./usage.md) section for more details and information about the production mode.
 
 ## Optional configurations
 

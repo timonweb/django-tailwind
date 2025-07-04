@@ -9,6 +9,7 @@ This project aims to provide a comfortable way of using the *Tailwind CSS* frame
 * Hot reloading of CSS, configuration files, and *Django* templates. No more manual page refreshes!
 * Out of the box support for CSS imports, SASS-like variables, and nesting;
 * Supports the latest *Tailwind CSS* `v4.x`;
+* Start both *Tailwind CSS* and *Django* development servers with a single command;
 
 ## Requirements
 Python 3.10 or newer with Django >= 4.2.20 or newer.

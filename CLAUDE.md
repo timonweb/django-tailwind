@@ -63,6 +63,9 @@ python manage.py tailwind install
 # Start Tailwind development server (watches for changes)
 python manage.py tailwind start
 
+# Start both Django server and Tailwind watcher simultaneously
+python manage.py tailwind dev
+
 # Build production CSS
 python manage.py tailwind build
 ```
@@ -73,8 +76,9 @@ python manage.py tailwind build
 
 - **Management Command** (`src/tailwind/management/commands/tailwind.py`):
   - Main entry point for all Tailwind operations
-  - Handles `init`, `install`, `build`, `start`, `check-updates`, `update` commands
+  - Handles `init`, `install`, `build`, `start`, `dev`, `check-updates`, `update` commands
   - Uses cookiecutter templates for app initialization
+  - `dev` command runs Django server and Tailwind watcher simultaneously using Honcho
 
 - **NPM Integration** (`src/tailwind/npm.py`):
   - Wrapper around npm commands
