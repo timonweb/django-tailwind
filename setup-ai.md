@@ -209,9 +209,76 @@ if settings.DEBUG:
     ]
 ```
 
-**Validation**: Test configuration:
+**Validation**: Test configuration and verify DEBUG conditions:
 ```bash
 python manage.py check
+```
+
+**⚠️ CRITICAL VALIDATION**: Check that django_browser_reload is properly configured with DEBUG conditions:
+
+1. **Check settings.py** - django_browser_reload should ONLY be in INSTALLED_APPS and MIDDLEWARE with `if DEBUG:`:
+   - ✅ **CORRECT**: `if DEBUG: INSTALLED_APPS += ['django_browser_reload']`
+   - ❌ **WRONG**: `'django_browser_reload'` directly in INSTALLED_APPS list
+   - ✅ **CORRECT**: `if DEBUG: MIDDLEWARE += ['django_browser_reload.middleware.BrowserReloadMiddleware']`
+   - ❌ **WRONG**: `'django_browser_reload.middleware.BrowserReloadMiddleware'` directly in MIDDLEWARE list
+
+2. **Check urls.py** - django_browser_reload URLs should ONLY be added with `if settings.DEBUG:`:
+   - ✅ **CORRECT**: `if settings.DEBUG: urlpatterns += [path("__reload__/", include("django_browser_reload.urls"))]`
+   - ❌ **WRONG**: `path("__reload__/", include("django_browser_reload.urls"))` directly in urlpatterns list
+
+**If you find django_browser_reload configured WITHOUT DEBUG conditions, you MUST fix it immediately:**
+
+**Fix for INSTALLED_APPS (if wrongly added directly):**
+```python
+# WRONG - Remove this:
+INSTALLED_APPS = [
+    # ... apps
+    'django_browser_reload',  # ❌ Remove this line
+]
+
+# CORRECT - Replace with this:
+INSTALLED_APPS = [
+    # ... apps
+]
+
+if DEBUG:
+    INSTALLED_APPS += ['django_browser_reload']
+```
+
+**Fix for MIDDLEWARE (if wrongly added directly):**
+```python
+# WRONG - Remove this:
+MIDDLEWARE = [
+    # ... middleware
+    'django_browser_reload.middleware.BrowserReloadMiddleware',  # ❌ Remove this line
+]
+
+# CORRECT - Replace with this:
+MIDDLEWARE = [
+    # ... middleware
+]
+
+if DEBUG:
+    MIDDLEWARE += ['django_browser_reload.middleware.BrowserReloadMiddleware']
+```
+
+**Fix for urlpatterns (if wrongly added directly):**
+```python
+# WRONG - Remove this:
+urlpatterns = [
+    # ... patterns
+    path("__reload__/", include("django_browser_reload.urls")),  # ❌ Remove this line
+]
+
+# CORRECT - Replace with this:
+urlpatterns = [
+    # ... patterns
+]
+
+if settings.DEBUG:
+    urlpatterns += [
+        path("__reload__/", include("django_browser_reload.urls")),
+    ]
 ```
 
 ### Step 5: Install Node.js Dependencies
