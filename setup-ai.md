@@ -93,15 +93,17 @@ pip install 'django-tailwind[reload]'
 python -c "import tailwind; print('django-tailwind installed successfully')"
 ```
 
-### Step 2: Add to INSTALLED_APPS
+### Step 2: Add ONLY 'tailwind' to INSTALLED_APPS
+
+**⚠️ CRITICAL**: Only add `'tailwind'` now. DO NOT add the theme app yet - it doesn't exist!
 
 **File**: `settings.py`
-**Action**: Add `'tailwind'` to INSTALLED_APPS
+**Action**: Add ONLY `'tailwind'` to INSTALLED_APPS
 
 ```python
 INSTALLED_APPS = [
     # ... existing apps
-    'tailwind',
+    'tailwind',  # Add ONLY this - do NOT add 'theme' yet!
     # ... other apps
 ]
 ```
@@ -113,12 +115,14 @@ python manage.py help tailwind
 
 ### Step 3: Initialize Tailwind App
 
-**⚠️ IMPORTANT FOR AGENTS**: Before proceeding, ASK the user for their preferred app name. Default is `theme` but users may want custom names like `styles`, `assets`, `ui`, etc.
+**⚠️ MANDATORY USER INTERACTION**: You MUST ASK the user for their preferred app name before proceeding.
 
-**USER INTERACTION REQUIRED:**
+**REQUIRED USER QUESTION:**
 ```
 "What would you like to name your Tailwind app? (Default: 'theme')"
 ```
+
+**⚠️ AGENT REQUIREMENT**: You MUST ask this question and wait for user response. Do not proceed without asking!
 
 **Command Options:**
 
@@ -387,11 +391,14 @@ python manage.py tailwind init --no-input
 
 ## Agent-Specific Considerations
 
-### For Automated Installation
-1. Always use `--no-input` flag
-2. Verify each step before proceeding
-3. Check for error messages in command output
-4. After successful setup, inform user to run: `python manage.py tailwind dev`
+### Critical Requirements for Agents
+1. **MANDATORY**: Ask user for app name before Step 3 (tailwind init)
+2. **MANDATORY**: Only add 'tailwind' to INSTALLED_APPS in Step 2
+3. **MANDATORY**: Add theme app to INSTALLED_APPS only AFTER Step 3 creates it
+4. Always use `--no-input` flag for tailwind commands
+5. Verify each step before proceeding
+6. Check for error messages in command output
+7. After successful setup, inform user to run: `python manage.py tailwind dev`
 
 ### Error Detection
 Watch for these error patterns:
@@ -448,6 +455,8 @@ RUN python manage.py collectstatic --no-input
 
 ## Quick Setup Script
 
+**⚠️ WARNING**: This script uses default 'theme' app name. Agents MUST still ask user for app name preference!
+
 **For rapid deployment, detect package manager and use appropriate commands:**
 
 ```bash
@@ -462,7 +471,8 @@ else
     pip install 'django-tailwind[reload]'
 fi
 
-# Initialize (adjust app name as needed)
+# IMPORTANT: Ask user for app name first, then:
+# Initialize (uses default 'theme' name - replace if user chose different name)
 python manage.py tailwind init --no-input
 
 # Install dependencies
