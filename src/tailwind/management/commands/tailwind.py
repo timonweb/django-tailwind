@@ -53,6 +53,11 @@ Usage example:
             action="store_true",
             help="Disables package-lock.json creation during install",
         )
+        parser.add_argument(
+            "--include-daisy-ui",
+            action="store_true",
+            help="Includes DaisyUI component library in the Tailwind project",
+        )
 
     def validate_app(self):
         try:
@@ -95,7 +100,10 @@ Usage example:
                 directory=f"app_template_v{options['tailwind_version']}",
                 no_input=options["no_input"],
                 overwrite_if_exists=False,
-                extra_context={"app_name": options["app_name"].strip() if options.get("app_name") else "theme"},
+                extra_context={
+                    "app_name": options["app_name"].strip() if options.get("app_name") else "theme",
+                    "include_daisy_ui": "y" if options.get("include_daisy_ui") else "n",
+                },
             )
 
             app_name = os.path.basename(app_path)

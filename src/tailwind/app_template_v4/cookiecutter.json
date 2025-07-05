@@ -1,5 +1,6 @@
 {
   "app_name": "",
+  "include_daisy_ui": "y",
   "_copy_without_render": [
     "templates/base.html"
   ]
