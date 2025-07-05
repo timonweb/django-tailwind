@@ -115,14 +115,17 @@ python manage.py help tailwind
 
 ### Step 3: Initialize Tailwind App
 
-**⚠️ MANDATORY USER INTERACTION**: You MUST ASK the user for their preferred app name before proceeding.
+**⚠️ MANDATORY USER INTERACTION**: You MUST determine the app name before proceeding.
 
-**REQUIRED USER QUESTION:**
-```
-"What would you like to name your Tailwind app? (Default: 'theme')"
-```
+**AGENT LOGIC:**
+1. **Check if user provided app name in initial prompt** - Look for mentions like "call it 'myapp'", "name it 'styles'", "use 'frontend' as app name", etc.
+2. **If app name NOT provided in initial prompt**, ask user:
+   ```
+   "What would you like to name your Tailwind app? (Default: 'theme')"
+   ```
+3. **If app name WAS provided in initial prompt**, use that name and proceed
 
-**⚠️ AGENT REQUIREMENT**: You MUST ask this question and wait for user response. Do not proceed without asking!
+**⚠️ AGENT REQUIREMENT**: You MUST determine the app name either from initial prompt or by asking. Do not proceed without a clear app name!
 
 **Command Options:**
 
@@ -459,7 +462,7 @@ python manage.py tailwind init --no-input
 ## Agent-Specific Considerations
 
 ### Critical Requirements for Agents
-1. **MANDATORY**: Ask user for app name before Step 3 (tailwind init)
+1. **MANDATORY**: Determine app name before Step 3 (from initial prompt OR by asking user)
 2. **MANDATORY**: Only add 'tailwind' to INSTALLED_APPS in Step 2
 3. **MANDATORY**: Add theme app to INSTALLED_APPS only AFTER Step 3 creates it
 4. **MANDATORY**: All django_browser_reload setup MUST use `if DEBUG:` conditions
