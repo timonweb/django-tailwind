@@ -1,4 +1,11 @@
 # Tailwind CSS integration for Django a.k.a. Django + Tailwind = 💚
+
+[![PyPI](https://img.shields.io/pypi/v/django-tailwind.svg?style=flat-square)](https://pypi.org/project/django-tailwind/)
+![GitHub](https://img.shields.io/github/license/timonweb/django-tailwind?style=flat-square)
+![Python versions](https://img.shields.io/pypi/pyversions/django-tailwind)
+[![Downloads](https://static.pepy.tech/badge/django-tailwind)](https://pepy.tech/project/django-tailwind)
+[![Downloads / Month](https://pepy.tech/badge/django-tailwind/month)](<https://pepy.tech/project/django-tailwind>)
+
 ![Django Tailwind Demo](https://raw.githubusercontent.com/timonweb/django-tailwind/master/docs/django-tailwind-demo-800.gif)
 
 ## Goal
@@ -66,7 +73,7 @@ The full documentation is at https://django-tailwind.readthedocs.io/ or in the [
    <h1 class="text-4xl font-bold text-blue-600">Hello Tailwind!</h1>
    ```
 
-That's it! 🎉 Your Django project now has Tailwind CSS with hot reloading.
+That's it! 🎉 Your Django project now has Tailwind CSS installed and ready to use.
 
 For configuring automatic page reloads during development, see the [Installation](docs/installation.md) instructions.
 
