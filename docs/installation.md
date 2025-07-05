@@ -97,19 +97,22 @@
     INSTALLED_APPS = [
       # other Django apps
       'tailwind',
-      'theme',
-      'django_browser_reload'
+      'theme'
     ]
+
+    if DEBUG:
+        # Add django_browser_reload only in DEBUG mode
+        INSTALLED_APPS += ['django_browser_reload']
     ```
 
 10. Staying in `settings.py`, add the middleware:
 
     ```python
-    MIDDLEWARE = [
-      # ...
-      "django_browser_reload.middleware.BrowserReloadMiddleware",
-      # ...
-    ]
+    if DEBUG:
+        # Add django_browser_reload middleware only in DEBUG mode
+        MIDDLEWARE += [
+            "django_browser_reload.middleware.BrowserReloadMiddleware",
+        ]
     ```
 
     The middleware should be listed after any that encode the response, such as Django’s `GZipMiddleware`. The
@@ -119,10 +122,17 @@
 
     ```python
     from django.urls import include, path
+    from django.conf import settings
+
     urlpatterns = [
-        ...,
-        path("__reload__/", include("django_browser_reload.urls")),
+        # other URL patterns
     ]
+
+    if settings.DEBUG:
+        # Include django_browser_reload URLs only in DEBUG mode
+        urlpatterns += [
+            path("__reload__/", include("django_browser_reload.urls")),
+        ]
     ```
 
 12. Finally, you should be able to use *Tailwind CSS* classes in HTML. You have two options to start development:
