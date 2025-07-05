@@ -122,10 +122,17 @@
 
     ```python
     from django.urls import include, path
+    from django.conf import settings
+
     urlpatterns = [
-        ...,
-        path("__reload__/", include("django_browser_reload.urls")),
+        # other URL patterns
     ]
+
+    if settings.DEBUG:
+        # Include django_browser_reload URLs only in DEBUG mode
+        urlpatterns += [
+            path("__reload__/", include("django_browser_reload.urls")),
+        ]
     ```
 
 12. Finally, you should be able to use *Tailwind CSS* classes in HTML. You have two options to start development:

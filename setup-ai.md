@@ -190,17 +190,23 @@ if DEBUG:
 ```
 
 **File**: Main `urls.py` (usually `myproject/urls.py`)
-**Action**: Add auto-reload URL pattern
+**Action**: Add auto-reload URL pattern ONLY in DEBUG mode
 
 ```python
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # ... your existing URL patterns
-    path("__reload__/", include("django_browser_reload.urls")),
 ]
+
+# Add django_browser_reload URL pattern only in DEBUG mode
+if settings.DEBUG:
+    urlpatterns += [
+        path("__reload__/", include("django_browser_reload.urls")),
+    ]
 ```
 
 **Validation**: Test configuration:
@@ -255,12 +261,6 @@ python manage.py tailwind build
     <!-- Your content -->
 </body>
 </html>
-```
-
-**Validation**: Test template rendering:
-```bash
-python manage.py runserver
-# Visit http://127.0.0.1:8000 and check if Tailwind styles apply
 ```
 
 ## Development Setup
@@ -395,10 +395,12 @@ python manage.py tailwind init --no-input
 1. **MANDATORY**: Ask user for app name before Step 3 (tailwind init)
 2. **MANDATORY**: Only add 'tailwind' to INSTALLED_APPS in Step 2
 3. **MANDATORY**: Add theme app to INSTALLED_APPS only AFTER Step 3 creates it
-4. Always use `--no-input` flag for tailwind commands
-5. Verify each step before proceeding
-6. Check for error messages in command output
-7. After successful setup, inform user to run: `python manage.py tailwind dev`
+4. **MANDATORY**: All django_browser_reload setup MUST use `if DEBUG:` conditions
+5. **FORBIDDEN**: Do NOT create any test views or test routes
+6. Always use `--no-input` flag for tailwind commands
+7. Verify each step before proceeding
+8. Check for error messages in command output
+9. After successful setup, inform user to run: `python manage.py tailwind dev`
 
 ### Error Detection
 Watch for these error patterns:
@@ -449,73 +451,6 @@ RUN python manage.py collectstatic --no-input
 - [ ] `python manage.py tailwind --help` shows available commands
 - [ ] CSS file exists: `theme/static/css/dist/styles.css`
 - [ ] Template tags load: `{% load tailwind_tags %}`
-- [ ] Tailwind classes apply in browser
-- [ ] Development server runs: `python manage.py runserver`
-- [ ] Tailwind watcher works: `python manage.py tailwind start`
-
-## Quick Setup Script
-
-**⚠️ WARNING**: This script uses default 'theme' app name. Agents MUST still ask user for app name preference!
-
-**For rapid deployment, detect package manager and use appropriate commands:**
-
-```bash
-# Auto-detect and install package
-if [ -f "uv.lock" ] && command -v uv &> /dev/null; then
-    uv add 'django-tailwind[reload]'
-elif [ -f "poetry.lock" ] && command -v poetry &> /dev/null; then
-    poetry add 'django-tailwind[reload]'
-elif [ -f "Pipfile" ] && command -v pipenv &> /dev/null; then
-    pipenv install 'django-tailwind[reload]'
-else
-    pip install 'django-tailwind[reload]'
-fi
-
-# IMPORTANT: Ask user for app name first, then:
-# Initialize (uses default 'theme' name - replace if user chose different name)
-python manage.py tailwind init --no-input
-
-# Install dependencies
-python manage.py tailwind install
-
-# Build CSS
-python manage.py tailwind build
-
-# Verify setup
-python manage.py check
-```
-
-**Then manually update settings.py:**
-```python
-INSTALLED_APPS = [
-    # ... existing apps
-    'tailwind',
-    'theme',
-]
-
-TAILWIND_APP_NAME = 'theme'
-
-# Add django_browser_reload only in DEBUG mode (development)
-if DEBUG:
-    INSTALLED_APPS += ['django_browser_reload']
-
-    # Add Browser Reload Middleware only in DEBUG mode
-    MIDDLEWARE += [
-        'django_browser_reload.middleware.BrowserReloadMiddleware',
-    ]
-```
-
-**And update main urls.py:**
-```python
-from django.contrib import admin
-from django.urls import path, include
-
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    # ... your existing URL patterns
-    path("__reload__/", include("django_browser_reload.urls")),
-]
-```
 
 ---
 
