@@ -147,6 +147,10 @@ python manage.py tailwind init --no-input --tailwind-version 3
 python manage.py tailwind init --no-input --app-name custom_theme --tailwind-version 3
 ```
 
+**⚠️ CRITICAL**: If using a custom app name, you MUST include the `--app-name` parameter with the exact name chosen by the user. Example:
+- User wants app named "styles" → `python manage.py tailwind init --no-input --app-name styles`
+- User wants app named "frontend" → `python manage.py tailwind init --no-input --app-name frontend`
+
 **What This Creates:**
 - New Django app (default name: `theme` or user's custom name)
 - Directory structure with `static_src/` and `templates/`
