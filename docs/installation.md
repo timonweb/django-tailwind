@@ -97,19 +97,22 @@
     INSTALLED_APPS = [
       # other Django apps
       'tailwind',
-      'theme',
-      'django_browser_reload'
+      'theme'
     ]
+
+    if DEBUG:
+        # Add django_browser_reload only in DEBUG mode
+        INSTALLED_APPS += ['django_browser_reload']
     ```
 
 10. Staying in `settings.py`, add the middleware:
 
     ```python
-    MIDDLEWARE = [
-      # ...
-      "django_browser_reload.middleware.BrowserReloadMiddleware",
-      # ...
-    ]
+    if DEBUG:
+        # Add django_browser_reload middleware only in DEBUG mode
+        MIDDLEWARE += [
+            "django_browser_reload.middleware.BrowserReloadMiddleware",
+        ]
     ```
 
     The middleware should be listed after any that encode the response, such as Django’s `GZipMiddleware`. The

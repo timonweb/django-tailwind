@@ -159,7 +159,7 @@ ls -la theme/static_src/src/styles.css
 
 ### Step 4: Update Django Settings
 
-**⚠️ AGENT INSTRUCTION**: Since you installed with `[reload]` option, ALWAYS configure the full auto-reload setup.
+**⚠️ AGENT INSTRUCTION**: Now that the Tailwind app has been created, add it to INSTALLED_APPS and configure auto-reload.
 
 **File**: `settings.py`
 **Actions**: Add generated app and configure Tailwind with auto-reload
@@ -169,19 +169,20 @@ INSTALLED_APPS = [
     # ... existing apps
     'tailwind',
     'theme',  # Replace with your custom app name if different
-    'django_browser_reload',  # Required for auto-reload functionality
     # ... other apps
 ]
 
 # Configure Tailwind app name
 TAILWIND_APP_NAME = 'theme'  # Replace with your custom app name if different
 
-# Add Browser Reload Middleware
-MIDDLEWARE = [
-    # ... existing middleware
-    'django_browser_reload.middleware.BrowserReloadMiddleware',
-    # ... other middleware
-]
+# Add django_browser_reload only in DEBUG mode (development)
+if DEBUG:
+    INSTALLED_APPS += ['django_browser_reload']
+
+    # Add Browser Reload Middleware only in DEBUG mode
+    MIDDLEWARE += [
+        'django_browser_reload.middleware.BrowserReloadMiddleware',
+    ]
 ```
 
 **File**: Main `urls.py` (usually `myproject/urls.py`)
@@ -480,17 +481,18 @@ INSTALLED_APPS = [
     # ... existing apps
     'tailwind',
     'theme',
-    'django_browser_reload',  # Required for auto-reload
 ]
 
 TAILWIND_APP_NAME = 'theme'
 
-# Add Browser Reload Middleware
-MIDDLEWARE = [
-    # ... existing middleware
-    'django_browser_reload.middleware.BrowserReloadMiddleware',
-    # ... other middleware
-]
+# Add django_browser_reload only in DEBUG mode (development)
+if DEBUG:
+    INSTALLED_APPS += ['django_browser_reload']
+
+    # Add Browser Reload Middleware only in DEBUG mode
+    MIDDLEWARE += [
+        'django_browser_reload.middleware.BrowserReloadMiddleware',
+    ]
 ```
 
 **And update main urls.py:**
