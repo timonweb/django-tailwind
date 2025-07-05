@@ -9,7 +9,7 @@
 ### 1. System Requirements
 - [ ] Python >= 3.10 installed
 - [ ] Django >= 4.2.20 installed
-- [ ] Node.js installed (any recent version)
+- [ ] **Node.js MUST be installed** (any recent version) - **AGENT CANNOT INSTALL THIS**
 - [ ] npm available in PATH
 
 ### 2. Project Requirements
@@ -37,15 +37,54 @@ python manage.py check
 
 ### Step 1: Install Django-Tailwind Package
 
-**Choose installation method:**
+**IMPORTANT**: Detect project's package manager first, then use appropriate installation method.
 
-#### Option A: Standard Installation
+#### Auto-Detect Package Manager
 ```bash
-pip install django-tailwind
+# Check for package managers in order of preference
+if [ -f "uv.lock" ] || [ -f "pyproject.toml" ] && command -v uv &> /dev/null; then
+    echo "Using uv"
+    PKG_MANAGER="uv"
+elif [ -f "poetry.lock" ] || [ -f "pyproject.toml" ] && command -v poetry &> /dev/null; then
+    echo "Using poetry"
+    PKG_MANAGER="poetry"
+elif [ -f "Pipfile" ] && command -v pipenv &> /dev/null; then
+    echo "Using pipenv"
+    PKG_MANAGER="pipenv"
+elif [ -f "requirements.txt" ] || [ -f "setup.py" ] || [ -f "setup.cfg" ]; then
+    echo "Using pip"
+    PKG_MANAGER="pip"
+else
+    echo "Using pip (default)"
+    PKG_MANAGER="pip"
+fi
 ```
 
-#### Option B: With Auto-Reload (Recommended)
+#### Installation Commands by Package Manager
+
+**⚠️ AGENT INSTRUCTION**: Always install with `[reload]` option by default for best development experience.
+
+##### If using uv
 ```bash
+# Default installation (with auto-reload)
+uv add 'django-tailwind[reload]'
+```
+
+##### If using Poetry
+```bash
+# Default installation (with auto-reload)
+poetry add 'django-tailwind[reload]'
+```
+
+##### If using Pipenv
+```bash
+# Default installation (with auto-reload)
+pipenv install 'django-tailwind[reload]'
+```
+
+##### If using pip
+```bash
+# Default installation (with auto-reload)
 pip install 'django-tailwind[reload]'
 ```
 
@@ -74,25 +113,35 @@ python manage.py help tailwind
 
 ### Step 3: Initialize Tailwind App
 
+**⚠️ IMPORTANT FOR AGENTS**: Before proceeding, ASK the user for their preferred app name. Default is `theme` but users may want custom names like `styles`, `assets`, `ui`, etc.
+
+**USER INTERACTION REQUIRED:**
+```
+"What would you like to name your Tailwind app? (Default: 'theme')"
+```
+
 **Command Options:**
 
 #### Default (Tailwind CSS v4, recommended)
 ```bash
+# If user chose default 'theme' name
 python manage.py tailwind init --no-input
-```
 
-#### For Custom App Name
-```bash
+# If user chose custom name (replace 'custom_theme' with user's choice)
 python manage.py tailwind init --no-input --app-name custom_theme
 ```
 
 #### For Tailwind CSS v3 (legacy)
 ```bash
+# If user chose default 'theme' name
 python manage.py tailwind init --no-input --tailwind-version 3
+
+# If user chose custom name (replace 'custom_theme' with user's choice)
+python manage.py tailwind init --no-input --app-name custom_theme --tailwind-version 3
 ```
 
 **What This Creates:**
-- New Django app (default name: `theme`)
+- New Django app (default name: `theme` or user's custom name)
 - Directory structure with `static_src/` and `templates/`
 - `package.json` with build scripts
 - PostCSS configuration
@@ -110,42 +159,41 @@ ls -la theme/static_src/src/styles.css
 
 ### Step 4: Update Django Settings
 
+**⚠️ AGENT INSTRUCTION**: Since you installed with `[reload]` option, ALWAYS configure the full auto-reload setup.
+
 **File**: `settings.py`
-**Actions**: Add generated app and configure Tailwind
+**Actions**: Add generated app and configure Tailwind with auto-reload
 
 ```python
 INSTALLED_APPS = [
     # ... existing apps
     'tailwind',
     'theme',  # Replace with your custom app name if different
+    'django_browser_reload',  # Required for auto-reload functionality
     # ... other apps
 ]
 
 # Configure Tailwind app name
 TAILWIND_APP_NAME = 'theme'  # Replace with your custom app name if different
-```
 
-**Optional Auto-Reload Setup** (if installed with `[reload]`):
-```python
-INSTALLED_APPS = [
-    # ... existing apps
-    'tailwind',
-    'theme',
-    'django_browser_reload',  # Add this for auto-reload
-    # ... other apps
-]
-
+# Add Browser Reload Middleware
 MIDDLEWARE = [
     # ... existing middleware
     'django_browser_reload.middleware.BrowserReloadMiddleware',
     # ... other middleware
 ]
+```
 
-# Add to urlpatterns in main urls.py
-from django.urls import include, path
+**File**: Main `urls.py` (usually `myproject/urls.py`)
+**Action**: Add auto-reload URL pattern
+
+```python
+from django.contrib import admin
+from django.urls import path, include
 
 urlpatterns = [
-    # ... existing patterns
+    path('admin/', admin.site.urls),
+    # ... your existing URL patterns
     path("__reload__/", include("django_browser_reload.urls")),
 ]
 ```
@@ -258,9 +306,13 @@ NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 ### Issue 1: Node.js/npm Not Found
 **Error**: `OSError: It looks like node.js and/or npm is not installed`
 
-**Solution**:
-1. Install Node.js from https://nodejs.org/
-2. Or set custom npm path in settings:
+**⚠️ AGENT MUST NOT INSTALL NODE.JS AUTOMATICALLY**
+
+**Solution for Agent:**
+1. **STOP** - Ask user to install Node.js first
+2. Inform user: "Node.js is required but not installed. Please install Node.js from https://nodejs.org/ and then re-run this setup."
+3. Offer to help after user installs Node.js
+4. Alternative: If user has Node.js but different path, ask for custom npm path:
    ```python
    NPM_BIN_PATH = '/path/to/npm'
    ```
@@ -338,7 +390,7 @@ python manage.py tailwind init --no-input
 1. Always use `--no-input` flag
 2. Verify each step before proceeding
 3. Check for error messages in command output
-4. Test final setup with simple HTML
+4. After successful setup, inform user to run: `python manage.py tailwind dev`
 
 ### Error Detection
 Watch for these error patterns:
@@ -395,11 +447,19 @@ RUN python manage.py collectstatic --no-input
 
 ## Quick Setup Script
 
-**For rapid deployment, use this command sequence:**
+**For rapid deployment, detect package manager and use appropriate commands:**
 
 ```bash
-# Install package
-pip install 'django-tailwind[reload]'
+# Auto-detect and install package
+if [ -f "uv.lock" ] && command -v uv &> /dev/null; then
+    uv add 'django-tailwind[reload]'
+elif [ -f "poetry.lock" ] && command -v poetry &> /dev/null; then
+    poetry add 'django-tailwind[reload]'
+elif [ -f "Pipfile" ] && command -v pipenv &> /dev/null; then
+    pipenv install 'django-tailwind[reload]'
+else
+    pip install 'django-tailwind[reload]'
+fi
 
 # Initialize (adjust app name as needed)
 python manage.py tailwind init --no-input
@@ -420,10 +480,29 @@ INSTALLED_APPS = [
     # ... existing apps
     'tailwind',
     'theme',
-    'django_browser_reload',  # if using reload
+    'django_browser_reload',  # Required for auto-reload
 ]
 
 TAILWIND_APP_NAME = 'theme'
+
+# Add Browser Reload Middleware
+MIDDLEWARE = [
+    # ... existing middleware
+    'django_browser_reload.middleware.BrowserReloadMiddleware',
+    # ... other middleware
+]
+```
+
+**And update main urls.py:**
+```python
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    # ... your existing URL patterns
+    path("__reload__/", include("django_browser_reload.urls")),
+]
 ```
 
 ---
