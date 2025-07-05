@@ -153,6 +153,25 @@
 
 ## Optional configurations
 
+### @source directive configuration (for Tailwind CSS v4)
+
+The `content` section from Tailwind CSS v3 has been replaced with the `@source` directive in Tailwind CSS v4.
+The `@source` directive is a new way to specify the source files that Tailwind CSS should scan for class names. It's
+placed in the `style.css` file.
+
+By default, it looks like this:
+
+```css
+@source "../../**/*.{html,py,js}";
+```
+
+This means that Tailwind CSS will scan all HTML, Python, and JavaScript files in all directories starting from the
+three directories above the `style.css` file. Depending on your project structure, you might need to adjust the
+`@source` directive to suit your specific project layout.
+
+For more information about setting `@source`, check out the *"Source Configuration"* page of the Tailwind CSS docs:
+[https://tailwindcss.com/docs/detecting-classes-in-source-files#explicitly-registering-sources](https://tailwindcss.com/docs/detecting-classes-in-source-files#explicitly-registering-sources).
+
 ### Content (formerly Purge) rules configuration (for Tailwind CSS v3)
 
 The `content` section of your `tailwind.config.js` file is where you configure the paths to all of your HTML templates,
@@ -186,25 +205,6 @@ HTML files (or files containing HTML content, such as `.vue` or `.jsx` files) ar
 
 For more information about setting `content`, check out the *"Content Configuration"* page of the Tailwind CSS
 docs: [https://tailwindcss.com/docs/content-configuration](https://tailwindcss.com/docs/content-configuration).
-
-### @source directive configuration (for Tailwind CSS v4)
-
-The `content` section from Tailwind CSS v3 has been replaced with the `@source` directive in Tailwind CSS v4.
-The `@source` directive is a new way to specify the source files that Tailwind CSS should scan for class names. It's
-placed in the `style.css` file.
-
-By default, it looks like this:
-
-```css
-@source "../../**/*.{html,py,js}";
-```
-
-This means that Tailwind CSS will scan all HTML, Python, and JavaScript files in all directories starting from the
-three directories above the `style.css` file. Depending on your project structure, you might need to adjust the
-`@source` directive to suit your specific project layout.
-
-For more information about setting `@source`, check out the *"Source Configuration"* page of the Tailwind CSS docs:
-[https://tailwindcss.com/docs/detecting-classes-in-source-files#explicitly-registering-sources](https://tailwindcss.com/docs/detecting-classes-in-source-files#explicitly-registering-sources).
 
 ### Configuration of the path to the `npm` executable
 
