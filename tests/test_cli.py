@@ -1,3 +1,4 @@
+import json
 import os
 import uuid
 
@@ -95,5 +96,50 @@ def test_tailwind_install_and_build_v4(no_package_lock, settings):
     assert os.path.isfile(
         os.path.join(get_app_path(app_name), "static", "css", "dist", "styles.css")
     ), "Tailwind has built a css/styles.css file"
+
+    # DaisyUI should NOT be present in package.json
+    with open(package_json_path, "r") as f:
+        package_json = json.load(f)
+    assert "daisyui" not in package_json["devDependencies"], "DaisyUI dependency is NOT present in package.json"
+
+    styles_css_path = os.path.join(get_app_path(app_name), "static_src", "src", "styles.css")
+    assert os.path.isfile(styles_css_path), "styles.css file exists"
+    with open(styles_css_path, "r") as f:
+        styles_content = f.read()
+    assert '@plugin "daisyui";' not in styles_content, "DaisyUI plugin is NOT included in styles.css"
+
+    cleanup_theme_app_dir(app_name)
+
+
+def test_tailwind_init_with_daisy_ui_v4(settings):
+    """
+    GIVEN a new Tailwind v4 app is initialized with the --include-daisy-ui flag
+    WHEN the init command is run
+    THEN the DaisyUI dependency should be included in package.json and styles.css should include the plugin
+    """
+    app_name = f'test_theme_{str(uuid.uuid1()).replace("-", "_")}'
+
+    call_command("tailwind", "init", "--app-name", app_name, "--no-input", "--include-daisy-ui")
+
+    settings.INSTALLED_APPS += [app_name]
+
+    assert os.path.isfile(os.path.join(get_app_path(app_name), "apps.py")), 'The "theme" app has been generated'
+
+    package_json_path = os.path.join(get_app_path(app_name), "static_src", "package.json")
+    assert os.path.isfile(package_json_path), "package.json file exists"
+
+    with open(package_json_path, "r") as f:
+        package_json = json.load(f)
+
+    assert "daisyui" in package_json["devDependencies"], "DaisyUI dependency is present in package.json"
+    assert package_json["devDependencies"]["daisyui"] == "^5.0.43", "DaisyUI version is correct"
+
+    styles_css_path = os.path.join(get_app_path(app_name), "static_src", "src", "styles.css")
+    assert os.path.isfile(styles_css_path), "styles.css file exists"
+
+    with open(styles_css_path, "r") as f:
+        styles_content = f.read()
+
+    assert '@plugin "daisyui";' in styles_content, "DaisyUI plugin is included in styles.css"
 
     cleanup_theme_app_dir(app_name)
