@@ -1,4 +1,12 @@
 # Tailwind CSS integration for Django a.k.a. Django + Tailwind = 💚
+
+[![PyPI](https://img.shields.io/pypi/v/django-tailwind.svg?style=flat-square)](https://pypi.org/project/django-tailwind/)
+![GitHub](https://img.shields.io/github/license/timonweb/django-tailwind?style=flat-square)
+![Django versions](https://img.shields.io/pypi/frameworkversions/django/django-tailwind)
+![Python versions](https://img.shields.io/pypi/pyversions/django-tailwind)
+[![Downloads](https://static.pepy.tech/badge/django-tailwind)](https://pepy.tech/project/django-tailwind)
+[![Downloads / Month](https://pepy.tech/badge/django-tailwind/month)](<https://pepy.tech/project/django-tailwind>)
+
 ![Django Tailwind Demo](https://raw.githubusercontent.com/timonweb/django-tailwind/master/docs/django-tailwind-demo-800.gif)
 
 ## Goal
