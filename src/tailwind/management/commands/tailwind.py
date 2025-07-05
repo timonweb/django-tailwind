@@ -21,6 +21,7 @@ Command argument is missing, please add one of the following:
   dev - to start Django server and Tailwind watcher simultaneously
   check-updates - to list possible updates for tailwind css and its dependencies
   update - to update tailwind css and its dependencies
+  plugin_install <plugin-name> - to install and configure a tailwind plugin
 Usage example:
   python manage.py tailwind start
 """
@@ -172,6 +173,54 @@ tailwind: python manage.py tailwind start"""
 
     def handle_update_command(self, **options):
         self.npm_command("update")
+
+    def handle_plugin_install_command(self, *labels, **options):
+        if not labels:
+            raise CommandError(
+                "Plugin name is required. Usage: python manage.py tailwind plugin_install <plugin-name>"
+            )
+
+        plugin_name = labels[0]
+
+        # Install the npm package
+        self.stdout.write(f"Installing {plugin_name} npm package...")
+        try:
+            self.npm_command("install", plugin_name, "--save-dev")
+            self.stdout.write(self.style.SUCCESS(f"Successfully installed {plugin_name} npm package"))
+        except Exception as err:
+            raise CommandError(f"Failed to install {plugin_name}: {err}")
+
+        # Update styles.css to include the plugin
+        app_name = get_config("TAILWIND_APP_NAME")
+        styles_path = os.path.join(get_tailwind_src_path(app_name), "src", "styles.css")
+
+        if not os.path.exists(styles_path):
+            raise CommandError(f"styles.css not found at {styles_path}")
+
+        # Read current styles.css content
+        with open(styles_path, "r") as f:
+            content = f.read()
+
+        # Check if plugin is already included
+        plugin_line = f'@plugin "{plugin_name}";'
+        if plugin_line in content:
+            self.stdout.write(self.style.WARNING(f"Plugin {plugin_name} is already included in styles.css"))
+            return
+
+        # Add plugin line after @import "tailwindcss"
+        import_line = '@import "tailwindcss";'
+        if import_line not in content:
+            raise CommandError('Could not find @import "tailwindcss"; in styles.css')
+
+        # Insert plugin line after the import
+        new_content = content.replace(import_line, f'{import_line}\n@plugin "{plugin_name}";\n')
+
+        # Write updated content back to file
+        with open(styles_path, "w") as f:
+            f.write(new_content)
+
+        self.stdout.write(self.style.SUCCESS(f"Successfully added {plugin_name} to styles.css"))
+        self.stdout.write(f"Plugin {plugin_name} has been installed and configured!")
 
     def npm_command(self, *args):
         try:

@@ -21,6 +21,7 @@ class Validations:
             "build",
             "check-updates",
             "update",
+            "plugin_install",
         ]:
             raise ValidationError(f"Subcommand {label} doesn't exist")
 
