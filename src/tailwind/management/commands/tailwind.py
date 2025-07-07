@@ -103,7 +103,7 @@ Usage example:
                 overwrite_if_exists=False,
                 extra_context={
                     "app_name": options["app_name"].strip() if options.get("app_name") else "theme",
-                    "include_daisy_ui": "y" if options.get("include_daisy_ui") else "n",
+                    "include_daisy_ui": "yes" if options.get("include_daisy_ui") else "no",
                 },
             )
 
@@ -127,6 +127,9 @@ Usage example:
             args.append("--no-package-lock")
 
         self.npm_command(*args)
+
+        # Run the build command after installation
+        self.npm_command("run", "build")
 
     def handle_build_command(self, **options):
         self.npm_command("run", "build")

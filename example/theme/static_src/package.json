@@ -14,6 +14,7 @@
   "license": "MIT",
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.11",
+    "daisyui": "^5.0.43",
     "cross-env": "^7.0.3",
     "postcss": "^8.5.6",
     "postcss-cli": "^11.0.1",
