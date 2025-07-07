@@ -1,4 +1,5 @@
-@import "tailwindcss";
+@import "tailwindcss";{% if cookiecutter.include_daisy_ui == 'yes' %}
+@plugin "daisyui";{% endif %}
 
 /**
   * A catch-all path to Django template files, JavaScript, and Python files

@@ -16,5 +16,6 @@ Contents
 * [Usage](usage.md)
 * [Settings](settings.md)
 * [Template tags](templatetags.md)
+* [Installing Tailwind Plugins](plugins.md)
 * [Updating Tailwind CSS and its dependencies](updating.md)
 * [Running in Docker](docker.md)

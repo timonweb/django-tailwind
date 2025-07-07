@@ -1,6 +1,11 @@
 {
   "app_name": "",
-  "_copy_without_render": [
-    "templates/base.html"
-  ]
+  "include_daisy_ui": [
+    "yes",
+    "no"
+  ],
+  "__prompts__": {
+    "app_name": "Your Tailwind app/theme name",
+    "include_daisy_ui": "Include daisyUI plugin?"
+  }
 }

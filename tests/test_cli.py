@@ -1,3 +1,4 @@
+import json
 import os
 import uuid
 
@@ -95,5 +96,198 @@ def test_tailwind_install_and_build_v4(no_package_lock, settings):
     assert os.path.isfile(
         os.path.join(get_app_path(app_name), "static", "css", "dist", "styles.css")
     ), "Tailwind has built a css/styles.css file"
+
+    # DaisyUI should NOT be present in package.json
+    with open(package_json_path, "r") as f:
+        package_json = json.load(f)
+    assert "daisyui" not in package_json["devDependencies"], "DaisyUI dependency is NOT present in package.json"
+
+    styles_css_path = os.path.join(get_app_path(app_name), "static_src", "src", "styles.css")
+    assert os.path.isfile(styles_css_path), "styles.css file exists"
+    with open(styles_css_path, "r") as f:
+        styles_content = f.read()
+    assert '@plugin "daisyui";' not in styles_content, "DaisyUI plugin is NOT included in styles.css"
+
+    # Check that DaisyUI markup is NOT present in base.html
+    base_html_path = os.path.join(get_app_path(app_name), "templates", "base.html")
+    assert os.path.isfile(base_html_path), "base.html file exists"
+    with open(base_html_path, "r") as f:
+        base_html_content = f.read()
+    assert "toast toast-top toast-end" not in base_html_content, "DaisyUI toast markup is NOT present in base.html"
+    assert "alert alert-info" not in base_html_content, "DaisyUI alert markup is NOT present in base.html"
+    assert "Hello from daisyUi" not in base_html_content, "DaisyUI greeting text is NOT present in base.html"
+
+    cleanup_theme_app_dir(app_name)
+
+
+def test_tailwind_init_with_daisy_ui_v4(settings):
+    """
+    GIVEN a new Tailwind v4 app is initialized with the --include-daisy-ui flag
+    WHEN the init command is run
+    THEN the DaisyUI dependency should be included in package.json and styles.css should include the plugin
+    """
+    app_name = f'test_theme_{str(uuid.uuid1()).replace("-", "_")}'
+
+    call_command("tailwind", "init", "--app-name", app_name, "--no-input", "--include-daisy-ui")
+
+    settings.INSTALLED_APPS += [app_name]
+
+    assert os.path.isfile(os.path.join(get_app_path(app_name), "apps.py")), 'The "theme" app has been generated'
+
+    package_json_path = os.path.join(get_app_path(app_name), "static_src", "package.json")
+    assert os.path.isfile(package_json_path), "package.json file exists"
+
+    with open(package_json_path, "r") as f:
+        package_json = json.load(f)
+
+    assert "daisyui" in package_json["devDependencies"], "DaisyUI dependency is present in package.json"
+
+    styles_css_path = os.path.join(get_app_path(app_name), "static_src", "src", "styles.css")
+    assert os.path.isfile(styles_css_path), "styles.css file exists"
+
+    with open(styles_css_path, "r") as f:
+        styles_content = f.read()
+
+    assert '@plugin "daisyui";' in styles_content, "DaisyUI plugin is included in styles.css"
+
+    # Check that DaisyUI markup is present in base.html
+    base_html_path = os.path.join(get_app_path(app_name), "templates", "base.html")
+    assert os.path.isfile(base_html_path), "base.html file exists"
+    with open(base_html_path, "r") as f:
+        base_html_content = f.read()
+    assert "toast toast-top toast-end" in base_html_content, "DaisyUI toast markup is present in base.html"
+    assert "alert alert-info" in base_html_content, "DaisyUI alert markup is present in base.html"
+    assert "Hello from daisyUi" in base_html_content, "DaisyUI greeting text is present in base.html"
+
+    cleanup_theme_app_dir(app_name)
+
+
+def test_tailwind_plugin_install_success(settings):
+    """
+    GIVEN a new Tailwind v4 app is initialized and installed
+    WHEN the plugin_install command is run with a valid plugin name
+    THEN the plugin should be installed via npm and added to styles.css
+    """
+    app_name = f'test_theme_{str(uuid.uuid1()).replace("-", "_")}'
+
+    call_command("tailwind", "init", "--app-name", app_name, "--no-input")
+
+    settings.INSTALLED_APPS += [app_name]
+    settings.TAILWIND_APP_NAME = app_name
+
+    call_command("tailwind", "install")
+
+    # Install a plugin
+    call_command("tailwind", "plugin_install", "@tailwindcss/typography")
+
+    # Check that plugin was added to package.json
+    package_json_path = os.path.join(get_app_path(app_name), "static_src", "package.json")
+    with open(package_json_path, "r") as f:
+        package_json = json.load(f)
+    assert "@tailwindcss/typography" in package_json["devDependencies"], "Plugin should be in devDependencies"
+
+    # Check that plugin was added to styles.css
+    styles_css_path = os.path.join(get_app_path(app_name), "static_src", "src", "styles.css")
+    with open(styles_css_path, "r") as f:
+        styles_content = f.read()
+    assert '@plugin "@tailwindcss/typography";' in styles_content, "Plugin directive should be in styles.css"
+    assert '@import "tailwindcss";' in styles_content, "Import directive should still be present"
+
+    # Check that plugin directive is after the import
+    import_index = styles_content.find('@import "tailwindcss";')
+    plugin_index = styles_content.find('@plugin "@tailwindcss/typography";')
+    assert import_index < plugin_index, "Plugin directive should come after import directive"
+
+    cleanup_theme_app_dir(app_name)
+
+
+def test_tailwind_plugin_install_duplicate_prevention(settings):
+    """
+    GIVEN a new Tailwind v4 app is initialized with a plugin already installed
+    WHEN the plugin_install command is run with the same plugin name
+    THEN the command should detect the duplicate and not add it again
+    """
+    app_name = f'test_theme_{str(uuid.uuid1()).replace("-", "_")}'
+
+    call_command("tailwind", "init", "--app-name", app_name, "--no-input")
+
+    settings.INSTALLED_APPS += [app_name]
+    settings.TAILWIND_APP_NAME = app_name
+
+    call_command("tailwind", "install")
+
+    # Install plugin first time
+    call_command("tailwind", "plugin_install", "@tailwindcss/typography")
+
+    # Try to install same plugin again
+    call_command("tailwind", "plugin_install", "@tailwindcss/typography")
+
+    # Check that plugin appears only once in styles.css
+    styles_css_path = os.path.join(get_app_path(app_name), "static_src", "src", "styles.css")
+    with open(styles_css_path, "r") as f:
+        styles_content = f.read()
+
+    plugin_count = styles_content.count('@plugin "@tailwindcss/typography";')
+    assert plugin_count == 1, "Plugin directive should appear only once"
+
+    cleanup_theme_app_dir(app_name)
+
+
+def test_tailwind_plugin_install_multiple_plugins(settings):
+    """
+    GIVEN a new Tailwind v4 app is initialized
+    WHEN multiple plugins are installed via plugin_install command
+    THEN all plugins should be properly added to package.json and styles.css
+    """
+    app_name = f'test_theme_{str(uuid.uuid1()).replace("-", "_")}'
+
+    call_command("tailwind", "init", "--app-name", app_name, "--no-input")
+
+    settings.INSTALLED_APPS += [app_name]
+    settings.TAILWIND_APP_NAME = app_name
+
+    call_command("tailwind", "install")
+
+    # Install multiple plugins
+    call_command("tailwind", "plugin_install", "@tailwindcss/forms")
+    call_command("tailwind", "plugin_install", "@tailwindcss/typography")
+
+    # Check package.json has both plugins
+    package_json_path = os.path.join(get_app_path(app_name), "static_src", "package.json")
+    with open(package_json_path, "r") as f:
+        package_json = json.load(f)
+    assert "@tailwindcss/forms" in package_json["devDependencies"], "First plugin should be in devDependencies"
+    assert "@tailwindcss/typography" in package_json["devDependencies"], "Second plugin should be in devDependencies"
+
+    # Check styles.css has both plugins
+    styles_css_path = os.path.join(get_app_path(app_name), "static_src", "src", "styles.css")
+    with open(styles_css_path, "r") as f:
+        styles_content = f.read()
+    assert '@plugin "@tailwindcss/forms";' in styles_content, "First plugin directive should be in styles.css"
+    assert '@plugin "@tailwindcss/typography";' in styles_content, "Second plugin directive should be in styles.css"
+
+    cleanup_theme_app_dir(app_name)
+
+
+def test_tailwind_plugin_install_no_plugin_name_error(settings):
+    """
+    GIVEN a new Tailwind v4 app is initialized
+    WHEN the plugin_install command is run without a plugin name
+    THEN it should raise a CommandError
+    """
+    app_name = f'test_theme_{str(uuid.uuid1()).replace("-", "_")}'
+
+    call_command("tailwind", "init", "--app-name", app_name, "--no-input")
+
+    settings.INSTALLED_APPS += [app_name]
+    settings.TAILWIND_APP_NAME = app_name
+
+    call_command("tailwind", "install")
+
+    # Try to install without plugin name
+    with pytest.raises(Exception) as exc_info:
+        call_command("tailwind", "plugin_install")
+
+    assert "Plugin name is required" in str(exc_info.value)
 
     cleanup_theme_app_dir(app_name)
