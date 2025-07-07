@@ -163,12 +163,17 @@ tailwind: python manage.py tailwind start"""
                 )
             )
 
-        # Extract and display the development server URL
-        server_url = extract_server_url_from_procfile(procfile_path)
-        if server_url:
-            self.stdout.write(self.style.SUCCESS(f"Starting development server at {server_url}"))
-        else:
-            self.stdout.write("Starting development server...")
+        # Print a message with the server URL
+        message = "🚀 Starting Tailwind watcher and Django development server"
+        line = "#" * (len(message) + 1)
+
+        self.stdout.write(line)
+        self.stdout.write(message)
+        if server_url := extract_server_url_from_procfile(procfile_path):
+            self.stdout.write(self.style.SUCCESS(f"   You can access the server at: {server_url}"))
+        self.stdout.write("   Press Ctrl+C to stop the servers")
+        self.stdout.write(line)
+        self.stdout.write("")
 
         # Start honcho with the Procfile
         try:

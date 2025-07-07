@@ -46,7 +46,7 @@ def extract_server_url_from_procfile(procfile_path):
             if line.strip().startswith("django:"):
                 command = line.split(":", 1)[1].strip()
                 protocol = extract_protocol_from_command(command)
-                port, host = extract_host_and_port(command)
+                host, port = extract_host_and_port(command)
                 return f"{protocol}://{host}:{port}/"
 
         return None
@@ -75,7 +75,7 @@ def extract_host_and_port(command):
     # Extract IP address/hostname pattern (IPv4, IPv6, or hostname)
     # Matches patterns like: 127.0.0.1, 0.0.0.0, localhost, example.com, ::1, [::1]
     host_match = re.search(
-        r"(?:^|\s)(?:\[?([a-fA-F0-9:]+)\]?|([0-9]{1,3}(?:\.[0-9]{1,3}){3})|([a-zA-Z0-9.-]+))(?::|$|\s)", command
+        r"(?:^|\s)(?:\[?([a-fA-F0-9:]+)\]?|([0-9]{1,3}(?:\.[0-9]{1,3}){3})|(localhost))(?::|$|\s)", command
     )
     if host_match:
         # Get the first non-None group (IPv6, IPv4, or hostname)
