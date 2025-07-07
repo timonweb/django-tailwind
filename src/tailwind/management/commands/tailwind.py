@@ -6,7 +6,7 @@ from django.core.management.base import CommandError, LabelCommand
 from tailwind import get_config
 
 from ...npm import NPM, NPMException
-from ...utils import get_tailwind_src_path, install_pip_package
+from ...utils import extract_server_url_from_procfile, get_tailwind_src_path, install_pip_package
 from ...validate import ValidationError, Validations
 
 
@@ -162,6 +162,13 @@ tailwind: python manage.py tailwind start"""
                     "Procfile.tailwind created! You can customize the Django runserver command in this file."
                 )
             )
+
+        # Extract and display the development server URL
+        server_url = extract_server_url_from_procfile(procfile_path)
+        if server_url:
+            self.stdout.write(self.style.SUCCESS(f"Starting development server at {server_url}"))
+        else:
+            self.stdout.write("Starting development server...")
 
         # Start honcho with the Procfile
         try:
