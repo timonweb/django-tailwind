@@ -1,29 +1,41 @@
 # Changelog
 
+## 4.2.0
+
+- Adds new `manage.py tailwind plugin_install` command to manage Tailwind CSS plugins;
+- Adds optional daisyUI support;
+
 ## 4.1.0
+
 - Adds new `dev` command that starts Django development server and Tailwind watcher simultaneously;
 - Automatically installs Honcho if not available when using `dev` command;
 - Creates `Procfile.tailwind` for customizable process management;
 - Updates documentation with `dev` command usage;
 
 ## 4.0.0
+
 - Adds support for Tailwind CSS v4+;
 - Sets Tailwind CSS v4+ as the default version, with the option to use v3.x via `--tailwind-version 3` flag;
 
 ## 3.9.1
+
 - Brings Python 3.10 support back;
 - Adds Python 3.13 support;
 
 ## 3.9.0
-- Adds `--no-package-lock` option to `python manage.py tailwind install` command to optionally skip creating `package-lock.json` file;
+
+- Adds `--no-package-lock` option to `python manage.py tailwind install` command to optionally skip creating
+  `package-lock.json` file;
 - Upgrades Tailwind CSS to `v3.4.17`;
 - Drops support for Python 3.10;
 - Drops support for Django 3.2;
 
 ## 3.8.0
+
 - Upgrades Tailwind CSS to `v3.4`. See what's new in [Tailwind CSS v3.4](https://tailwindcss.com/blog/tailwindcss-v3-4).
 
 ## 3.7.0
+
 - Upgrades Tailwind CSS dependencies;
 - Removes `@tailwindcss/line-clamp` dependency as it's now included in Tailwind by default;
 - Ensures Django 5.0 support;
@@ -32,33 +44,38 @@
 - Updates docs for Windows users;
 - Updates example Dockerfile;
 
-
 ## 3.6.0
+
 - Adds support for Django 4.2.
 - Stops caching CSS in DEBUG mode.
 - Makes django-browser-reload dependency optional to install by using the [reload] extras.
 - Adds instructions on how to contribute
 
 ## 3.5.0
+
 - Upgrades Tailwind CSS dependencies;
 - Updates Django dev dependencies;
 
 ## 3.4.0
+
 - Upgrades Tailwind CSS dependencies;
 - Updates Django dev dependencies;
 
 ## 3.3.0
+
 - Makes `cookiecutter` dependency optional by installing it automatically when `python manage.py tailwind init` is run;
 - Updates Django dev dependencies;
 
 ## 3.2.0
+
 - Upgrades Tailwind CSS dependencies;
 - Upgrades Django dependencies;
 
 ## 3.1.1
 
 - Brings removed `browser-sync` snippet to support legacy configs;
-- Follow [migrating from `browser-sync` to `django-browser-reload`](./docs/django_browser_reload.md) instructions if you've upgraded.
+- Follow [migrating from `browser-sync` to `django-browser-reload`](./docs/django_browser_reload.md) instructions if
+  you've upgraded.
 
 ## 3.1.0
 
@@ -75,7 +92,8 @@
 
 - Upgrades project template to be compatible with Tailwind CSS `v3.0`;
 - Drops Tailwind CSS `v2.x` support;
-- If you're not starting fresh, [follow the upgrade guide](https://tailwindcss.com/docs/upgrade-guide) to upgrade existing Tailwind CSS `v2.x` to `v3.x`;
+- If you're not starting fresh, [follow the upgrade guide](https://tailwindcss.com/docs/upgrade-guide) to upgrade
+  existing Tailwind CSS `v2.x` to `v3.x`;
 
 ## 2.3.0
 
