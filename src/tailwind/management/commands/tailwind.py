@@ -217,7 +217,7 @@ tailwind: python manage.py tailwind start"""
             content = f.read()
 
         # Check if plugin is already included
-        plugin_line = f'@plugin "{plugin_name}";'
+        plugin_line = f'@plugin "{plugin_name}";'  # noqa: E702
         if plugin_line in content:
             self.stdout.write(self.style.WARNING(f"Plugin {plugin_name} is already included in styles.css"))
             return
@@ -228,7 +228,7 @@ tailwind: python manage.py tailwind start"""
             raise CommandError('Could not find @import "tailwindcss"; in styles.css')
 
         # Insert plugin line after the import
-        new_content = content.replace(import_line, f'{import_line}\n@plugin "{plugin_name}";\n')
+        new_content = content.replace(import_line, f'{import_line}\n@plugin "{plugin_name}";\n')  # noqa: E702
 
         # Write updated content back to file
         with open(styles_path, "w") as f:
