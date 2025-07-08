@@ -10,20 +10,28 @@
 ![Django Tailwind Demo](https://raw.githubusercontent.com/timonweb/django-tailwind/master/docs/django-tailwind-demo-800.gif)
 
 ## Goal
-This project aims to provide a convenient way to use the *Tailwind CSS* framework within a Django project.
+
+This project provides a convenient way to integrate the *Tailwind CSS* framework into a Django project.
+It creates a new Django app (named theme by default) that includes all the necessary files and configurations to get started with *Tailwind CSS* quickly.
 
 ## Features
+
 * An opinionated *Tailwind CSS* setup that makes your life easier;
 * Hot reloading of CSS, configuration files, and *Django* templates. No more manual page refreshes!
 * Out of the box support for CSS imports, Sass-like variables, and nesting;
 * Supports the latest *Tailwind CSS* `v4.x`;
 * Start both *Tailwind CSS* and *Django* development servers with a single command;
+* An optional DaisyUI integration to spice up your Tailwind templates with pre-built components.
+* A convenient management command for installing Tailwind CSS plugins;
 
 ## Requirements
+
 Python 3.10 or newer and Django 4.2.20 or newer.
 
 ## Documentation
-The full documentation is at https://django-tailwind.readthedocs.io/ or in the [docs directory](docs/index.md) of this repository.
+
+The full documentation is at https://django-tailwind.readthedocs.io/ or in the [docs directory](docs/index.md) of this
+repository.
 
 ## Getting Started
 

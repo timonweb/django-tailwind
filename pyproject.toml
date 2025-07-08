@@ -8,7 +8,7 @@ readme = "README.md"
 homepage = "https://github.com/timonweb/django-tailwind"
 keywords = ["django", "tailwind", "css"]
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3.10",
@@ -20,7 +20,11 @@ classifiers = [
     "Topic :: Software Development :: Libraries",
     "Topic :: Utilities",
     "Environment :: Web Environment",
-    "Framework :: Django"
+    "Framework :: Django",
+    "Framework :: Django :: 4.2",
+    "Framework :: Django :: 5.0",
+    "Framework :: Django :: 5.1",
+    "Framework :: Django :: 5.2",
 ]
 packages = [
     { include = "tailwind", from = "src" }
