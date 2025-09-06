@@ -114,6 +114,7 @@ Usage example:
                     f"Tailwind application '{app_name}' "
                     f"has been successfully created. "
                     f"Please add '{app_name}' to INSTALLED_APPS in settings.py, "
+                    f"and declare TAILWIND_APP_NAME = '{app_name}' in settings.py, "
                     f"then run the following command to install Tailwind CSS "
                     f"dependencies: `python manage.py tailwind install`"
                 )
