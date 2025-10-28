@@ -31,7 +31,7 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.11"
 django = ">=4.2.20"
 django-browser-reload = { version = "^1.18.0", optional = true }
 
