@@ -1,38 +1,53 @@
+ci:
+  autoupdate_schedule: monthly
+
+default_language_version:
+  python: python3.13
+
 repos:
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
-    hooks:
-      - id: check-added-large-files
-      - id: check-ast
-      - id: check-case-conflict
-      - id: check-json
-      - id: check-merge-conflict
-      - id: check-symlinks
-      - id: check-yaml
-      - id: debug-statements
-      - id: detect-private-key
-      - id: end-of-file-fixer
-      - id: trailing-whitespace
-      - id: mixed-line-ending
-      - id: requirements-txt-fixer
-  - repo: https://github.com/psf/black
-    rev: 23.1.0
-    hooks:
-      - id: black
-        args: [ --line-length=119 ]
-  - repo: https://github.com/pycqa/isort
-    rev: 5.12.0
-    hooks:
-      - id: isort
-        args: [ "--profile", "black", "--filter-files" ]
-  - repo: https://github.com/PyCQA/flake8
-    rev: 6.0.0
-    hooks:
-      - id: flake8
-        entry: flake8 --config=tox.ini
-        additional_dependencies:
-          - flake8-bugbear
-          - flake8-comprehensions
-          - flake8-tidy-imports
-          - flake8-typing-imports
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v6.0.0
+  hooks:
+  - id: check-added-large-files
+  - id: check-case-conflict
+  - id: check-json
+  - id: check-merge-conflict
+  - id: check-symlinks
+  - id: check-toml
+  - id: end-of-file-fixer
+  - id: trailing-whitespace
+- repo: https://github.com/crate-ci/typos
+  rev: v1.38.1
+  hooks:
+  - id: typos
+- repo: https://github.com/tox-dev/pyproject-fmt
+  rev: v2.11.0
+  hooks:
+  - id: pyproject-fmt
+- repo: https://github.com/tox-dev/tox-ini-fmt
+  rev: 1.7.0
+  hooks:
+  - id: tox-ini-fmt
+- repo: https://github.com/rstcheck/rstcheck
+  rev: v6.2.5
+  hooks:
+  - id: rstcheck
+    additional_dependencies:
+    - tomli==2.0.1
+- repo: https://github.com/adamchainz/django-upgrade
+  rev: 1.29.1
+  hooks:
+  - id: django-upgrade
+- repo: https://github.com/adamchainz/blacken-docs
+  rev: 1.20.0
+  hooks:
+  - id: blacken-docs
+    additional_dependencies:
+    - black==25.1.0
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  rev: v0.14.2
+  hooks:
+    - id: ruff-check
+      args: [ --fix ]
+    - id: ruff-format
 exclude: 'src/tailwind/app_template_v3/{{cookiecutter.app_name}}/apps.py|src/tailwind/app_template_v4/{{cookiecutter.app_name}}/apps.py|src/tailwind/app_template_v4/{{cookiecutter.app_name}}/static_src/package.json'

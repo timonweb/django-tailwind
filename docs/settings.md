@@ -23,7 +23,7 @@ This defines the path to the `npm` executable on your system.
 
 The default value is:
 ```python
-NPM_BIN_PATH = 'npm'
+NPM_BIN_PATH = "npm"
 ```
 
 Please note that on *Windows* the path might look different (pay attention to the "backslashes" in the path):
@@ -39,5 +39,5 @@ However, if you integrated *Tailwind CSS* in another way or want to use a *CDN* 
 
 The default value is:
 ```python
-TAILWIND_CSS_PATH = 'css/dist/styles.css'
+TAILWIND_CSS_PATH = "css/dist/styles.css"
 ```

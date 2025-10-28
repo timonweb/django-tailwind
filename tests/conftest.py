@@ -16,12 +16,12 @@ def cleanup_theme_app_dir(app_name):
 
 @pytest.fixture
 def app_name3():
-    return f'test_theme_{str(uuid.uuid1()).replace("-", "_")}'
+    return f"test_theme_{str(uuid.uuid1()).replace('-', '_')}"
 
 
 @pytest.fixture
 def app_name():
-    name = f'test_theme_{str(uuid.uuid1()).replace("-", "_")}'
+    name = f"test_theme_{str(uuid.uuid1()).replace('-', '_')}"
     yield name
     print(f"Cleaning up app {name}")
     cleanup_theme_app_dir(name)

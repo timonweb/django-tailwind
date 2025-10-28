@@ -37,7 +37,7 @@ def test_tailwind_dev_command_creates_procfile_real(settings, app_name, procfile
     assert os.path.exists(procfile_path), "Procfile.tailwind should be created"
 
     # Verify content
-    with open(procfile_path, "r") as f:
+    with open(procfile_path) as f:
         content = f.read()
 
     expected_content = """django: python manage.py runserver
@@ -81,7 +81,7 @@ redis: redis-server"""
     assert os.path.exists(procfile_path), "Procfile.tailwind should still exist"
 
     # Verify content wasn't changed
-    with open(procfile_path, "r") as f:
+    with open(procfile_path) as f:
         content = f.read()
 
     assert content == custom_content, "Existing Procfile.tailwind should not be overwritten"
@@ -158,7 +158,7 @@ def test_tailwind_dev_command_messages_in_the_output(settings, app_name, procfil
         ]
 
         # Call dev command - should create Procfile
-        out, err = call_command_with_output("tailwind", "dev")
+        out, _ = call_command_with_output("tailwind", "dev")
 
         assert "Procfile.tailwind created" in out
         assert "Starting Tailwind watcher and Django development server" in out

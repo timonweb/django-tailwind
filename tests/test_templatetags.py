@@ -1,6 +1,7 @@
 import time
 
-from django.template import Context, Template
+from django.template import Context
+from django.template import Template
 
 
 def test_tailwind_css_in_production(settings):
@@ -34,7 +35,9 @@ def test_tailwind_css_in_production_with_version(settings):
         """
     ).render(Context({}))
 
-    assert '<link rel="stylesheet" type="text/css" href="/static/css/dist/styles.css?v=123">' in output
+    assert (
+        '<link rel="stylesheet" type="text/css" href="/static/css/dist/styles.css?v=123">' in output
+    )
 
 
 def test_tailwind_css_in_debug(settings):
@@ -55,7 +58,8 @@ def test_tailwind_css_in_debug(settings):
     ).render(Context({}))
 
     assert (
-        f'<link rel="stylesheet" type="text/css" href="/static/css/dist/styles.css?v={partial_time_version}' in output
+        f'<link rel="stylesheet" type="text/css" href="/static/css/dist/styles.css?v={partial_time_version}'
+        in output
     )
 
 
@@ -92,7 +96,9 @@ def test_tailwind_css_in_debug_with_version(settings):
         """
     ).render(Context({}))
 
-    assert '<link rel="stylesheet" type="text/css" href="/static/css/dist/styles.css?v=123">' in output
+    assert (
+        '<link rel="stylesheet" type="text/css" href="/static/css/dist/styles.css?v=123">' in output
+    )
 
 
 def test_tailwind_preload_css(settings):

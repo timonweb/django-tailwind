@@ -21,11 +21,11 @@ class NPM:
 
     def command(self, *args):
         try:
-            subprocess.run([self.npm_bin_path] + list(args), cwd=self.cwd, check=True)
+            subprocess.run([self.npm_bin_path, *list(args)], cwd=self.cwd, check=True)
             return True
         except subprocess.CalledProcessError:
             sys.exit(1)
-        except OSError:
+        except OSError as err:
             raise NPMException(
                 "\nIt looks like node.js and/or npm is not installed or cannot be found.\n\n"
                 "Visit https://nodejs.org to download and install node.js for your system.\n\n"
@@ -34,4 +34,4 @@ class NPM:
                 ""
                 "Example:\n"
                 'NPM_BIN_PATH = "/usr/local/bin/npm"'
-            )
+            ) from err

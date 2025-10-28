@@ -21,12 +21,12 @@ def get_package_json_path(app_name):
 
 
 def get_package_json_contents(app_name):
-    with open(get_package_json_path(app_name), "r") as f:
+    with open(get_package_json_path(app_name)) as f:
         return json.load(f)
 
 
 def is_path_absolute(path):
-    return path.startswith("/") or path.startswith("http")
+    return path.startswith(("/", "http"))
 
 
 def install_pip_package(package):
@@ -38,7 +38,7 @@ def install_pip_package(package):
 def extract_server_url_from_procfile(procfile_path):
     """Extract the Django development server URL from Procfile.tailwind"""
     try:
-        with open(procfile_path, "r") as f:
+        with open(procfile_path) as f:
             content = f.read()
 
         # Look for the django process line
@@ -75,7 +75,8 @@ def extract_host_and_port(command):
     # Extract IP address/hostname pattern (IPv4, IPv6, or hostname)
     # Matches patterns like: 127.0.0.1, 0.0.0.0, localhost, example.com, ::1, [::1]
     host_match = re.search(
-        r"(?:^|\s)(?:\[?([a-fA-F0-9:]+)\]?|([0-9]{1,3}(?:\.[0-9]{1,3}){3})|(localhost))(?::|$|\s)", command
+        r"(?:^|\s)(?:\[?([a-fA-F0-9:]+)\]?|([0-9]{1,3}(?:\.[0-9]{1,3}){3})|(localhost))(?::|$|\s)",
+        command,
     )
     if host_match:
         # Get the first non-None group (IPv6, IPv4, or hostname)

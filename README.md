@@ -44,7 +44,7 @@ repository.
    ```python
    INSTALLED_APPS = [
        # ...
-       'tailwind',
+       "tailwind",
    ]
    ```
 
@@ -57,11 +57,11 @@ repository.
    ```python
    INSTALLED_APPS = [
        # ...
-       'tailwind',
-       'theme',  # your generated app name
+       "tailwind",
+       "theme",  # your generated app name
    ]
 
-   TAILWIND_APP_NAME = 'theme'
+   TAILWIND_APP_NAME = "theme"
    ```
 
 5. **Install Tailwind CSS dependencies:**

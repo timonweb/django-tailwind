@@ -14,12 +14,16 @@ def test_tailwind_install_and_build_v3(no_package_lock, settings, app_name):
     WHEN the install and build commands are run with optional package-lock settings
     THEN the app structure, dependencies, and CSS output should be created correctly
     """
-    call_command("tailwind", "init", "--app-name", app_name, "--no-input", "--tailwind-version", "3")
+    call_command(
+        "tailwind", "init", "--app-name", app_name, "--no-input", "--tailwind-version", "3"
+    )
 
     settings.INSTALLED_APPS += [app_name]
     settings.TAILWIND_APP_NAME = app_name
 
-    assert os.path.isfile(os.path.join(get_app_path(app_name), "apps.py")), 'The "theme" app has been generated'
+    assert os.path.isfile(os.path.join(get_app_path(app_name), "apps.py")), (
+        'The "theme" app has been generated'
+    )
 
     tailwind_config_path = os.path.join(get_app_path(app_name), "static_src", "tailwind.config.js")
     assert os.path.isfile(tailwind_config_path), "tailwind.config.js is present"
@@ -34,13 +38,15 @@ def test_tailwind_install_and_build_v3(no_package_lock, settings, app_name):
 
     package_lock_json_path = os.path.join(get_app_path(app_name), "static_src", "package-lock.json")
     if no_package_lock:
-        assert not os.path.isfile(package_lock_json_path), "Tailwind has not created package-lock.json file"
+        assert not os.path.isfile(package_lock_json_path), (
+            "Tailwind has not created package-lock.json file"
+        )
     else:
         assert os.path.isfile(package_lock_json_path), "Tailwind has created package-lock.json file"
 
-    assert os.path.isdir(
-        os.path.join(get_app_path(app_name), "static_src", "node_modules")
-    ), "Tailwind has been installed from npm"
+    assert os.path.isdir(os.path.join(get_app_path(app_name), "static_src", "node_modules")), (
+        "Tailwind has been installed from npm"
+    )
 
     call_command("tailwind", "build")
     assert os.path.isfile(
@@ -60,7 +66,9 @@ def test_tailwind_install_and_build_v4(no_package_lock, settings, app_name):
     settings.INSTALLED_APPS += [app_name]
     settings.TAILWIND_APP_NAME = app_name
 
-    assert os.path.isfile(os.path.join(get_app_path(app_name), "apps.py")), 'The "theme" app has been generated'
+    assert os.path.isfile(os.path.join(get_app_path(app_name), "apps.py")), (
+        'The "theme" app has been generated'
+    )
 
     tailwind_config_path = os.path.join(get_app_path(app_name), "static_src", "tailwind.config.js")
     assert not os.path.isfile(tailwind_config_path), "tailwind.config.js is absent from tailwind v4"
@@ -75,13 +83,15 @@ def test_tailwind_install_and_build_v4(no_package_lock, settings, app_name):
 
     package_lock_json_path = os.path.join(get_app_path(app_name), "static_src", "package-lock.json")
     if no_package_lock:
-        assert not os.path.isfile(package_lock_json_path), "Tailwind has not created package-lock.json file"
+        assert not os.path.isfile(package_lock_json_path), (
+            "Tailwind has not created package-lock.json file"
+        )
     else:
         assert os.path.isfile(package_lock_json_path), "Tailwind has created package-lock.json file"
 
-    assert os.path.isdir(
-        os.path.join(get_app_path(app_name), "static_src", "node_modules")
-    ), "Tailwind has been installed from npm"
+    assert os.path.isdir(os.path.join(get_app_path(app_name), "static_src", "node_modules")), (
+        "Tailwind has been installed from npm"
+    )
 
     call_command("tailwind", "build")
     assert os.path.isfile(
@@ -89,24 +99,34 @@ def test_tailwind_install_and_build_v4(no_package_lock, settings, app_name):
     ), "Tailwind has built a css/styles.css file"
 
     # DaisyUI should NOT be present in package.json
-    with open(package_json_path, "r") as f:
+    with open(package_json_path) as f:
         package_json = json.load(f)
-    assert "daisyui" not in package_json["devDependencies"], "DaisyUI dependency is NOT present in package.json"
+    assert "daisyui" not in package_json["devDependencies"], (
+        "DaisyUI dependency is NOT present in package.json"
+    )
 
     styles_css_path = os.path.join(get_app_path(app_name), "static_src", "src", "styles.css")
     assert os.path.isfile(styles_css_path), "styles.css file exists"
-    with open(styles_css_path, "r") as f:
+    with open(styles_css_path) as f:
         styles_content = f.read()
-    assert '@plugin "daisyui";' not in styles_content, "DaisyUI plugin is NOT included in styles.css"
+    assert '@plugin "daisyui";' not in styles_content, (
+        "DaisyUI plugin is NOT included in styles.css"
+    )
 
     # Check that DaisyUI markup is NOT present in base.html
     base_html_path = os.path.join(get_app_path(app_name), "templates", "base.html")
     assert os.path.isfile(base_html_path), "base.html file exists"
-    with open(base_html_path, "r") as f:
+    with open(base_html_path) as f:
         base_html_content = f.read()
-    assert "toast toast-top toast-end" not in base_html_content, "DaisyUI toast markup is NOT present in base.html"
-    assert "alert alert-info" not in base_html_content, "DaisyUI alert markup is NOT present in base.html"
-    assert "Hello from daisyUi" not in base_html_content, "DaisyUI greeting text is NOT present in base.html"
+    assert "toast toast-top toast-end" not in base_html_content, (
+        "DaisyUI toast markup is NOT present in base.html"
+    )
+    assert "alert alert-info" not in base_html_content, (
+        "DaisyUI alert markup is NOT present in base.html"
+    )
+    assert "Hello from daisyUi" not in base_html_content, (
+        "DaisyUI greeting text is NOT present in base.html"
+    )
 
 
 def test_tailwind_init_with_daisy_ui_v4(settings, app_name):
@@ -119,20 +139,24 @@ def test_tailwind_init_with_daisy_ui_v4(settings, app_name):
 
     settings.INSTALLED_APPS += [app_name]
 
-    assert os.path.isfile(os.path.join(get_app_path(app_name), "apps.py")), 'The "theme" app has been generated'
+    assert os.path.isfile(os.path.join(get_app_path(app_name), "apps.py")), (
+        'The "theme" app has been generated'
+    )
 
     package_json_path = os.path.join(get_app_path(app_name), "static_src", "package.json")
     assert os.path.isfile(package_json_path), "package.json file exists"
 
-    with open(package_json_path, "r") as f:
+    with open(package_json_path) as f:
         package_json = json.load(f)
 
-    assert "daisyui" in package_json["devDependencies"], "DaisyUI dependency is present in package.json"
+    assert "daisyui" in package_json["devDependencies"], (
+        "DaisyUI dependency is present in package.json"
+    )
 
     styles_css_path = os.path.join(get_app_path(app_name), "static_src", "src", "styles.css")
     assert os.path.isfile(styles_css_path), "styles.css file exists"
 
-    with open(styles_css_path, "r") as f:
+    with open(styles_css_path) as f:
         styles_content = f.read()
 
     assert '@plugin "daisyui";' in styles_content, "DaisyUI plugin is included in styles.css"
@@ -140,11 +164,15 @@ def test_tailwind_init_with_daisy_ui_v4(settings, app_name):
     # Check that DaisyUI markup is present in base.html
     base_html_path = os.path.join(get_app_path(app_name), "templates", "base.html")
     assert os.path.isfile(base_html_path), "base.html file exists"
-    with open(base_html_path, "r") as f:
+    with open(base_html_path) as f:
         base_html_content = f.read()
-    assert "toast toast-top toast-end" in base_html_content, "DaisyUI toast markup is present in base.html"
+    assert "toast toast-top toast-end" in base_html_content, (
+        "DaisyUI toast markup is present in base.html"
+    )
     assert "alert alert-info" in base_html_content, "DaisyUI alert markup is present in base.html"
-    assert "Hello from daisyUi" in base_html_content, "DaisyUI greeting text is present in base.html"
+    assert "Hello from daisyUi" in base_html_content, (
+        "DaisyUI greeting text is present in base.html"
+    )
 
 
 def test_tailwind_plugin_install_success(settings, app_name):
@@ -165,15 +193,19 @@ def test_tailwind_plugin_install_success(settings, app_name):
 
     # Check that plugin was added to package.json
     package_json_path = os.path.join(get_app_path(app_name), "static_src", "package.json")
-    with open(package_json_path, "r") as f:
+    with open(package_json_path) as f:
         package_json = json.load(f)
-    assert "@tailwindcss/typography" in package_json["devDependencies"], "Plugin should be in devDependencies"
+    assert "@tailwindcss/typography" in package_json["devDependencies"], (
+        "Plugin should be in devDependencies"
+    )
 
     # Check that plugin was added to styles.css
     styles_css_path = os.path.join(get_app_path(app_name), "static_src", "src", "styles.css")
-    with open(styles_css_path, "r") as f:
+    with open(styles_css_path) as f:
         styles_content = f.read()
-    assert '@plugin "@tailwindcss/typography";' in styles_content, "Plugin directive should be in styles.css"
+    assert '@plugin "@tailwindcss/typography";' in styles_content, (
+        "Plugin directive should be in styles.css"
+    )
     assert '@import "tailwindcss";' in styles_content, "Import directive should still be present"
 
     # Check that plugin directive is after the import
@@ -203,7 +235,7 @@ def test_tailwind_plugin_install_duplicate_prevention(settings, app_name):
 
     # Check that plugin appears only once in styles.css
     styles_css_path = os.path.join(get_app_path(app_name), "static_src", "src", "styles.css")
-    with open(styles_css_path, "r") as f:
+    with open(styles_css_path) as f:
         styles_content = f.read()
 
     plugin_count = styles_content.count('@plugin "@tailwindcss/typography";')
@@ -229,17 +261,25 @@ def test_tailwind_plugin_install_multiple_plugins(settings, app_name):
 
     # Check package.json has both plugins
     package_json_path = os.path.join(get_app_path(app_name), "static_src", "package.json")
-    with open(package_json_path, "r") as f:
+    with open(package_json_path) as f:
         package_json = json.load(f)
-    assert "@tailwindcss/forms" in package_json["devDependencies"], "First plugin should be in devDependencies"
-    assert "@tailwindcss/typography" in package_json["devDependencies"], "Second plugin should be in devDependencies"
+    assert "@tailwindcss/forms" in package_json["devDependencies"], (
+        "First plugin should be in devDependencies"
+    )
+    assert "@tailwindcss/typography" in package_json["devDependencies"], (
+        "Second plugin should be in devDependencies"
+    )
 
     # Check styles.css has both plugins
     styles_css_path = os.path.join(get_app_path(app_name), "static_src", "src", "styles.css")
-    with open(styles_css_path, "r") as f:
+    with open(styles_css_path) as f:
         styles_content = f.read()
-    assert '@plugin "@tailwindcss/forms";' in styles_content, "First plugin directive should be in styles.css"
-    assert '@plugin "@tailwindcss/typography";' in styles_content, "Second plugin directive should be in styles.css"
+    assert '@plugin "@tailwindcss/forms";' in styles_content, (
+        "First plugin directive should be in styles.css"
+    )
+    assert '@plugin "@tailwindcss/typography";' in styles_content, (
+        "Second plugin directive should be in styles.css"
+    )
 
 
 def test_tailwind_plugin_install_no_plugin_name_error(settings, app_name):

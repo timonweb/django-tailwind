@@ -1,55 +1,126 @@
-[tool.poetry]
+[build-system]
+build-backend = "hatchling.build"
+requires = [ "hatchling" ]
+
+[project]
 name = "django-tailwind"
 version = "4.2.0"
 description = "Tailwind CSS Framework for Django projects"
-authors = ["Tim Kamanin <tim@timonweb.com>"]
-license = "MIT"
 readme = "README.md"
-homepage = "https://github.com/timonweb/django-tailwind"
-keywords = ["django", "tailwind", "css"]
+keywords = [
+    "css",
+    "django",
+    "tailwind",
+]
+license = "MIT"
+authors = [ { name = "Tim Kamanin", email = "tim@timonweb.com" } ]
+requires-python = ">=3.11"
 classifiers = [
     "Development Status :: 5 - Production/Stable",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
-    "Programming Language :: Python :: 3.13",
-    "Programming Language :: Python :: 3.14",
-    "Operating System :: OS Independent",
-    "Topic :: Software Development :: Libraries",
-    "Topic :: Utilities",
     "Environment :: Web Environment",
     "Framework :: Django",
     "Framework :: Django :: 4.2",
     "Framework :: Django :: 5.0",
     "Framework :: Django :: 5.1",
     "Framework :: Django :: 5.2",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Utilities",
 ]
-packages = [
-    { include = "tailwind", from = "src" }
+dependencies = [ "django>=4.2.20" ]
+
+optional-dependencies.reload = [ "django-browser-reload>=1.18.0,<2" ]
+urls.Homepage = "https://github.com/timonweb/django-tailwind"
+
+[dependency-groups]
+test = [
+    "cookiecutter",
+    "pytest>=8.3.5,<9",
+    "pytest-django>=4.11.0,<5",
+    "tox>=4.25.0,<5",
 ]
 
-[tool.poetry.dependencies]
-python = "^3.11"
-django = ">=4.2.20"
-django-browser-reload = { version = "^1.18.0", optional = true }
+docs = [
+    "recommonmark>=0.7.1,<0.8",
+    "sphinx>=8.1.3,<9",
+    "sphinx-rtd-theme>=3.0.2,<4",
+]
 
-[tool.poetry.group.dev.dependencies]
-pytest = "^8.3.5"
-pytest-django = "^4.11.0"
-tox = "^4.25.0"
-pre-commit = "^4.2.0"
-isort = "^6.0.1"
-flake8 = "^7.2.0"
-black = "^25.1.0"
-Sphinx = "^8.1.3"
-recommonmark = "^0.7.1"
-sphinx-rtd-theme = "^3.0.2"
+django42 = [
+    "django>=4.2,<5",
+]
+django50 = [
+    "django>=5.0,<5.1",
+]
+django51 = [
+    "django>=5.1,<5.2",
+]
+django52 = [
+    "django>=5.2,<6",
+]
+django60 = [ "django>=6a1,<6.1; python_version>='3.12'" ]
 
-[tool.poetry.extras]
-reload = ["django-browser-reload"]
+[tool.hatch.build.targets.sdist]
+include = [ "src/tailwind" ]
 
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+[tool.hatch.build.targets.wheel]
+include = [ "src/tailwind" ]
+
+[tool.hatch.build.targets.wheel.sources]
+"src/tailwind" = "tailwind"
+
+[tool.uv]
+conflicts = [
+    [
+        { group = "django42" },
+        { group = "django50" },
+        { group = "django51" },
+        { group = "django52" },
+        { group = "django60" },
+    ],
+]
+
+[tool.ruff]
+target-version = "py311"
+
+line-length = 100
+src = [ "tailwind", "tests" ]
+fix = true
+lint.extend-select = [
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "DJ",  # flake8-django
+    "I",   # isort
+    "PGH", # pygrep-hooks
+    "PIE", # flake8-pie
+    "RUF", # Ruff-specific
+    "SIM", # flake8-simplify
+    "UP",  # pyupgrade
+]
+lint.extend-ignore = [
+    "E501", # line too long (handled by formatter)
+]
+lint.isort.force-single-line = true
+lint.isort.known-first-party = [ "tailwind" ]
+lint.isort.order-by-type = false
+
+[tool.pyproject-fmt]
+indent = 4
+keep_full_version = true
+
+[tool.pytest.ini_options]
+addopts = """\
+    --strict-config
+    --strict-markers
+    --ds=tests.settings
+    """
+django_find_project = false
+pythonpath = [ "." ]
+xfail_strict = true

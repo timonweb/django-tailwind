@@ -1,7 +1,9 @@
 import os
 import tempfile
 
-from tailwind.utils import extract_host_and_port, extract_protocol_from_command, extract_server_url_from_procfile
+from tailwind.utils import extract_host_and_port
+from tailwind.utils import extract_protocol_from_command
+from tailwind.utils import extract_server_url_from_procfile
 
 
 def test_extract_protocol_from_command():
@@ -15,9 +17,14 @@ def test_extract_protocol_from_command():
     assert extract_protocol_from_command("python manage.py runserver --secure") == "https"
     assert extract_protocol_from_command("python manage.py runserver --https") == "https"
     assert extract_protocol_from_command("python manage.py runserver --cert cert.pem") == "https"
-    assert extract_protocol_from_command("python manage.py runserver --ssl --cert cert.pem") == "https"
+    assert (
+        extract_protocol_from_command("python manage.py runserver --ssl --cert cert.pem") == "https"
+    )
     assert extract_protocol_from_command("") == "http"
-    assert extract_protocol_from_command("python manage.py runserver --settings=ssl_settings.py") == "http"
+    assert (
+        extract_protocol_from_command("python manage.py runserver --settings=ssl_settings.py")
+        == "http"
+    )
 
 
 def test_extract_host_and_port():
@@ -27,12 +34,23 @@ def test_extract_host_and_port():
     THEN it should return the appropriate host and port
     """
     assert extract_host_and_port("python manage.py runserver") == ("127.0.0.1", "8000")
-    assert extract_host_and_port("python manage.py runserver 192.168.1.1:3000") == ("192.168.1.1", "3000")
-    assert extract_host_and_port("python manage.py runserver localhost:9000") == ("localhost", "9000")
+    assert extract_host_and_port("python manage.py runserver 192.168.1.1:3000") == (
+        "192.168.1.1",
+        "3000",
+    )
+    assert extract_host_and_port("python manage.py runserver localhost:9000") == (
+        "localhost",
+        "9000",
+    )
     assert extract_host_and_port("python manage.py runserver [::1]:8080") == ("::1", "8080")
     assert extract_host_and_port("python manage.py runserver 0.0.0.0:8000") == ("0.0.0.0", "8000")
-    assert extract_host_and_port("python manage.py runserver 127.0.0.1:8000 --noreload") == ("127.0.0.1", "8000")
-    assert extract_host_and_port("python manage.py runserver --settings=app.settings:dev 127.0.0.1:8000") == (
+    assert extract_host_and_port("python manage.py runserver 127.0.0.1:8000 --noreload") == (
+        "127.0.0.1",
+        "8000",
+    )
+    assert extract_host_and_port(
+        "python manage.py runserver --settings=app.settings:dev 127.0.0.1:8000"
+    ) == (
         "127.0.0.1",
         "8000",
     )

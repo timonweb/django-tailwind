@@ -26,8 +26,8 @@
 
    ```python
    INSTALLED_APPS = [
-     # other Django apps
-     'tailwind',
+       # other Django apps
+       "tailwind",
    ]
    ```
 
@@ -48,16 +48,16 @@
 
    ```python
    INSTALLED_APPS = [
-     # other Django apps
-     'tailwind',
-     'theme'
+       # other Django apps
+       "tailwind",
+       "theme",
    ]
    ```
 
 5. Register the generated `'theme'` app by adding the following line to `settings.py`:
 
    ```python
-   TAILWIND_APP_NAME = 'theme'
+   TAILWIND_APP_NAME = "theme"
    ```
 
 6. Install *Tailwind CSS* dependencies by running the following command:
@@ -95,14 +95,14 @@
 
     ```python
     INSTALLED_APPS = [
-      # other Django apps
-      'tailwind',
-      'theme'
+        # other Django apps
+        "tailwind",
+        "theme",
     ]
 
     if DEBUG:
         # Add django_browser_reload only in DEBUG mode
-        INSTALLED_APPS += ['django_browser_reload']
+        INSTALLED_APPS += ["django_browser_reload"]
     ```
 
 10. Staying in `settings.py`, add the middleware:
@@ -219,14 +219,14 @@ Sometimes (especially on *Windows*), the *Python* executable cannot find the `np
 this case, you need to set the path to the `npm` executable in the *settings.py* file manually (*Linux/Mac*):
 
 ```python
-NPM_BIN_PATH = '/usr/local/bin/npm'
+NPM_BIN_PATH = "/usr/local/bin/npm"
 ```
 
 On *Windows*, you may have npm on `$PATH` but it's `npm.cmd` rather than `npm`. (You can call it from the terminal
 because `$PATHEXT` contains `.cmd`.) If so, please override the default `NPM_BIN_PATH = 'npm'`:
 
 ```python
-NPM_BIN_PATH = 'npm.cmd'
+NPM_BIN_PATH = "npm.cmd"
 ```
 
 Alternatively (and for maximum reliability), you can use a fully qualified path. It might look like this:

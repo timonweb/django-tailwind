@@ -1,13 +1,18 @@
 import os
 import subprocess
 
-from django.core.management.base import CommandError, LabelCommand
+from django.core.management.base import CommandError
+from django.core.management.base import LabelCommand
 
 from tailwind import get_config
 
-from ...npm import NPM, NPMException
-from ...utils import extract_server_url_from_procfile, get_tailwind_src_path, install_pip_package
-from ...validate import ValidationError, Validations
+from ...npm import NPM
+from ...npm import NPMException
+from ...utils import extract_server_url_from_procfile
+from ...utils import get_tailwind_src_path
+from ...utils import install_pip_package
+from ...validate import ValidationError
+from ...validate import Validations
 
 
 class Command(LabelCommand):
@@ -29,11 +34,11 @@ Usage example:
     validate = None
 
     def __init__(self, *args, **kwargs):
-        super(Command, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.validate = Validations()
 
     def add_arguments(self, parser):
-        super(Command, self).add_arguments(parser)
+        super().add_arguments(parser)
         parser.add_argument(
             "--no-input",
             action="store_true",
@@ -67,7 +72,7 @@ Usage example:
             self.validate.is_installed(app_name)
             self.validate.is_tailwind_app(app_name)
         except ValidationError as err:
-            raise CommandError(err)
+            raise CommandError(err) from err
 
     def handle(self, *labels, **options):
         return self.handle_labels(*labels, **options)
@@ -88,11 +93,11 @@ Usage example:
             try:
                 install_pip_package("cookiecutter")
                 from cookiecutter.main import cookiecutter
-            except ModuleNotFoundError:
+            except ModuleNotFoundError as err:
                 raise CommandError(
                     "Failed to install 'cookiecutter' via pip. Please install it manually "
                     "(https://pypi.org/project/cookiecutter/) and run 'python manage.py tailwind init' again."
-                )
+                ) from err
 
         try:
             app_path = cookiecutter(
@@ -120,7 +125,7 @@ Usage example:
                 )
             )
         except Exception as err:
-            raise CommandError(err)
+            raise CommandError(err) from err
 
     def handle_install_command(self, **options):
         args = ["install"]
@@ -148,7 +153,7 @@ Usage example:
                 install_pip_package("honcho")
                 self.stdout.write(self.style.SUCCESS("Honcho installed successfully!"))
             except Exception as err:
-                raise CommandError(f"Failed to install honcho: {err}")
+                raise CommandError(f"Failed to install honcho: {err}") from err
 
         # Check if Procfile.tailwind exists, create if not
         procfile_path = os.path.join(os.getcwd(), "Procfile.tailwind")
@@ -180,7 +185,7 @@ tailwind: python manage.py tailwind start"""
         try:
             subprocess.run(["honcho", "-f", "Procfile.tailwind", "start"], check=True)
         except subprocess.CalledProcessError as err:
-            raise CommandError(f"Failed to start honcho: {err}")
+            raise CommandError(f"Failed to start honcho: {err}") from err
         except KeyboardInterrupt:
             self.stdout.write("\nStopping development servers...")
 
@@ -202,9 +207,11 @@ tailwind: python manage.py tailwind start"""
         self.stdout.write(f"Installing {plugin_name} npm package...")
         try:
             self.npm_command("install", plugin_name, "--save-dev")
-            self.stdout.write(self.style.SUCCESS(f"Successfully installed {plugin_name} npm package"))
+            self.stdout.write(
+                self.style.SUCCESS(f"Successfully installed {plugin_name} npm package")
+            )
         except Exception as err:
-            raise CommandError(f"Failed to install {plugin_name}: {err}")
+            raise CommandError(f"Failed to install {plugin_name}: {err}") from err
 
         # Update styles.css to include the plugin
         app_name = get_config("TAILWIND_APP_NAME")
@@ -214,13 +221,15 @@ tailwind: python manage.py tailwind start"""
             raise CommandError(f"styles.css not found at {styles_path}")
 
         # Read current styles.css content
-        with open(styles_path, "r") as f:
+        with open(styles_path) as f:
             content = f.read()
 
         # Check if plugin is already included
-        plugin_line = f'@plugin "{plugin_name}";'  # noqa: E702
+        plugin_line = f'@plugin "{plugin_name}";'
         if plugin_line in content:
-            self.stdout.write(self.style.WARNING(f"Plugin {plugin_name} is already included in styles.css"))
+            self.stdout.write(
+                self.style.WARNING(f"Plugin {plugin_name} is already included in styles.css")
+            )
             return
 
         # Add plugin line after @import "tailwindcss"
@@ -229,7 +238,7 @@ tailwind: python manage.py tailwind start"""
             raise CommandError('Could not find @import "tailwindcss"; in styles.css')
 
         # Insert plugin line after the import
-        new_content = content.replace(import_line, f'{import_line}\n@plugin "{plugin_name}";\n')  # noqa: E702
+        new_content = content.replace(import_line, f'{import_line}\n@plugin "{plugin_name}";\n')
 
         # Write updated content back to file
         with open(styles_path, "w") as f:
@@ -242,6 +251,6 @@ tailwind: python manage.py tailwind start"""
         try:
             self.npm.command(*args)
         except NPMException as err:
-            raise CommandError(err)
+            raise CommandError(err) from err
         except KeyboardInterrupt:
             pass
