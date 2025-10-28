@@ -90,4 +90,4 @@ For configuring automatic page reloads during development, see the [Installation
 
 Please see [CONTRIBUTING](CONTRIBUTING.md).
 
-2019 - 2025 (c) [Tim Kamanin - A Full Stack Django Developer](https://timonweb.com)
+2019 - 2025 (c) [Tim Kamanin - A Full Stack Django and Wagtail Developer](https://timonweb.com)
