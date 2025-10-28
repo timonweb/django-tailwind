@@ -17,20 +17,3 @@ To run the example project:
     ```
 
 3. Open `http://localhost:8000` in a browser. You should see the main page.
-
-
-## Docker setup
-
-1. Build containers via `docker-compose`:
-
-    ```bash
-    docker-compose build
-    ```
-
-2. Start containers:
-
-    ```bash
-    docker-compose up
-    ```
-
-3. Open `http://localhost:8000` in a browser. You should see the main page.
