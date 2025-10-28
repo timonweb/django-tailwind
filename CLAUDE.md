@@ -11,25 +11,25 @@ Django-Tailwind is a Python package that integrates Tailwind CSS with Django app
 ### Testing
 ```bash
 # Run all tests
-poetry run tox
+uvx --with tox-uv tox
 
 # Run tests with pytest directly
-poetry run pytest
+uv run pytest
 
 # Run specific test file
-poetry run pytest tests/test_cli.py
+uv run pytest tests/test_cli.py
 ```
 
 ### Code Quality
 ```bash
-# Format code with black
-poetry run black .
+# Format code with ruff
+uv run ruff format
 
-# Sort imports with isort
-poetry run isort .
+# Check and fix code issues
+uv run ruff check --fix
 
-# Check code style with flake8
-poetry run flake8
+# Run pre-commit on all files
+pre-commit run --all-files
 ```
 
 ### Documentation
@@ -41,13 +41,13 @@ make docs
 ### Package Management
 ```bash
 # Install dependencies
-poetry install
+uv sync
 
 # Update dependencies
-poetry update
+uv lock --upgrade
 
 # Build package
-poetry build
+uv build
 ```
 
 ### Example App Development
@@ -198,4 +198,4 @@ def test_command_creates_files(settings):
     cleanup_theme_app_dir(app_name)
 ```
 
-The package follows Django's standard app structure and uses Poetry for dependency management.
+The package follows Django's standard app structure and uses uv for dependency management.
