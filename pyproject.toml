@@ -34,7 +34,7 @@ classifiers = [
     "Topic :: Software Development :: Libraries",
     "Topic :: Utilities",
 ]
-dependencies = [ "django>=4.2.20", "honcho>=2.0.0" ]
+dependencies = [ "django>=4.2.20" ]
 
 optional-dependencies.cookiecutter = [ "cookiecutter>=2.6.0,<3" ]
 
