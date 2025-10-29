@@ -343,6 +343,7 @@ dependencies = [
     { name = "django", version = "5.1.13", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-15-django-tailwind-django51' or (extra == 'group-15-django-tailwind-django42' and extra == 'group-15-django-tailwind-django50') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django52') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django52' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django42' and extra != 'group-15-django-tailwind-django51' and extra == 'group-15-django-tailwind-django52') or (extra == 'group-15-django-tailwind-django42' and extra != 'group-15-django-tailwind-django51' and extra == 'group-15-django-tailwind-django60')" },
     { name = "django", version = "5.2.7", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.12' and extra != 'group-15-django-tailwind-django42' and extra != 'group-15-django-tailwind-django50' and extra != 'group-15-django-tailwind-django51') or extra == 'group-15-django-tailwind-django52' or (extra == 'group-15-django-tailwind-django42' and extra == 'group-15-django-tailwind-django50') or (extra == 'group-15-django-tailwind-django42' and extra == 'group-15-django-tailwind-django51') or (extra == 'group-15-django-tailwind-django42' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django51') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django51' and extra == 'group-15-django-tailwind-django60')" },
     { name = "django", version = "6.0b1", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version >= '3.12' and extra != 'group-15-django-tailwind-django42' and extra != 'group-15-django-tailwind-django50' and extra != 'group-15-django-tailwind-django51' and extra != 'group-15-django-tailwind-django52') or (extra == 'group-15-django-tailwind-django42' and extra == 'group-15-django-tailwind-django50') or (extra == 'group-15-django-tailwind-django42' and extra == 'group-15-django-tailwind-django51') or (extra == 'group-15-django-tailwind-django42' and extra == 'group-15-django-tailwind-django52') or (extra == 'group-15-django-tailwind-django42' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django51') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django52') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django51' and extra == 'group-15-django-tailwind-django52') or (extra == 'group-15-django-tailwind-django51' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django52' and extra == 'group-15-django-tailwind-django60')" },
+    { name = "honcho" },
 ]
 
 [package.optional-dependencies]
@@ -383,6 +384,7 @@ docs = [
 requires-dist = [
     { name = "django", specifier = ">=4.2.20" },
     { name = "django-browser-reload", marker = "extra == 'reload'", specifier = ">=1.18.0,<2" },
+    { name = "honcho", specifier = ">=2.0.0" },
 ]
 provides-extras = ["reload"]
 
@@ -421,6 +423,18 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/58/46/0028a82567109b5ef6e4d2a1f04a583fb513e6cf9527fcdd09afd817deeb/filelock-3.20.0.tar.gz", hash = "sha256:711e943b4ec6be42e1d4e6690b48dc175c822967466bb31c0c293f34334c13f4", size = 18922, upload-time = "2025-10-08T18:03:50.056Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/76/91/7216b27286936c16f5b4d0c530087e4a54eead683e6b0b73dd0c64844af6/filelock-3.20.0-py3-none-any.whl", hash = "sha256:339b4732ffda5cd79b13f4e2711a31b0365ce445d95d243bb996273d072546a2", size = 16054, upload-time = "2025-10-08T18:03:48.35Z" },
+]
+
+[[package]]
+name = "honcho"
+version = "2.0.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "colorama", marker = "sys_platform == 'win32' or (extra == 'group-15-django-tailwind-django42' and extra == 'group-15-django-tailwind-django50') or (extra == 'group-15-django-tailwind-django42' and extra == 'group-15-django-tailwind-django51') or (extra == 'group-15-django-tailwind-django42' and extra == 'group-15-django-tailwind-django52') or (extra == 'group-15-django-tailwind-django42' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django51') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django52') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django51' and extra == 'group-15-django-tailwind-django52') or (extra == 'group-15-django-tailwind-django51' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django52' and extra == 'group-15-django-tailwind-django60')" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/65/c8/d860888358bf5c8a6e7d78d1b508b59b0e255afd5655f243b8f65166dafd/honcho-2.0.0.tar.gz", hash = "sha256:af3815c03c634bf67d50f114253ea9fef72ecff26e4fd06b29234789ac5b8b2e", size = 45618, upload-time = "2024-10-06T14:26:53.871Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/48/1c/25631fc359955569e63f5446dbb7022c320edf9846cbe892ee5113433a7e/honcho-2.0.0-py3-none-any.whl", hash = "sha256:56dcd04fc72d362a4befb9303b1a1a812cba5da283526fbc6509be122918ddf3", size = 22093, upload-time = "2024-10-06T14:26:52.181Z" },
 ]
 
 [[package]]
