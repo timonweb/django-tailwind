@@ -153,7 +153,10 @@ Usage example:
                 install_pip_package("honcho")
                 self.stdout.write(self.style.SUCCESS("Honcho installed successfully!"))
             except Exception as err:
-                raise CommandError(f"Failed to install honcho: {err}") from err
+                raise CommandError(
+                    "Failed to install 'honcho' via pip. Please install it manually "
+                    "(https://pypi.org/project/honcho/) and run 'python manage.py tailwind dev' again."
+                ) from err
 
         # Check if Procfile.tailwind exists, create if not
         procfile_path = os.path.join(os.getcwd(), "Procfile.tailwind")

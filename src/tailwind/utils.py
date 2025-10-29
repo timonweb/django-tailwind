@@ -48,8 +48,8 @@ def extract_server_url_from_procfile(procfile_path):
                 protocol = extract_protocol_from_command(command)
                 host, port = extract_host_and_port(command)
                 return f"{protocol}://{host}:{port}/"
-
         return None
+
     except Exception:
         return None
 

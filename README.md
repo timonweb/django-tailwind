@@ -12,7 +12,8 @@
 ## Goal
 
 This project provides a convenient way to integrate the *Tailwind CSS* framework into a Django project.
-It creates a new Django app (named theme by default) that includes all the necessary files and configurations to get started with *Tailwind CSS* quickly.
+It creates a new Django app (named theme by default) that includes all the necessary files and configurations to get
+started with *Tailwind CSS* quickly.
 
 ## Features
 
@@ -36,9 +37,16 @@ repository.
 ## Getting Started
 
 1. **Install django-tailwind:**
-   ```bash
-   pip install django-tailwind
+
+   a) With all dependencies that make development easier (recommended):
+    ```bash
+   pip install django-tailwind[cookiecutter,honcho,reload]
    ```
+
+   b) or just the core package (enough for production use):
+    ```bash
+    pip install django-tailwind
+    ```
 
 2. **Add to INSTALLED_APPS in settings.py:**
    ```python

@@ -36,12 +36,17 @@ classifiers = [
 ]
 dependencies = [ "django>=4.2.20", "honcho>=2.0.0" ]
 
-optional-dependencies.reload = [ "django-browser-reload>=1.18.0,<2" ]
+optional-dependencies.cookiecutter = [ "cookiecutter>=2.6.0,<3" ]
+
+optional-dependencies.honcho = [ "honcho>=2.0.0,<3" ]
+optional-dependencies.reload = [ "django-browser-reload>=1.21.0,<2" ]
 urls.Homepage = "https://github.com/timonweb/django-tailwind"
 
 [dependency-groups]
 dev = [
-    "cookiecutter",
+    "cookiecutter>=2.6.0,<3",
+    "django-browser-reload>=1.21.0,<2",
+    "honcho>=2.0.0,<3",
     "pre-commit>=4.3.0,<5",
     "pytest>=8.3.5,<9",
     "pytest-django>=4.11.0,<5",
