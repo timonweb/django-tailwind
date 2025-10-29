@@ -34,6 +34,7 @@ def test_extract_host_and_port():
     THEN it should return the appropriate host and port
     """
     assert extract_host_and_port("python manage.py runserver") == ("127.0.0.1", "8000")
+    assert extract_host_and_port("python manage.py runserver 55555") == ("127.0.0.1", "55555")
     assert extract_host_and_port("python manage.py runserver 192.168.1.1:3000") == (
         "192.168.1.1",
         "3000",

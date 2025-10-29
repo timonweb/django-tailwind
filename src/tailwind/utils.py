@@ -75,7 +75,7 @@ def extract_host_and_port(command):
     # Extract IP address/hostname pattern (IPv4, IPv6, or hostname)
     # Matches patterns like: 127.0.0.1, 0.0.0.0, localhost, example.com, ::1, [::1]
     host_match = re.search(
-        r"(?:^|\s)(?:\[?([a-fA-F0-9:]+)\]?|([0-9]{1,3}(?:\.[0-9]{1,3}){3})|(localhost))(?::|$|\s)",
+        r"(?:^|\s)(?:\[?([a-fA-F0-9]*:[a-fA-F0-9:]*)\]?|([0-9]{1,3}(?:\.[0-9]{1,3}){3})|(localhost))(?::|$|\s)",
         command,
     )
     if host_match:
@@ -84,9 +84,10 @@ def extract_host_and_port(command):
         if matched_host:
             host = matched_host
 
-    # Extract port pattern (any sequence of digits)
-    port_match = re.search(r":(\d+)(?:\s|$)", command)
+    # Extract port pattern (digits after colon OR standalone digits)
+    # Matches either ":PORT" or " PORT" format
+    port_match = re.search(r":(\d+)(?:\s|$)|\s(\d+)(?:\s|$)", command)
     if port_match:
-        port = port_match.group(1)
+        port = port_match.group(1) or port_match.group(2)
 
     return host, port

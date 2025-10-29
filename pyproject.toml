@@ -40,8 +40,9 @@ optional-dependencies.reload = [ "django-browser-reload>=1.18.0,<2" ]
 urls.Homepage = "https://github.com/timonweb/django-tailwind"
 
 [dependency-groups]
-test = [
+dev = [
     "cookiecutter",
+    "pre-commit>=4.3.0,<5",
     "pytest>=8.3.5,<9",
     "pytest-django>=4.11.0,<5",
     "tox>=4.25.0,<5",
