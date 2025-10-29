@@ -9,4 +9,5 @@ def get_config(setting_name):
         "TAILWIND_DEV_MODE": getattr(settings, "TAILWIND_DEV_MODE", False),
         "TAILWIND_CSS_PATH": getattr(settings, "TAILWIND_CSS_PATH", "css/dist/styles.css"),
         "TAILWIND_APP_NAME": getattr(settings, "TAILWIND_APP_NAME", None),
+        "TAILWIND_CLI_CONFIG": getattr(settings, "TAILWIND_CLI_CONFIG", None),
     }[setting_name]

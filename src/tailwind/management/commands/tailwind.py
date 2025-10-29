@@ -1,5 +1,6 @@
 import os
 import subprocess
+import sys
 
 from django.core.management.base import CommandError
 from django.core.management.base import LabelCommand
@@ -9,6 +10,7 @@ from tailwind import get_config
 from ...npm import NPM
 from ...npm import NPMException
 from ...utils import extract_server_url_from_procfile
+from ...utils import get_app_path
 from ...utils import get_tailwind_src_path
 from ...utils import install_pip_package
 from ...validate import ValidationError
@@ -82,6 +84,7 @@ Usage example:
         if labels[0] != "init":
             self.validate_app()
             self.npm = NPM(cwd=get_tailwind_src_path(get_config("TAILWIND_APP_NAME")))
+            self.cli_config = get_config("TAILWIND_CLI_CONFIG")
 
         getattr(self, "handle_" + labels[0].replace("-", "_") + "_command")(*labels[1:], **options)
 
@@ -128,20 +131,64 @@ Usage example:
             raise CommandError(err) from err
 
     def handle_install_command(self, **options):
-        args = ["install"]
-        if options["no_package_lock"]:
-            args.append("--no-package-lock")
+        if self.cli_config:
+            import pytailwindcss
 
-        self.npm_command(*args)
+            pytailwindcss.install(
+                version=self.cli_config["version"],
+            )
+        else:
+            args = ["install"]
+            if options["no_package_lock"]:
+                args.append("--no-package-lock")
 
-        # Run the build command after installation
-        self.npm_command("run", "build")
+            self.npm_command(*args)
+
+            # Run the build command after installation
+            self.npm_command("run", "build")
 
     def handle_build_command(self, **options):
-        self.npm_command("run", "build")
+        if self.cli_config:
+            import pytailwindcss
+
+            pytailwindcss.run(
+                [
+                    "--input",
+                    self.cli_config["input"],
+                    "--output",
+                    self.cli_config["output"],
+                    "--minify",
+                ],
+                cwd=get_app_path(get_config("TAILWIND_APP_NAME")),
+                live_output=True,
+                auto_install=True,
+                version=self.cli_config["version"],
+            )
+        else:
+            self.npm_command("run", "build")
 
     def handle_start_command(self, **options):
-        self.npm_command("run", "start")
+        if self.cli_config:
+            try:
+                import pytailwindcss
+
+                pytailwindcss.run(
+                    [
+                        "--input",
+                        self.cli_config["input"],
+                        "--output",
+                        self.cli_config["output"],
+                        "--watch",
+                    ],
+                    cwd=get_app_path(get_config("TAILWIND_APP_NAME")),
+                    live_output=True,
+                    auto_install=True,
+                    version=self.cli_config["version"],
+                )
+            except KeyboardInterrupt:
+                sys.exit(0)
+        else:
+            self.npm_command("run", "start")
 
     def handle_dev_command(self, **options):
         # Check if honcho is installed
@@ -191,6 +238,7 @@ tailwind: python manage.py tailwind start"""
             raise CommandError(f"Failed to start honcho: {err}") from err
         except KeyboardInterrupt:
             self.stdout.write("\nStopping development servers...")
+            sys.exit(0)
 
     def handle_check_updates_command(self, **options):
         self.npm_command("outdated")
@@ -256,4 +304,4 @@ tailwind: python manage.py tailwind start"""
         except NPMException as err:
             raise CommandError(err) from err
         except KeyboardInterrupt:
-            pass
+            sys.exit(0)

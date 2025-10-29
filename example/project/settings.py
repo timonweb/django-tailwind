@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -30,7 +31,8 @@ ALLOWED_HOSTS = ["*"]
 INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "tailwind",
-    "theme",
+    # "theme",
+    "theme_standalone",
 ]
 
 if DEBUG:
@@ -38,8 +40,14 @@ if DEBUG:
         "django_browser_reload",
     ]
 
-TAILWIND_APP_NAME = "theme"
+TAILWIND_APP_NAME = "theme_standalone"
 TAILWIND_DEV_MODE = DEBUG
+
+TAILWIND_CLI_CONFIG = {
+    "version": os.getenv("TAILWINDCSS_VERSION", "v4.1.16"),
+    "input": "static_src/src/styles.css",
+    "output": "static/css/dist/styles.css",
+}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -101,7 +109,6 @@ LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
 
 USE_I18N = True
-
 
 USE_TZ = True
 
