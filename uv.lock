@@ -347,6 +347,12 @@ dependencies = [
 ]
 
 [package.optional-dependencies]
+cookiecutter = [
+    { name = "cookiecutter" },
+]
+honcho = [
+    { name = "honcho" },
+]
 reload = [
     { name = "django-browser-reload" },
 ]
@@ -354,6 +360,8 @@ reload = [
 [package.dev-dependencies]
 dev = [
     { name = "cookiecutter" },
+    { name = "django-browser-reload" },
+    { name = "honcho" },
     { name = "pre-commit" },
     { name = "pytest" },
     { name = "pytest-django" },
@@ -382,15 +390,19 @@ docs = [
 
 [package.metadata]
 requires-dist = [
+    { name = "cookiecutter", marker = "extra == 'cookiecutter'", specifier = ">=2.6.0,<3" },
     { name = "django", specifier = ">=4.2.20" },
-    { name = "django-browser-reload", marker = "extra == 'reload'", specifier = ">=1.18.0,<2" },
+    { name = "django-browser-reload", marker = "extra == 'reload'", specifier = ">=1.21.0,<2" },
     { name = "honcho", specifier = ">=2.0.0" },
+    { name = "honcho", marker = "extra == 'honcho'", specifier = ">=2.0.0,<3" },
 ]
-provides-extras = ["reload"]
+provides-extras = ["cookiecutter", "honcho", "reload"]
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "cookiecutter" },
+    { name = "cookiecutter", specifier = ">=2.6.0,<3" },
+    { name = "django-browser-reload", specifier = ">=1.21.0,<2" },
+    { name = "honcho", specifier = ">=2.0.0,<3" },
     { name = "pre-commit", specifier = ">=4.3.0,<5" },
     { name = "pytest", specifier = ">=8.3.5,<9" },
     { name = "pytest-django", specifier = ">=4.11.0,<5" },
