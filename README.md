@@ -27,7 +27,7 @@ started with *Tailwind CSS* quickly.
 
 ## Requirements
 
-Python 3.10 or newer and Django 4.2.20 or newer.
+Python 3.11 or newer and Django 4.2.20 or newer.
 
 ## Documentation
 
@@ -40,7 +40,7 @@ repository.
 
    a) With all dependencies that make development easier (recommended):
     ```bash
-   pip install django-tailwind[cookiecutter,honcho,reload]
+   pip install 'django-tailwind[cookiecutter,honcho,reload]'
    ```
 
    b) or just the core package (enough for production use):

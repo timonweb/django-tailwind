@@ -7,7 +7,7 @@
    **Option A (Recommended for development):** Install with all dependencies that make development easier:
 
    ```bash
-   python -m pip install django-tailwind[cookiecutter,honcho,reload]
+   python -m pip install 'django-tailwind[cookiecutter,honcho,reload]'
    ```
 
    This includes:
