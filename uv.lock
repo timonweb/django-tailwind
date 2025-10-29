@@ -335,7 +335,7 @@ wheels = [
 
 [[package]]
 name = "django-tailwind"
-version = "4.3.0"
+version = "4.3.1"
 source = { editable = "." }
 dependencies = [
     { name = "django", version = "4.2.25", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-15-django-tailwind-django42' or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django51') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django52') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django51' and extra == 'group-15-django-tailwind-django52') or (extra == 'group-15-django-tailwind-django51' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django52' and extra == 'group-15-django-tailwind-django60')" },
@@ -343,7 +343,6 @@ dependencies = [
     { name = "django", version = "5.1.13", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-15-django-tailwind-django51' or (extra == 'group-15-django-tailwind-django42' and extra == 'group-15-django-tailwind-django50') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django52') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django52' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django42' and extra != 'group-15-django-tailwind-django51' and extra == 'group-15-django-tailwind-django52') or (extra == 'group-15-django-tailwind-django42' and extra != 'group-15-django-tailwind-django51' and extra == 'group-15-django-tailwind-django60')" },
     { name = "django", version = "5.2.7", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.12' and extra != 'group-15-django-tailwind-django42' and extra != 'group-15-django-tailwind-django50' and extra != 'group-15-django-tailwind-django51') or extra == 'group-15-django-tailwind-django52' or (extra == 'group-15-django-tailwind-django42' and extra == 'group-15-django-tailwind-django50') or (extra == 'group-15-django-tailwind-django42' and extra == 'group-15-django-tailwind-django51') or (extra == 'group-15-django-tailwind-django42' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django51') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django51' and extra == 'group-15-django-tailwind-django60')" },
     { name = "django", version = "6.0b1", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version >= '3.12' and extra != 'group-15-django-tailwind-django42' and extra != 'group-15-django-tailwind-django50' and extra != 'group-15-django-tailwind-django51' and extra != 'group-15-django-tailwind-django52') or (extra == 'group-15-django-tailwind-django42' and extra == 'group-15-django-tailwind-django50') or (extra == 'group-15-django-tailwind-django42' and extra == 'group-15-django-tailwind-django51') or (extra == 'group-15-django-tailwind-django42' and extra == 'group-15-django-tailwind-django52') or (extra == 'group-15-django-tailwind-django42' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django51') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django52') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django51' and extra == 'group-15-django-tailwind-django52') or (extra == 'group-15-django-tailwind-django51' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django52' and extra == 'group-15-django-tailwind-django60')" },
-    { name = "honcho" },
 ]
 
 [package.optional-dependencies]
@@ -393,7 +392,6 @@ requires-dist = [
     { name = "cookiecutter", marker = "extra == 'cookiecutter'", specifier = ">=2.6.0,<3" },
     { name = "django", specifier = ">=4.2.20" },
     { name = "django-browser-reload", marker = "extra == 'reload'", specifier = ">=1.21.0,<2" },
-    { name = "honcho", specifier = ">=2.0.0" },
     { name = "honcho", marker = "extra == 'honcho'", specifier = ">=2.0.0,<3" },
 ]
 provides-extras = ["cookiecutter", "honcho", "reload"]
