@@ -1,5 +1,12 @@
 # Changelog
 
+## 4.3.0
+
+- Replaces Poetry with UV for dependency management;
+- Fixes `extract_host_and_port` to support standalone port numbers (e.g., `python manage.py runserver 55555`);
+- Updates tox configuration to use `dev` dependency group;
+- Removes Docker instructions from documentation;
+
 ## 4.2.0
 
 - Adds new `manage.py tailwind plugin_install` command to manage Tailwind CSS plugins;
