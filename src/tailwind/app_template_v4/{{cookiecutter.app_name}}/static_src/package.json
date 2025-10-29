@@ -1,6 +1,6 @@
 {
   "name": "{{ cookiecutter.app_name }}",
-  "version": "4.2.0",
+  "version": "4.3.0",
   "description": "",
   "scripts": {
     "start": "npm run dev",
@@ -13,14 +13,14 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.11",
-{% if cookiecutter.include_daisy_ui == 'yes' %}    "daisyui": "^5.0.43",{% endif %}
-    "cross-env": "^7.0.3",
+    "@tailwindcss/postcss": "^4.1.16",
+{% if cookiecutter.include_daisy_ui == 'yes' %}    "daisyui": "^5.3.10",{% endif %}
+    "cross-env": "^10.1.0",
     "postcss": "^8.5.6",
     "postcss-cli": "^11.0.1",
     "postcss-nested": "^7.0.2",
     "postcss-simple-vars": "^7.0.1",
     "rimraf": "^6.0.1",
-    "tailwindcss": "^4.1.11"
+    "tailwindcss": "^4.1.16"
   }
 }
