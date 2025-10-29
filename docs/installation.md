@@ -4,19 +4,24 @@
 
 1. Install the `django-tailwind` package via `pip`:
 
+   **Option A (Recommended for development):** Install with all dependencies that make development easier:
+
+   ```bash
+   python -m pip install django-tailwind[cookiecutter,honcho,reload]
+   ```
+
+   This includes:
+   - `cookiecutter` - for creating theme apps
+   - `honcho` - for running Django and Tailwind servers simultaneously with `python manage.py tailwind dev`
+   - `django-browser-reload` - for automatic page reloads during development
+
+   **Option B:** Install just the core package (enough for production use):
+
    ```bash
    python -m pip install django-tailwind
    ```
 
-   [RECOMMENDED IN DEV] If you want to use automatic page reloads during development (see steps 9-12 below),
-   use the `[reload]` extras, which installs the `django-browser-reload` package
-   in addition:
-
-   ```bash
-   python -m pip install 'django-tailwind[reload]'
-   ```
-
-   Alternatively, you can install the latest development version via:
+   **Option C:** Install the latest development version:
 
    ```bash
    python -m pip install git+https://github.com/timonweb/django-tailwind.git
