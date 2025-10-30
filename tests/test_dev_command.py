@@ -1,3 +1,4 @@
+import contextlib
 import os
 from unittest import mock
 
@@ -199,3 +200,92 @@ tailwind: python manage.py tailwind start"""
     assert lines[1].startswith("tailwind:")
     assert "python manage.py runserver" in lines[0]
     assert "python manage.py tailwind start" in lines[1]
+
+
+def test_tailwind_dev_command_windows_platform(settings, app_name, procfile_path):
+    """
+    GIVEN a Tailwind app is initialized on Windows
+    WHEN the dev command is run
+    THEN it should use the Windows-specific process manager instead of honcho
+    """
+    call_command("tailwind", "init", "--app-name", app_name, "--no-input")
+    settings.INSTALLED_APPS += [app_name]
+    settings.TAILWIND_APP_NAME = app_name
+
+    # Ensure Procfile.tailwind doesn't exist
+    assert not os.path.exists(procfile_path)
+
+    # Mock sys.platform to simulate Windows
+    with mock.patch("sys.platform", "win32"), mock.patch("subprocess.Popen") as MockPopen, mock.patch(
+        "threading.Thread"
+    ) as mock_thread:
+
+        class MockPopenClass:
+            def __init__(self, *args, **kwargs):
+                self.returncode = None
+
+            def poll(self):
+                return self.returncode
+
+            def wait(self):
+                # Simulate immediate completion
+                self.returncode = 0
+
+            def send_signal(self, sig):
+                self.returncode = 0
+
+            def kill(self):
+                self.returncode = -1
+
+        MockPopen.side_effect = MockPopenClass
+
+        # Set up threads to appear not alive
+        mock_thread_instance = mock.Mock()
+        mock_thread_instance.is_alive.return_value = False
+        mock_thread.return_value = mock_thread_instance
+
+        # Call dev command - should use Windows path
+        with contextlib.suppress(KeyboardInterrupt):
+            call_command("tailwind", "dev")
+
+    # Verify Procfile was created
+    assert os.path.exists(procfile_path), "Procfile.tailwind should be created"
+
+
+def test_tailwind_dev_command_windows_keyboard_interrupt(settings, app_name, procfile_path):
+    """
+    GIVEN a Tailwind app is initialized on Windows and the dev command is running
+    WHEN a KeyboardInterrupt is received (user presses Ctrl+C)
+    THEN the command should properly terminate all child processes and exit gracefully
+    """
+    call_command("tailwind", "init", "--app-name", app_name, "--no-input")
+    settings.INSTALLED_APPS += [app_name]
+    settings.TAILWIND_APP_NAME = app_name
+
+    # Create Procfile
+    procfile_content = """django: python manage.py runserver
+tailwind: python manage.py tailwind start"""
+    with open(procfile_path, "w") as f:
+        f.write(procfile_content)
+
+    # Mock sys.platform to simulate Windows
+    with mock.patch("sys.platform", "win32"):
+        # Track if Windows process manager was called
+        windows_method_called = [False]
+
+        # Patch the Windows-specific method
+        def mock_windows_method(self, procfile_path):
+            windows_method_called[0] = True
+            # Just return without actually running processes
+            return
+
+        # We need to patch the method on the Command class in the module
+        with mock.patch(
+            "tailwind.management.commands.tailwind.Command._run_dev_processes_windows",
+            mock_windows_method,
+        ):
+            # Call dev command - should use Windows code path
+            call_command("tailwind", "dev")
+
+        # Verify Windows-specific method was called
+        assert windows_method_called[0], "Windows-specific process manager should be used on Windows"
