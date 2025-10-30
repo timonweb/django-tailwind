@@ -11,20 +11,6 @@ class ValidationError(Exception):
 
 
 class Validations:
-    def acceptable_label(self, label):
-        if label not in [
-            "init",
-            "install",
-            "npm",
-            "start",
-            "dev",
-            "build",
-            "check-updates",
-            "update",
-            "plugin_install",
-        ]:
-            raise ValidationError(f"Subcommand {label} doesn't exist")
-
     def is_installed(self, app_name):
         if not apps.is_installed(app_name):
             raise ValidationError(f"{app_name} is not in INSTALLED_APPS")

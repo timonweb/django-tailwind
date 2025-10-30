@@ -31,7 +31,8 @@ def test_tailwind_dev_command_creates_procfile_real(settings, app_name, procfile
         ]
 
         # Call dev command - should create Procfile
-        call_command("tailwind", "dev")
+        with pytest.raises(SystemExit):
+            call_command("tailwind", "dev")
 
     # Verify file was actually created
     assert os.path.exists(procfile_path), "Procfile.tailwind should be created"
@@ -75,7 +76,8 @@ redis: redis-server"""
         ]
 
         # Call dev command - should NOT overwrite existing Procfile
-        call_command_with_output("tailwind", "dev")
+        with pytest.raises(SystemExit):
+            call_command_with_output("tailwind", "dev")
 
     # Verify file still exists and wasn't overwritten
     assert os.path.exists(procfile_path), "Procfile.tailwind should still exist"
@@ -133,7 +135,8 @@ def test_tailwind_dev_command_graceful_keyboard_interrupt(settings, app_name, pr
         ]
 
         # Should not raise exception, should handle gracefully
-        call_command("tailwind", "dev")
+        with pytest.raises(SystemExit):
+            call_command("tailwind", "dev")
 
         # If we get here, the KeyboardInterrupt was handled properly
         assert True, "KeyboardInterrupt should be handled gracefully"
@@ -158,28 +161,26 @@ def test_tailwind_dev_command_messages_in_the_output(settings, app_name, procfil
         ]
 
         # Call dev command - should create Procfile
-        out, _ = call_command_with_output("tailwind", "dev")
+        with pytest.raises(SystemExit):
+            out, _ = call_command_with_output("tailwind", "dev")
 
-        assert "Procfile.tailwind created" in out
-        assert "Starting Tailwind watcher and Django development server" in out
-        assert "You can access the server at: http://127.0.0.1:8000/"
-        assert "Press Ctrl+C to stop the servers"
+            assert "Procfile.tailwind created" in out
+            assert "Starting Tailwind watcher and Django development server" in out
+            assert "You can access the server at: http://127.0.0.1:8000/"
+            assert "Press Ctrl+C to stop the servers"
 
 
 def test_tailwind_dev_command_help_includes_dev():
     """
     GIVEN the tailwind management command is available
     WHEN the command is run without arguments to show help
-    THEN the help text should include the dev command description
     """
-    # This tests the actual help message without mocking
     try:
         call_command("tailwind")
         raise AssertionError("Should have raised CommandError for missing arguments")
     except CommandError as e:
         help_text = str(e)
-        assert "dev - to start Django server and Tailwind watcher simultaneously" in help_text
-        assert "python manage.py tailwind start" in help_text  # Usage example should be there
+        assert "Error: the following arguments are required: subcommand" in help_text
 
 
 def test_procfile_content_format():

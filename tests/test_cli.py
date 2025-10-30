@@ -299,4 +299,4 @@ def test_tailwind_plugin_install_no_plugin_name_error(settings, app_name):
     with pytest.raises(Exception) as exc_info:
         call_command("tailwind", "plugin_install")
 
-    assert "Plugin name is required" in str(exc_info.value)
+    assert "the following arguments are required: plugin_name" in str(exc_info.value)
