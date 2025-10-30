@@ -1,7 +1,5 @@
-import contextlib
 import os
 import platform
-import signal
 import subprocess
 
 from django.core.management.base import CommandError
@@ -195,36 +193,22 @@ tailwind: python manage.py tailwind start"""
         except KeyboardInterrupt:
             self.stdout.write("\nStopping development servers...")
 
-    def run_honcho(self, procfile, extra_args=None) -> int:
+    def run_honcho(self, procfile, extra_args=None):
         """
         Runs Honcho in a way that Ctrl+C works:
           - Windows: wraps with `cmd /c` and uses a new process group
           - POSIX (Linux/macOS/WSL): runs directly
         Returns the exit code.
         """
-        extra_args = list(extra_args or [])
-        base_cmd = ["honcho", "-f", procfile, "start", *extra_args]
-
-        # Let Ctrl+C (SIGINT) interrupt the subprocess too
-        # On some embedded environments this may not be available; ignore.
-        with contextlib.suppress(Exception):
-            signal.signal(signal.SIGINT, signal.SIG_DFL)
-
-        system = platform.system()
-        is_windows = system == "Windows"
-
-        if is_windows:
-            # On native Windows, wrap with `cmd /c` so Ctrl+C propagates reliably
-            cmd = ["cmd", "/c", *base_cmd]
-            creationflags = getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0)
-            return subprocess.run(
-                cmd,
-                check=False,
-                creationflags=creationflags,
-            ).returncode
-        else:
-            # Linux/macOS/WSL: plain run
-            return subprocess.run(base_cmd, check=False).returncode
+        try:
+            if platform.system() == "Windows":
+                proc = subprocess.Popen(["honcho", "-f", procfile, "start"])
+                proc.wait()
+            else:
+                subprocess.run(["honcho", "-f", procfile, "start"], check=True)
+        except KeyboardInterrupt:
+            if platform.system() == "Windows":
+                os.system("taskkill /F /T /IM python.exe")
 
     def handle_check_updates_command(self, **options):
         self.npm_command("outdated")
