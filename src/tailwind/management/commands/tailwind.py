@@ -1,6 +1,9 @@
 import os
+import signal
 import subprocess
 import sys
+import threading
+import time
 
 from django.core.management.base import CommandError
 from django.core.management.base import LabelCommand
@@ -146,10 +149,6 @@ Usage example:
 
     def _run_dev_processes_windows(self, procfile_path):
         """Run dev processes on Windows using direct subprocess management."""
-        import signal
-        import threading
-        import time
-
         # Parse Procfile to get commands
         commands = {}
         with open(procfile_path) as f:
@@ -171,6 +170,9 @@ Usage example:
             try:
                 # On Windows, use CREATE_NEW_PROCESS_GROUP to allow proper termination
                 # This constant is only available on Windows
+                # Note: shell=True is used here because commands from Procfile.tailwind
+                # are meant to be shell commands (e.g., "python manage.py runserver").
+                # The Procfile is part of the project and should be trusted content.
                 kwargs = {"shell": True}
                 if hasattr(subprocess, "CREATE_NEW_PROCESS_GROUP"):
                     kwargs["creationflags"] = subprocess.CREATE_NEW_PROCESS_GROUP
@@ -178,7 +180,7 @@ Usage example:
                 proc = subprocess.Popen(command, **kwargs)
                 processes.append(proc)
                 proc.wait()
-            except Exception as e:
+            except (OSError, subprocess.SubprocessError) as e:
                 if not stop_event.is_set():
                     self.stdout.write(f"\n{name} process error: {e}")
 
@@ -208,7 +210,8 @@ Usage example:
                             proc.send_signal(signal.CTRL_BREAK_EVENT)
                         else:
                             proc.terminate()
-                except Exception:
+                except (OSError, ProcessLookupError):
+                    # Process already terminated or not found
                     pass
 
             # Wait for processes to terminate, with timeout
@@ -220,7 +223,8 @@ Usage example:
                         try:
                             if proc.poll() is None:
                                 proc.kill()
-                        except Exception:
+                        except (OSError, ProcessLookupError):
+                            # Process already terminated or not found
                             pass
                     break
                 time.sleep(0.1)
