@@ -2,6 +2,7 @@ import os
 import subprocess
 import sys
 
+from distlib.compat import raw_input
 from django.core.management.base import BaseCommand
 from django.core.management.base import CommandError
 
@@ -140,6 +141,24 @@ class Command(BaseCommand):
         method(**options)
 
     def handle_init_command(self, **options):
+        app_template_choice = (
+            raw_input("""Choose template:
+        1 - Tailwind v4 Standalone (recommended) - Simple and doesn't need node.js
+        2 - Tailwind v4 Full - All the bells and whistles, requires node.js
+        3 - Tailwind v3 Full - Legacy template for Tailwind v3 projects, requires node.js
+        Enter choice [1-3]: """)
+            if not options["no_input"]
+            else "1"
+        )
+
+        self.validate_input(app_template_choice, ["1", "2", "3"])
+
+        {
+            "1": "app_template_v4_standalone",
+            "2": "app_template_v4",
+            "3": "app_template_v3",
+        }[app_template_choice]
+
         self.install_app_template(
             f"app_template_v{options['tailwind_version']}",
             app_name=options["app_name"].strip() if options.get("app_name") else "theme",
@@ -388,3 +407,9 @@ tailwind: python manage.py tailwind start"""
 
     def print_error(self, message):
         raise CommandError(message)
+
+    def validate_input(self, user_input, valid_options):
+        if user_input not in valid_options:
+            return self.print_error(
+                f"Invalid input '{user_input}'. Valid options are: {', '.join(valid_options)}"
+            )
