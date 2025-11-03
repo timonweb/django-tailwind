@@ -16,6 +16,8 @@ jobs:
         with:
           fetch-depth: 0
       - uses: actions/setup-python@v2
+        with:
+          python-version: '3.13'
       - uses: pre-commit/action@v3.0.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
