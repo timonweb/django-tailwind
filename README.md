@@ -85,7 +85,7 @@ repository.
 7. **Use Tailwind classes in your templates:**
    ```html
    {% load tailwind_tags %}
-   <link href="{% tailwind_css %}" rel="stylesheet">
+   {% tailwind_css %}
 
    <h1 class="text-4xl font-bold text-blue-600">Hello Tailwind!</h1>
    ```
