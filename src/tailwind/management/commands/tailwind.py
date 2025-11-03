@@ -1,9 +1,5 @@
 import os
-import signal
 import subprocess
-import sys
-import threading
-import time
 
 from django.core.management.base import CommandError
 from django.core.management.base import LabelCommand
@@ -147,93 +143,9 @@ Usage example:
     def handle_start_command(self, **options):
         self.npm_command("run", "start")
 
-    def _run_dev_processes_windows(self, procfile_path):
-        """Run dev processes on Windows using direct subprocess management."""
-        # Parse Procfile to get commands
-        commands = {}
-        with open(procfile_path) as f:
-            for line in f:
-                line = line.strip()
-                if line and ":" in line:
-                    name, command = line.split(":", 1)
-                    commands[name.strip()] = command.strip()
-
-        if not commands:
-            raise CommandError("No commands found in Procfile.tailwind")
-
-        # Track processes
-        processes = []
-        stop_event = threading.Event()
-
-        def run_process(name, command):
-            """Run a single process."""
-            try:
-                # On Windows, use CREATE_NEW_PROCESS_GROUP to allow proper termination
-                # This constant is only available on Windows
-                # Note: shell=True is used here because commands from Procfile.tailwind
-                # are meant to be shell commands (e.g., "python manage.py runserver").
-                # The Procfile is part of the project and should be trusted content.
-                kwargs = {"shell": True}
-                if hasattr(subprocess, "CREATE_NEW_PROCESS_GROUP"):
-                    kwargs["creationflags"] = subprocess.CREATE_NEW_PROCESS_GROUP
-
-                proc = subprocess.Popen(command, **kwargs)
-                processes.append(proc)
-                proc.wait()
-            except (OSError, subprocess.SubprocessError) as e:
-                if not stop_event.is_set():
-                    self.stdout.write(f"\n{name} process error: {e}")
-
-        # Start all processes in separate threads
-        threads = []
-        for name, command in commands.items():
-            thread = threading.Thread(target=run_process, args=(name, command), daemon=True)
-            thread.start()
-            threads.append(thread)
-
-        try:
-            # Wait for KeyboardInterrupt
-            while True:
-                if not any(t.is_alive() for t in threads):
-                    break
-                threading.Event().wait(0.1)
-        except KeyboardInterrupt:
-            self.stdout.write("\nStopping development servers...")
-            stop_event.set()
-
-            # Terminate all processes
-            for proc in processes:
-                try:
-                    if proc.poll() is None:  # Process is still running
-                        # On Windows, send CTRL_BREAK_EVENT to the process group
-                        if hasattr(signal, "CTRL_BREAK_EVENT"):
-                            proc.send_signal(signal.CTRL_BREAK_EVENT)
-                        else:
-                            proc.terminate()
-                except (OSError, ProcessLookupError):
-                    # Process already terminated or not found
-                    pass
-
-            # Wait for processes to terminate, with timeout
-            start_time = time.time()
-            while any(proc.poll() is None for proc in processes):
-                if time.time() - start_time > 5:  # 5 second timeout
-                    # Force kill if needed
-                    for proc in processes:
-                        try:
-                            if proc.poll() is None:
-                                proc.kill()
-                        except (OSError, ProcessLookupError):
-                            # Process already terminated or not found
-                            pass
-                    break
-                time.sleep(0.1)
-
-            # Join threads
-            for thread in threads:
-                thread.join(timeout=1)
-
     def handle_dev_command(self, **options):
+        import time
+
         # Check if Procfile.tailwind exists, create if not
         procfile_path = os.path.join(os.getcwd(), "Procfile.tailwind")
         if not os.path.exists(procfile_path):
@@ -260,33 +172,47 @@ tailwind: python manage.py tailwind start"""
         self.stdout.write(line)
         self.stdout.write("")
 
-        # Use different approach based on platform
-        if sys.platform == "win32":
-            # On Windows, use custom process management for better cleanup
-            self._run_dev_processes_windows(procfile_path)
-        else:
-            # On Unix-like systems, use honcho
-            # Check if honcho is installed
-            try:
-                subprocess.run(["honcho", "--version"], check=True, capture_output=True)
-            except (subprocess.CalledProcessError, FileNotFoundError):
-                self.stdout.write("Honcho is not installed. Installing honcho...")
-                try:
-                    install_pip_package("honcho")
-                    self.stdout.write(self.style.SUCCESS("Honcho installed successfully!"))
-                except Exception as err:
-                    raise CommandError(
-                        "Failed to install 'honcho' via pip. Please install it manually "
-                        "(https://pypi.org/project/honcho/) and run 'python manage.py tailwind dev' again."
-                    ) from err
+        # Parse Procfile to get commands
+        commands = []
+        with open(procfile_path) as f:
+            for line in f:
+                line = line.strip()
+                if line and ":" in line:
+                    _, command = line.split(":", 1)
+                    commands.append(command.strip())
 
-            # Start honcho with the Procfile
-            try:
-                subprocess.run(["honcho", "-f", "Procfile.tailwind", "start"], check=True)
-            except subprocess.CalledProcessError as err:
-                raise CommandError(f"Failed to start honcho: {err}") from err
-            except KeyboardInterrupt:
-                self.stdout.write("\nStopping development servers...")
+        if not commands:
+            raise CommandError("No commands found in Procfile.tailwind")
+
+        # Start all processes
+        processes = []
+        try:
+            for cmd in commands:
+                proc = subprocess.Popen(cmd, shell=True)
+                processes.append(proc)
+
+            # Wait for any process to exit (or KeyboardInterrupt)
+            while True:
+                # Check if any process has exited
+                for proc in processes:
+                    if proc.poll() is not None:
+                        raise CommandError(f"A process exited unexpectedly with code {proc.returncode}")
+                # Small sleep to avoid busy waiting
+                time.sleep(0.1)
+
+        except KeyboardInterrupt:
+            self.stdout.write("\nStopping development servers...")
+        finally:
+            # Terminate all processes
+            import contextlib
+
+            for proc in processes:
+                try:
+                    proc.terminate()
+                    proc.wait(timeout=5)
+                except Exception:
+                    with contextlib.suppress(Exception):
+                        proc.kill()
 
     def handle_check_updates_command(self, **options):
         self.npm_command("outdated")

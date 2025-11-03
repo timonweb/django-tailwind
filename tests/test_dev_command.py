@@ -1,4 +1,3 @@
-import contextlib
 import os
 from unittest import mock
 
@@ -23,13 +22,16 @@ def test_tailwind_dev_command_creates_procfile_real(settings, app_name, procfile
     # Ensure Procfile.tailwind doesn't exist
     assert not os.path.exists(procfile_path)
 
-    # Mock subprocess to prevent actual honcho execution
-    with mock.patch("subprocess.run") as mock_subprocess:
-        # Mock honcho is installed
-        mock_subprocess.side_effect = [
-            mock.Mock(),  # honcho --version succeeds
-            KeyboardInterrupt(),  # honcho start interrupted immediately
-        ]
+    # Mock subprocess.Popen to prevent actual process execution
+    with mock.patch("subprocess.Popen") as mock_popen, mock.patch("time.sleep") as mock_sleep:
+        mock_proc = mock.Mock()
+        mock_proc.poll.return_value = None  # Process is running
+        mock_proc.wait.return_value = None
+        mock_proc.terminate.return_value = None
+        mock_popen.return_value = mock_proc
+
+        # Simulate KeyboardInterrupt after first sleep
+        mock_sleep.side_effect = KeyboardInterrupt()
 
         # Call dev command - should create Procfile
         call_command("tailwind", "dev")
@@ -67,13 +69,14 @@ redis: redis-server"""
     with open(procfile_path, "w") as f:
         f.write(custom_content)
 
-    # Mock subprocess to prevent actual honcho execution
-    with mock.patch("subprocess.run") as mock_subprocess:
-        # Mock honcho is installed
-        mock_subprocess.side_effect = [
-            mock.Mock(),  # honcho --version succeeds
-            KeyboardInterrupt(),  # honcho start interrupted immediately
-        ]
+    # Mock subprocess.Popen to prevent actual process execution
+    with mock.patch("subprocess.Popen") as mock_popen, mock.patch("time.sleep") as mock_sleep:
+        mock_proc = mock.Mock()
+        mock_proc.poll.return_value = None
+        mock_proc.wait.return_value = None
+        mock_proc.terminate.return_value = None
+        mock_popen.return_value = mock_proc
+        mock_sleep.side_effect = KeyboardInterrupt()
 
         # Call dev command - should NOT overwrite existing Procfile
         call_command_with_output("tailwind", "dev")
@@ -90,27 +93,24 @@ redis: redis-server"""
 
 def test_tailwind_dev_command_subprocess_error(settings, app_name, procfile_path):
     """
-    GIVEN a Tailwind app is initialized and honcho is available
-    WHEN the dev command is run but honcho start fails
-    THEN a CommandError should be raised with subprocess failure message
+    GIVEN a Tailwind app is initialized
+    WHEN the dev command is run but a process exits unexpectedly
+    THEN a CommandError should be raised
     """
     # Setup
     call_command("tailwind", "init", "--app-name", app_name, "--no-input")
     settings.INSTALLED_APPS += [app_name]
     settings.TAILWIND_APP_NAME = app_name
 
-    # Mock subprocess to simulate honcho start failure
-    with mock.patch("subprocess.run") as mock_subprocess:
-        import subprocess
-
-        # Mock honcho version check to succeed, but start to fail
-        mock_subprocess.side_effect = [
-            mock.Mock(),  # honcho --version succeeds
-            subprocess.CalledProcessError(1, ["honcho", "start"]),  # honcho start fails
-        ]
+    # Mock subprocess.Popen to simulate process failure
+    with mock.patch("subprocess.Popen") as mock_popen:
+        mock_proc = mock.Mock()
+        mock_proc.poll.return_value = 1  # Process exited with error code 1
+        mock_proc.returncode = 1
+        mock_popen.return_value = mock_proc
 
         # Expect CommandError to be raised
-        with pytest.raises(CommandError, match="Failed to start honcho"):
+        with pytest.raises(CommandError, match="A process exited unexpectedly"):
             call_command("tailwind", "dev")
 
 
@@ -125,13 +125,14 @@ def test_tailwind_dev_command_graceful_keyboard_interrupt(settings, app_name, pr
     settings.INSTALLED_APPS += [app_name]
     settings.TAILWIND_APP_NAME = app_name
 
-    # Mock subprocess to simulate KeyboardInterrupt
-    with mock.patch("subprocess.run") as mock_subprocess:
-        # Mock honcho version check to succeed, but start to be interrupted
-        mock_subprocess.side_effect = [
-            mock.Mock(),  # honcho --version succeeds
-            KeyboardInterrupt(),  # honcho start interrupted
-        ]
+    # Mock subprocess.Popen to simulate KeyboardInterrupt
+    with mock.patch("subprocess.Popen") as mock_popen, mock.patch("time.sleep") as mock_sleep:
+        mock_proc = mock.Mock()
+        mock_proc.poll.return_value = None
+        mock_proc.wait.return_value = None
+        mock_proc.terminate.return_value = None
+        mock_popen.return_value = mock_proc
+        mock_sleep.side_effect = KeyboardInterrupt()
 
         # Should not raise exception, should handle gracefully
         call_command("tailwind", "dev")
@@ -150,13 +151,14 @@ def test_tailwind_dev_command_messages_in_the_output(settings, app_name, procfil
     settings.INSTALLED_APPS += [app_name]
     settings.TAILWIND_APP_NAME = app_name
 
-    # Mock subprocess to prevent actual honcho execution
-    with mock.patch("subprocess.run") as mock_subprocess:
-        # Mock honcho is installed
-        mock_subprocess.side_effect = [
-            mock.Mock(),  # honcho --version succeeds
-            KeyboardInterrupt(),  # honcho start interrupted immediately
-        ]
+    # Mock subprocess.Popen to prevent actual process execution
+    with mock.patch("subprocess.Popen") as mock_popen, mock.patch("time.sleep") as mock_sleep:
+        mock_proc = mock.Mock()
+        mock_proc.poll.return_value = None
+        mock_proc.wait.return_value = None
+        mock_proc.terminate.return_value = None
+        mock_popen.return_value = mock_proc
+        mock_sleep.side_effect = KeyboardInterrupt()
 
         # Call dev command - should create Procfile
         out, _ = call_command_with_output("tailwind", "dev")
@@ -200,92 +202,3 @@ tailwind: python manage.py tailwind start"""
     assert lines[1].startswith("tailwind:")
     assert "python manage.py runserver" in lines[0]
     assert "python manage.py tailwind start" in lines[1]
-
-
-def test_tailwind_dev_command_windows_platform(settings, app_name, procfile_path):
-    """
-    GIVEN a Tailwind app is initialized on Windows
-    WHEN the dev command is run
-    THEN it should use the Windows-specific process manager instead of honcho
-    """
-    call_command("tailwind", "init", "--app-name", app_name, "--no-input")
-    settings.INSTALLED_APPS += [app_name]
-    settings.TAILWIND_APP_NAME = app_name
-
-    # Ensure Procfile.tailwind doesn't exist
-    assert not os.path.exists(procfile_path)
-
-    # Mock sys.platform to simulate Windows
-    with mock.patch("sys.platform", "win32"), mock.patch("subprocess.Popen") as MockPopen, mock.patch(
-        "threading.Thread"
-    ) as mock_thread:
-
-        class MockPopenClass:
-            def __init__(self, *args, **kwargs):
-                self.returncode = None
-
-            def poll(self):
-                return self.returncode
-
-            def wait(self):
-                # Simulate immediate completion
-                self.returncode = 0
-
-            def send_signal(self, sig):
-                self.returncode = 0
-
-            def kill(self):
-                self.returncode = -1
-
-        MockPopen.side_effect = MockPopenClass
-
-        # Set up threads to appear not alive
-        mock_thread_instance = mock.Mock()
-        mock_thread_instance.is_alive.return_value = False
-        mock_thread.return_value = mock_thread_instance
-
-        # Call dev command - should use Windows path
-        with contextlib.suppress(KeyboardInterrupt):
-            call_command("tailwind", "dev")
-
-    # Verify Procfile was created
-    assert os.path.exists(procfile_path), "Procfile.tailwind should be created"
-
-
-def test_tailwind_dev_command_windows_keyboard_interrupt(settings, app_name, procfile_path):
-    """
-    GIVEN a Tailwind app is initialized on Windows and the dev command is running
-    WHEN a KeyboardInterrupt is received (user presses Ctrl+C)
-    THEN the command should properly terminate all child processes and exit gracefully
-    """
-    call_command("tailwind", "init", "--app-name", app_name, "--no-input")
-    settings.INSTALLED_APPS += [app_name]
-    settings.TAILWIND_APP_NAME = app_name
-
-    # Create Procfile
-    procfile_content = """django: python manage.py runserver
-tailwind: python manage.py tailwind start"""
-    with open(procfile_path, "w") as f:
-        f.write(procfile_content)
-
-    # Mock sys.platform to simulate Windows
-    with mock.patch("sys.platform", "win32"):
-        # Track if Windows process manager was called
-        windows_method_called = [False]
-
-        # Patch the Windows-specific method
-        def mock_windows_method(self, procfile_path):
-            windows_method_called[0] = True
-            # Just return without actually running processes
-            return
-
-        # We need to patch the method on the Command class in the module
-        with mock.patch(
-            "tailwind.management.commands.tailwind.Command._run_dev_processes_windows",
-            mock_windows_method,
-        ):
-            # Call dev command - should use Windows code path
-            call_command("tailwind", "dev")
-
-        # Verify Windows-specific method was called
-        assert windows_method_called[0], "Windows-specific process manager should be used on Windows"
