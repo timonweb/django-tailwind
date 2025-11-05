@@ -30,7 +30,8 @@ ALLOWED_HOSTS = ["*"]
 INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "tailwind",
-    "theme",
+    # "theme",
+    "theme_standalone",
 ]
 
 if DEBUG:
@@ -38,8 +39,7 @@ if DEBUG:
         "django_browser_reload",
     ]
 
-TAILWIND_APP_NAME = "theme"
-TAILWIND_DEV_MODE = DEBUG
+TAILWIND_APP_NAME = "theme_standalone"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -101,7 +101,6 @@ LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
 
 USE_I18N = True
-
 
 USE_TZ = True
 

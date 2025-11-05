@@ -38,6 +38,10 @@ def procfile_path():
         os.remove(procfile_path)
 
 
+def get_tailwind_versions():
+    return ["3", "4", "4s"]
+
+
 def call_command_with_output(command_name, *args, **kwargs):
     out = StringIO()
     err = StringIO()

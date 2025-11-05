@@ -3,6 +3,7 @@ import os
 
 import pytest
 from django.core.management import call_command
+from django.core.management import CommandError
 
 from tailwind.utils import get_app_path
 
@@ -61,7 +62,15 @@ def test_tailwind_install_and_build_v4(no_package_lock, settings, app_name):
     WHEN the install and build commands are run with optional package-lock settings
     THEN the app structure, dependencies, and CSS output should be created correctly without tailwind.config.js
     """
-    call_command("tailwind", "init", "--app-name", app_name, "--no-input")
+    call_command(
+        "tailwind",
+        "init",
+        "--app-name",
+        app_name,
+        "--tailwind-version",
+        "4",
+        "--no-input",
+    )
 
     settings.INSTALLED_APPS += [app_name]
     settings.TAILWIND_APP_NAME = app_name
@@ -129,13 +138,84 @@ def test_tailwind_install_and_build_v4(no_package_lock, settings, app_name):
     )
 
 
+def test_tailwind_install_and_build_v4_standalone(settings, app_name):
+    """
+    GIVEN a new Tailwind v4s (standalone) app is initialized
+    WHEN the install and build commands are run
+    THEN the app structure should be created correctly
+    """
+    call_command(
+        "tailwind", "init", "--app-name", app_name, "--no-input", "--tailwind-version", "4s"
+    )
+
+    settings.INSTALLED_APPS += [app_name]
+    settings.TAILWIND_APP_NAME = app_name
+
+    assert os.path.isfile(os.path.join(get_app_path(app_name), "apps.py")), (
+        'The "theme" app has been generated'
+    )
+
+    call_command("tailwind", "install")
+
+    package_json_path = os.path.join(get_app_path(app_name), "static_src", "package.json")
+    assert not os.path.isfile(package_json_path), "Tailwind has not created package.json file"
+
+    assert not os.path.isdir(os.path.join(get_app_path(app_name), "static_src", "node_modules")), (
+        "Tailwind has not been installed from npm"
+    )
+
+    styles_css_path = os.path.join(get_app_path(app_name), "static_src", "src", "styles.css")
+    assert os.path.isfile(styles_css_path), "styles.css file exists"
+    with open(styles_css_path) as f:
+        styles_content = f.read()
+    assert '@plugin "daisyui";' not in styles_content, (
+        "DaisyUI plugin is NOT included in styles.css"
+    )
+
+    call_command("tailwind", "build")
+    assert os.path.isfile(
+        os.path.join(get_app_path(app_name), "static", "css", "dist", "styles.css")
+    ), "Tailwind has built a css/styles.css file"
+
+
+def test_tailwind_non_standalone_commands_v4_standalone(settings, app_name):
+    """
+    GIVEN a new Tailwind v4 standalone app is initialized
+    WHEN non-standalone-specific commands are run
+    THEN they should raise CommandError indicating they are not supported
+    """
+    call_command(
+        "tailwind", "init", "--app-name", app_name, "--no-input", "--tailwind-version", "4s"
+    )
+
+    settings.INSTALLED_APPS += [app_name]
+    settings.TAILWIND_APP_NAME = app_name
+
+    call_command("tailwind", "install")
+
+    with pytest.raises(CommandError):
+        call_command("tailwind", "update")
+
+    with pytest.raises(CommandError):
+        call_command("tailwind", "plugin_install", "some-plugin")
+
+
 def test_tailwind_init_with_daisy_ui_v4(settings, app_name):
     """
     GIVEN a new Tailwind v4 app is initialized with the --include-daisy-ui flag
     WHEN the init command is run
     THEN the DaisyUI dependency should be included in package.json and styles.css should include the plugin
     """
-    call_command("tailwind", "init", "--app-name", app_name, "--no-input", "--include-daisy-ui")
+    call_command(
+        "tailwind",
+        "init",
+        "--app-name",
+        app_name,
+        "--tailwind-version",
+        "4",
+        "--no-input",
+        "--include-daisy-ui",
+    )
 
     settings.INSTALLED_APPS += [app_name]
 
@@ -181,7 +261,9 @@ def test_tailwind_plugin_install_success(settings, app_name):
     WHEN the plugin_install command is run with a valid plugin name
     THEN the plugin should be installed via npm and added to styles.css
     """
-    call_command("tailwind", "init", "--app-name", app_name, "--no-input")
+    call_command(
+        "tailwind", "init", "--app-name", app_name, "--tailwind-version", "4", "--no-input"
+    )
 
     settings.INSTALLED_APPS += [app_name]
     settings.TAILWIND_APP_NAME = app_name
@@ -220,7 +302,9 @@ def test_tailwind_plugin_install_duplicate_prevention(settings, app_name):
     WHEN the plugin_install command is run with the same plugin name
     THEN the command should detect the duplicate and not add it again
     """
-    call_command("tailwind", "init", "--app-name", app_name, "--no-input")
+    call_command(
+        "tailwind", "init", "--app-name", app_name, "--tailwind-version", "4", "--no-input"
+    )
 
     settings.INSTALLED_APPS += [app_name]
     settings.TAILWIND_APP_NAME = app_name
@@ -248,7 +332,9 @@ def test_tailwind_plugin_install_multiple_plugins(settings, app_name):
     WHEN multiple plugins are installed via plugin_install command
     THEN all plugins should be properly added to package.json and styles.css
     """
-    call_command("tailwind", "init", "--app-name", app_name, "--no-input")
+    call_command(
+        "tailwind", "init", "--app-name", app_name, "--tailwind-version", "4", "--no-input"
+    )
 
     settings.INSTALLED_APPS += [app_name]
     settings.TAILWIND_APP_NAME = app_name
@@ -288,7 +374,9 @@ def test_tailwind_plugin_install_no_plugin_name_error(settings, app_name):
     WHEN the plugin_install command is run without a plugin name
     THEN it should raise a CommandError
     """
-    call_command("tailwind", "init", "--app-name", app_name, "--no-input")
+    call_command(
+        "tailwind", "init", "--app-name", app_name, "--tailwind-version", "4", "--no-input"
+    )
 
     settings.INSTALLED_APPS += [app_name]
     settings.TAILWIND_APP_NAME = app_name
@@ -299,4 +387,4 @@ def test_tailwind_plugin_install_no_plugin_name_error(settings, app_name):
     with pytest.raises(Exception) as exc_info:
         call_command("tailwind", "plugin_install")
 
-    assert "Plugin name is required" in str(exc_info.value)
+    assert "the following arguments are required: plugin_name" in str(exc_info.value)

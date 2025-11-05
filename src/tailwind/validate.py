@@ -11,26 +11,16 @@ class ValidationError(Exception):
 
 
 class Validations:
-    def acceptable_label(self, label):
-        if label not in [
-            "init",
-            "install",
-            "npm",
-            "start",
-            "dev",
-            "build",
-            "check-updates",
-            "update",
-            "plugin_install",
-        ]:
-            raise ValidationError(f"Subcommand {label} doesn't exist")
-
     def is_installed(self, app_name):
         if not apps.is_installed(app_name):
             raise ValidationError(f"{app_name} is not in INSTALLED_APPS")
 
     def is_tailwind_app(self, app_name):
-        if not os.path.isfile(os.path.join(get_tailwind_src_path(app_name), "package.json")):
+        if not os.path.isfile(
+            os.path.join(get_tailwind_src_path(app_name), "package.json")
+        ) and not os.path.isfile(
+            os.path.join(get_tailwind_src_path(app_name), "src", "styles.css")
+        ):
             raise ValidationError(f"'{app_name}' isn't a Tailwind app")
 
     def has_settings(self):

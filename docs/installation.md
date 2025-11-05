@@ -42,12 +42,9 @@
    python manage.py tailwind init
    ```
 
-   > Note: By default, we create an app compatible with Tailwind CSS version 4. If you want to create an app compatible
-   > with Tailwind CSS version 3, you can use the `--tailwind-version 3` flag:
+   You will need to provide the name of the app and choose the installation method: standalone binary or npm-based.
 
-    ```bash
-    python manage.py tailwind init --tailwind-version 3
-    ```
+   > See [Standalone vs npm-based](./standalone-vs-npm.md) for a detailed comparison.
 
 4. Add your newly created `'theme'` app to `INSTALLED_APPS` in `settings.py`:
 
@@ -158,7 +155,7 @@
 
 ## Optional configurations
 
-### @source directive configuration (for Tailwind CSS v4)
+### @source directive configuration (for npm-based v4 and standalone v4)
 
 The `content` section from Tailwind CSS v3 has been replaced with the `@source` directive in Tailwind CSS v4.
 The `@source` directive is a new way to specify the source files that Tailwind CSS should scan for class names. It's
@@ -177,7 +174,7 @@ three directories above the `style.css` file. Depending on your project structur
 For more information about setting `@source`, check out the *"Source Configuration"* page of the Tailwind CSS docs:
 [https://tailwindcss.com/docs/detecting-classes-in-source-files#explicitly-registering-sources](https://tailwindcss.com/docs/detecting-classes-in-source-files#explicitly-registering-sources).
 
-### Content (formerly Purge) rules configuration (for Tailwind CSS v3)
+### Content (formerly Purge) rules configuration (for npm-based Tailwind CSS v3 only)
 
 The `content` section of your `tailwind.config.js` file is where you configure the paths to all of your HTML templates,
 JavaScript components, and any other source files that contain *Tailwind* class names.
@@ -211,9 +208,11 @@ HTML files (or files containing HTML content, such as `.vue` or `.jsx` files) ar
 For more information about setting `content`, check out the *"Content Configuration"* page of the Tailwind CSS
 docs: [https://tailwindcss.com/docs/content-configuration](https://tailwindcss.com/docs/content-configuration).
 
-### Configuration of the path to the `npm` executable
+### Configuration of the path to the `npm` executable (npm-based installation only)
 
-*Tailwind CSS* requires *Node.js* to be installed on your machine.
+> **Note:** This section only applies to npm-based installations. Skip if using the standalone binary mode.
+
+For npm-based installations, *Tailwind CSS* requires *Node.js* to be installed on your machine.
 *Node.js* is a *JavaScript* runtime that allows you to run *JavaScript* code outside the browser. Most (if not all) of
 the current frontend tools depend on *Node.js*.
 

@@ -13,13 +13,14 @@
 
 This project provides a convenient way to integrate the *Tailwind CSS* framework into a Django project.
 It creates a new Django app (named theme by default) that includes all the necessary files and configurations to get
-started with *Tailwind CSS* quickly.
+started with *Tailwind CSS* quickly and **without even needing to install `Node.js`** if you choose the standalone binary mode.
 
 ## Features
 
 * An opinionated *Tailwind CSS* setup that makes your life easier;
+* **Two installation modes:** standalone binary (works without `Node.js`) or npm-based (`Node.js` required);
 * Hot reloading of CSS, configuration files, and *Django* templates. No more manual page refreshes!
-* Out of the box support for CSS imports, Sass-like variables, and nesting;
+* Out of the box support for CSS imports and nesting;
 * Supports the latest *Tailwind CSS* `v4.x`;
 * Start both *Tailwind CSS* and *Django* development servers with a single command;
 * An optional DaisyUI integration to spice up your Tailwind templates with pre-built components.
@@ -28,6 +29,8 @@ started with *Tailwind CSS* quickly.
 ## Requirements
 
 Python 3.11 or newer and Django 4.2.20 or newer.
+
+**Note:** `Node.js` is only required if you choose the npm-based installation. The standalone binary mode does not require Node.js.
 
 ## Documentation
 

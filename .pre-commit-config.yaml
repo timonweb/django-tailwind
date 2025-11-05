@@ -50,4 +50,4 @@ repos:
     - id: ruff-check
       args: [ --fix ]
     - id: ruff-format
-exclude: 'src/tailwind/app_template_v3/{{cookiecutter.app_name}}/apps.py|src/tailwind/app_template_v4/{{cookiecutter.app_name}}/apps.py|src/tailwind/app_template_v4/{{cookiecutter.app_name}}/static_src/package.json'
+exclude: 'src/tailwind/app_template_v3/{{cookiecutter.app_name}}/apps.py|src/tailwind/app_template_v4/{{cookiecutter.app_name}}/apps.py|src/tailwind/app_template_v4/{{cookiecutter.app_name}}/static_src/package.json|src/tailwind/app_template_v4_standalone/{{cookiecutter.app_name}}/apps.py'

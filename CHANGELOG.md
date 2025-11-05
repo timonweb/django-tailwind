@@ -1,5 +1,15 @@
 # Changelog
 
+## 4.4.0 (Unreleased)
+
+- Standalone Tailwind CSS binary support via [pytailwindcss](https://github.com/timonweb/pytailwindcss);
+- `TAILWIND_USE_STANDALONE_BINARY` setting to force standalone binary mode;
+- `TAILWIND_STANDALONE_BINARY_VERSION` setting to control standalone binary version (default: `v4.1.16`);
+- Automatic detection of standalone vs npm-based installations (checks for `package.json` presence);
+- `app_template_v4_standalone/` cookiecutter template for standalone binary apps;
+- Updates documentation;
+- Node.js is now optional when using standalone binary mode;
+
 ## 4.3.0
 
 - Replaces Poetry with UV for dependency management;

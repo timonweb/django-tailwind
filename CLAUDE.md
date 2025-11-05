@@ -6,6 +6,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Django-Tailwind is a Python package that integrates Tailwind CSS with Django applications. It provides management commands, template tags, and utilities to streamline Tailwind CSS development within Django projects.
 
+The package supports two installation modes:
+- **npm-based:** Traditional approach using Node.js and npm for maximum flexibility (plugins, PostCSS, etc.)
+- **Standalone binary:** Simplified approach using the Tailwind CSS standalone binary via pytailwindcss (no Node.js required)
+
 ## Development Commands
 
 ### Testing
@@ -76,9 +80,11 @@ python manage.py tailwind build
 
 - **Management Command** (`src/tailwind/management/commands/tailwind.py`):
   - Main entry point for all Tailwind operations
-  - Handles `init`, `install`, `build`, `start`, `dev`, `check-updates`, `update` commands
+  - Handles `init`, `install`, `build`, `start`, `dev`, `check-updates`, `update`, `plugin_install` commands
   - Uses cookiecutter templates for app initialization
   - `dev` command runs Django server and Tailwind watcher simultaneously using Honcho
+  - Automatically detects and routes between npm-based and standalone binary modes
+  - Standalone detection checks for `package.json` presence or `TAILWIND_USE_STANDALONE_BINARY` setting
 
 - **NPM Integration** (`src/tailwind/npm.py`):
   - Wrapper around npm commands
@@ -96,23 +102,55 @@ python manage.py tailwind build
 
 ### App Templates
 
-Two cookiecutter templates are provided:
-- `app_template_v3/` - For Tailwind CSS v3
-- `app_template_v4/` - For Tailwind CSS v4
+Three cookiecutter templates are provided:
+- `app_template_v3/` - For Tailwind CSS v3 (npm-based)
+- `app_template_v4/` - For Tailwind CSS v4 (npm-based)
+- `app_template_v4_standalone/` - For Tailwind CSS v4 standalone binary
 
-These templates generate Django apps with:
+**npm-based templates** (`v3` and `v4`) generate Django apps with:
 - `static_src/` directory for source files
 - `package.json` with build scripts
 - PostCSS configuration
 - Base HTML template
+
+**Standalone template** (`v4_standalone`) generates minimal Django apps with:
+- `static_src/src/` directory with styles.css
+- No `package.json` or npm dependencies
+- No PostCSS configuration
+- Base HTML template
+- Pre-created `static/` directory structure
 
 ### Configuration
 
 The package uses Django settings for configuration:
 - `TAILWIND_APP_NAME` - Name of the Tailwind app
 - `TAILWIND_CSS_PATH` - Path to compiled CSS
-- `TAILWIND_DEV_MODE` - Development mode flag
-- `NPM_BIN_PATH` - Custom npm binary path
+- `TAILWIND_DEV_MODE` - Development mode flag (deprecated)
+- `NPM_BIN_PATH` - Custom npm binary path (npm-based only)
+- `TAILWIND_USE_STANDALONE_BINARY` - Force standalone binary mode (default: False, auto-detected)
+- `TAILWIND_STANDALONE_BINARY_VERSION` - Tailwind CSS standalone binary version (default: "v4.1.16")
+
+### Standalone Binary Implementation
+
+The standalone binary mode uses [pytailwindcss](https://github.com/timonweb/pytailwindcss) to run the Tailwind CSS standalone binary without requiring Node.js.
+
+**How it works:**
+1. Detection happens in the management command via `self.is_standalone` flag
+2. Checks for `TAILWIND_USE_STANDALONE_BINARY` setting OR absence of `package.json`
+3. Routes command execution to either npm methods or standalone methods
+
+**Commands behavior:**
+- `init --tailwind-version 4s`: Creates standalone app using `app_template_v4_standalone`
+- `install`: Downloads standalone binary via pytailwindcss (auto-install on first use)
+- `build`: Runs `pytailwindcss.run()` with minify flag
+- `start`: Runs `pytailwindcss.run()` with watch flag
+- `dev`: Works with standalone mode (Procfile uses `tailwind start`)
+- `check-updates`, `update`, `plugin_install`: Raise CommandError (not supported in standalone)
+
+**Key implementation methods in `tailwind.py`:**
+- `tailwind_cli_install_command()`: Downloads binary via pytailwindcss
+- `tailwind_cli_build_command()`: Builds CSS with standalone binary
+- `tailwind_cli_start_command()`: Starts watcher with standalone binary
 
 ## Common Development Patterns
 

@@ -4,7 +4,7 @@ requires = [ "hatchling" ]
 
 [project]
 name = "django-tailwind"
-version = "4.3.1"
+version = "4.4.0"
 description = "Tailwind CSS Framework for Django projects"
 readme = "README.md"
 keywords = [
@@ -34,7 +34,7 @@ classifiers = [
     "Topic :: Software Development :: Libraries",
     "Topic :: Utilities",
 ]
-dependencies = [ "django>=4.2.20" ]
+dependencies = [ "django>=4.2.20", "pytailwindcss>=0.3.0" ]
 
 optional-dependencies.cookiecutter = [ "cookiecutter>=2.6.0,<3" ]
 

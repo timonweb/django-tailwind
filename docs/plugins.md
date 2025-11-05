@@ -1,12 +1,16 @@
 # Installing Tailwind CSS Plugins
 
+> **Important:** Plugin installation via the `plugin_install` command is **only available for npm-based installations**. If you're using the standalone binary mode (initialized with `--tailwind-version 4s`), the `plugin_install` command is not supported. Standalone installations are limited to core Tailwind CSS features only.
+
 Django Tailwind provides built-in support for managing Tailwind CSS plugins. This guide covers how to install, configure, and manage plugins in your Tailwind CSS projects.
 
 ## Overview
 
 Tailwind CSS plugins extend the framework's functionality by adding new utilities, components, and base styles. Django Tailwind makes it easy to install and configure these plugins through management commands.
 
-## Installing Plugins
+## Installing Plugins (npm-based Installation Only)
+
+> **Note:** All commands in this section require an npm-based installation. These commands will not work with standalone binary installations.
 
 ### Using the plugin_install Command
 
@@ -106,11 +110,11 @@ python manage.py tailwind plugin_install @tailwindcss/forms
 - Better default appearance for form controls
 - Easy to customize with Tailwind utilities
 
-## Installing Plugins During Project Initialization
+## Installing Plugins During Project Initialization (npm-based Only)
 
 ### DaisyUI Integration
 
-For Tailwind v4 projects, you can include DaisyUI directly during project initialization:
+For npm-based Tailwind v4 projects, you can include DaisyUI directly during project initialization:
 
 ```bash
 python manage.py tailwind init --include-daisy-ui

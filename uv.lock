@@ -335,7 +335,7 @@ wheels = [
 
 [[package]]
 name = "django-tailwind"
-version = "4.3.1"
+version = "4.4.0"
 source = { editable = "." }
 dependencies = [
     { name = "django", version = "4.2.25", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-15-django-tailwind-django42' or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django51') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django52') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django51' and extra == 'group-15-django-tailwind-django52') or (extra == 'group-15-django-tailwind-django51' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django52' and extra == 'group-15-django-tailwind-django60')" },
@@ -343,6 +343,7 @@ dependencies = [
     { name = "django", version = "5.1.13", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-15-django-tailwind-django51' or (extra == 'group-15-django-tailwind-django42' and extra == 'group-15-django-tailwind-django50') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django52') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django52' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django42' and extra != 'group-15-django-tailwind-django51' and extra == 'group-15-django-tailwind-django52') or (extra == 'group-15-django-tailwind-django42' and extra != 'group-15-django-tailwind-django51' and extra == 'group-15-django-tailwind-django60')" },
     { name = "django", version = "5.2.7", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.12' and extra != 'group-15-django-tailwind-django42' and extra != 'group-15-django-tailwind-django50' and extra != 'group-15-django-tailwind-django51') or extra == 'group-15-django-tailwind-django52' or (extra == 'group-15-django-tailwind-django42' and extra == 'group-15-django-tailwind-django50') or (extra == 'group-15-django-tailwind-django42' and extra == 'group-15-django-tailwind-django51') or (extra == 'group-15-django-tailwind-django42' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django51') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django51' and extra == 'group-15-django-tailwind-django60')" },
     { name = "django", version = "6.0b1", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version >= '3.12' and extra != 'group-15-django-tailwind-django42' and extra != 'group-15-django-tailwind-django50' and extra != 'group-15-django-tailwind-django51' and extra != 'group-15-django-tailwind-django52') or (extra == 'group-15-django-tailwind-django42' and extra == 'group-15-django-tailwind-django50') or (extra == 'group-15-django-tailwind-django42' and extra == 'group-15-django-tailwind-django51') or (extra == 'group-15-django-tailwind-django42' and extra == 'group-15-django-tailwind-django52') or (extra == 'group-15-django-tailwind-django42' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django51') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django52') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django51' and extra == 'group-15-django-tailwind-django52') or (extra == 'group-15-django-tailwind-django51' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django52' and extra == 'group-15-django-tailwind-django60')" },
+    { name = "pytailwindcss" },
 ]
 
 [package.optional-dependencies]
@@ -393,6 +394,7 @@ requires-dist = [
     { name = "django", specifier = ">=4.2.20" },
     { name = "django-browser-reload", marker = "extra == 'reload'", specifier = ">=1.21.0,<2" },
     { name = "honcho", marker = "extra == 'honcho'", specifier = ">=2.0.0,<3" },
+    { name = "pytailwindcss", specifier = ">=0.3.0" },
 ]
 provides-extras = ["cookiecutter", "honcho", "reload"]
 
@@ -661,6 +663,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/45/7b/c0e1333b61d41c69e59e5366e727b18c4992688caf0de1be10b3e5265f6b/pyproject_api-1.10.0.tar.gz", hash = "sha256:40c6f2d82eebdc4afee61c773ed208c04c19db4c4a60d97f8d7be3ebc0bbb330", size = 22785, upload-time = "2025-10-09T19:12:27.21Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/54/cc/cecf97be298bee2b2a37dd360618c819a2a7fd95251d8e480c1f0eb88f3b/pyproject_api-1.10.0-py3-none-any.whl", hash = "sha256:8757c41a79c0f4ab71b99abed52b97ecf66bd20b04fa59da43b5840bac105a09", size = 13218, upload-time = "2025-10-09T19:12:24.428Z" },
+]
+
+[[package]]
+name = "pytailwindcss"
+version = "0.3.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/d7/90/b83df1eae67f3f22c59ca3f6df67d7a2591bb27157f04a173bd1f164d3e0/pytailwindcss-0.3.0.tar.gz", hash = "sha256:1f71dd64020aacb40608dfe8725ca441c772016c344f757ccbc74b8b6143027d", size = 5527, upload-time = "2025-10-29T19:13:42.155Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ca/59/e7b86790c4558cfa0344c424219fe17d371b70273044b9a2d163ce1d3f44/pytailwindcss-0.3.0-py3-none-any.whl", hash = "sha256:a9b770ad3c0a0f40073052bcfe81a060b550fed38af614a472f5aa7bb85fa8aa", size = 7502, upload-time = "2025-10-29T19:13:41.109Z" },
 ]
 
 [[package]]
