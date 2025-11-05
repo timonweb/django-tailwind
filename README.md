@@ -1,6 +1,6 @@
 # Tailwind CSS integration for Django a.k.a. Django + Tailwind = 💚
 
-![Tests](https://github.com/timonweb/django-tailwind/actions/workflows/tests.yml/badge.svg)
+![Tests](https://github.com/timonweb/django-tailwind/actions/workflows/ci.yml/badge.svg)
 [![PyPI](https://img.shields.io/pypi/v/django-tailwind.svg?style=flat-square)](https://pypi.org/project/django-tailwind/)
 ![GitHub](https://img.shields.io/github/license/timonweb/django-tailwind?style=flat-square)
 ![Python versions](https://img.shields.io/pypi/pyversions/django-tailwind)
