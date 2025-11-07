@@ -4,7 +4,6 @@ import shlex
 import subprocess
 import sys
 
-from distlib.compat import raw_input
 from django.core.management.base import BaseCommand
 from django.core.management.base import CommandError
 
@@ -150,7 +149,7 @@ class Command(BaseCommand):
     def handle_init_command(self, **options):
         app_name = options["app_name"].strip() if options.get("app_name") else None
         if not app_name:
-            app_name_choice = raw_input("Enter Tailwind app name [theme]: ")
+            app_name_choice = input("Enter Tailwind app name [theme]: ")
             app_name = app_name_choice.strip() if app_name_choice.strip() else "theme"
 
         tailwind_version = (
@@ -158,7 +157,7 @@ class Command(BaseCommand):
         )
         app_template_choice = {"4s": "1", "4": "2", "3": "3", None: None}[tailwind_version]
         if not app_template_choice:
-            app_template_choice = raw_input("""Choose template:
+            app_template_choice = input("""Choose template:
 1 - Tailwind v4 Standalone - Simple and doesn't require Node.js
 2 - Tailwind v4 Full - All the bells and whistles, requires Node.js
 3 - Tailwind v3 Full - Legacy template for Tailwind v3 projects, requires Node.js
@@ -176,7 +175,7 @@ Enter choice [1-3]: """)
             if options.get("no_input"):
                 include_daisy_ui = options.get("include_daisy_ui", False)
             else:
-                include_daisy_ui_choice = raw_input("Include DaisyUI component library? (y/n): ")
+                include_daisy_ui_choice = input("Include DaisyUI component library? (y/n): ")
                 self.validate_input(include_daisy_ui_choice.lower(), ["y", "n"])
                 include_daisy_ui = include_daisy_ui_choice.lower() == "y"
 
