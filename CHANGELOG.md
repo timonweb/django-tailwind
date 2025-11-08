@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.4.1
+
+- Fixes an issue when `raw_input` is used instead of `input`.
+
 ## 4.4.0
 
 - Standalone Tailwind CSS binary support via [pytailwindcss](https://github.com/timonweb/pytailwindcss);

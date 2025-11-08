@@ -335,7 +335,7 @@ wheels = [
 
 [[package]]
 name = "django-tailwind"
-version = "4.4.0"
+version = "4.4.1"
 source = { editable = "." }
 dependencies = [
     { name = "django", version = "4.2.25", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-15-django-tailwind-django42' or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django51') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django52') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django51' and extra == 'group-15-django-tailwind-django52') or (extra == 'group-15-django-tailwind-django51' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django52' and extra == 'group-15-django-tailwind-django60')" },

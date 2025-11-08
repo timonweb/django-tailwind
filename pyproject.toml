@@ -4,7 +4,7 @@ requires = [ "hatchling" ]
 
 [project]
 name = "django-tailwind"
-version = "4.4.0"
+version = "4.4.1"
 description = "Tailwind CSS Framework for Django projects"
 readme = "README.md"
 keywords = [
