@@ -102,3 +102,7 @@ For configuring automatic page reloads during development, see the [Installation
 Please see [CONTRIBUTING](CONTRIBUTING.md).
 
 2019 - 2025 (c) Tim Kamanin — [A Full-Stack Django and Wagtail Developer](https://timonweb.com)
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=timonweb/django-tailwind&type=date&legend=top-left)](https://www.star-history.com/#timonweb/django-tailwind&type=date&legend=top-left)
