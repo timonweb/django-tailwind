@@ -1,7 +1,10 @@
 # Changelog
 
-## 4.4.1
+# 4.4.2
+- Fixes an issue with CSS path configuration.
 
+
+## 4.4.1
 - Fixes an issue when `raw_input` is used instead of `input`.
 
 ## 4.4.0

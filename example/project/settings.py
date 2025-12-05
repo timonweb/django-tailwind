@@ -30,16 +30,19 @@ ALLOWED_HOSTS = ["*"]
 INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "tailwind",
-    # "theme",
-    "theme_standalone",
+    "theme",
+    # "theme_standalone",
 ]
+
+TAILWIND_USE_STANDALONE_BINARY = True
+TAILWIND_STANDALONE_BINARY_VERSION = "v4.1.17"
 
 if DEBUG:
     INSTALLED_APPS += [
         "django_browser_reload",
     ]
 
-TAILWIND_APP_NAME = "theme_standalone"
+TAILWIND_APP_NAME = "theme"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
