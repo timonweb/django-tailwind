@@ -23,6 +23,8 @@
 - Fixes `extract_host_and_port` to support standalone port numbers (e.g., `python manage.py runserver 55555`);
 - Updates tox configuration to use `dev` dependency group;
 - Removes Docker instructions from documentation;
+- Drops support for Python 3.10;
+- Ensures Django 6.0 support;
 
 ## 4.2.0
 
