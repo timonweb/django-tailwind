@@ -128,7 +128,7 @@ The package uses Django settings for configuration:
 - `TAILWIND_DEV_MODE` - Development mode flag (deprecated)
 - `NPM_BIN_PATH` - Custom npm binary path (npm-based only)
 - `TAILWIND_USE_STANDALONE_BINARY` - Force standalone binary mode (default: False, auto-detected)
-- `TAILWIND_STANDALONE_BINARY_VERSION` - Tailwind CSS standalone binary version (default: "v4.1.16")
+- `TAILWIND_STANDALONE_BINARY_VERSION` - Tailwind CSS standalone binary version (default: "v4.2.0")
 
 ### Standalone Binary Implementation
 

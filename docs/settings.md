@@ -58,14 +58,14 @@ This setting specifies which version of the Tailwind CSS standalone binary to us
 
 The default value is:
 ```python
-TAILWIND_STANDALONE_BINARY_VERSION = "v4.1.16"
+TAILWIND_STANDALONE_BINARY_VERSION = "v4.2.0"
 ```
 
 You can specify any valid Tailwind CSS version tag. To upgrade to a newer version:
 
 ```python
 # settings.py
-TAILWIND_STANDALONE_BINARY_VERSION = "v4.2.0"
+TAILWIND_STANDALONE_BINARY_VERSION = "v4.2.1"
 ```
 
 After changing this setting, run `python manage.py tailwind install` to download the new binary version.
@@ -74,7 +74,7 @@ After changing this setting, run `python manage.py tailwind install` to download
 
 **Finding available versions:**
 
-Visit the [Tailwind CSS releases page](https://github.com/tailwindlabs/tailwindcss/releases) to see all available versions. Use the tag name (e.g., `v4.1.16`) as the value for this setting.
+Visit the [Tailwind CSS releases page](https://github.com/tailwindlabs/tailwindcss/releases) to see all available versions. Use the tag name (e.g., `v4.2.0`) as the value for this setting.
 
 ## `TAILWIND_STANDALONE_START_COMMAND_ARGS`
 
