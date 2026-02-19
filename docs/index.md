@@ -13,6 +13,7 @@ To avoid confusion, we'll use:
 Contents
 --------
 * [Installation](installation.md)
+* [Adding to an Existing Project](existing-project.md)
 * [Standalone vs npm-based](standalone-vs-npm.md)
 * [Usage](usage.md)
 * [Settings](settings.md)
