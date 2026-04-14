@@ -48,7 +48,7 @@ dev = [
     "django-browser-reload>=1.21.0,<2",
     "honcho>=2.0.0,<3",
     "pre-commit>=4.3.0,<5",
-    "pytest>=8.3.5,<9",
+    "pytest>=8.3.5,<10",
     "pytest-django>=4.11.0,<5",
     "tox>=4.25.0,<5",
 ]
