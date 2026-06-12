@@ -286,8 +286,8 @@ name = "django"
 version = "5.2.15"
 source = { registry = "https://pypi.org/simple" }
 resolution-markers = [
-    "python_full_version < '3.12'",
     "python_full_version >= '3.12'",
+    "python_full_version < '3.12'",
 ]
 dependencies = [
     { name = "asgiref", marker = "(python_full_version < '3.12' and extra != 'group-15-django-tailwind-django42' and extra != 'group-15-django-tailwind-django50' and extra != 'group-15-django-tailwind-django51') or extra == 'group-15-django-tailwind-django52' or (extra == 'group-15-django-tailwind-django42' and extra == 'group-15-django-tailwind-django50') or (extra == 'group-15-django-tailwind-django42' and extra == 'group-15-django-tailwind-django51') or (extra == 'group-15-django-tailwind-django42' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django51') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django51' and extra == 'group-15-django-tailwind-django60')" },
@@ -335,7 +335,7 @@ wheels = [
 
 [[package]]
 name = "django-tailwind"
-version = "4.4.2"
+version = "4.5.0"
 source = { editable = "." }
 dependencies = [
     { name = "django", version = "4.2.30", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-15-django-tailwind-django42' or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django51') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django52') or (extra == 'group-15-django-tailwind-django50' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django51' and extra == 'group-15-django-tailwind-django52') or (extra == 'group-15-django-tailwind-django51' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django52' and extra == 'group-15-django-tailwind-django60')" },

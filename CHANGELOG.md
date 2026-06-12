@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.5.0
+
+- Updates Python and JS dependencies;
+
 # 4.4.2
 - Fixes an issue with CSS path configuration.
 
