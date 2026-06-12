@@ -17,15 +17,15 @@ repos:
   - id: end-of-file-fixer
   - id: trailing-whitespace
 - repo: https://github.com/crate-ci/typos
-  rev: v1.38.1
+  rev: v1.47.2
   hooks:
   - id: typos
 - repo: https://github.com/tox-dev/pyproject-fmt
-  rev: v2.11.0
+  rev: v2.24.0
   hooks:
   - id: pyproject-fmt
 - repo: https://github.com/tox-dev/tox-ini-fmt
-  rev: 1.7.0
+  rev: 1.7.1
   hooks:
   - id: tox-ini-fmt
 - repo: https://github.com/rstcheck/rstcheck
@@ -35,7 +35,7 @@ repos:
     additional_dependencies:
     - tomli==2.0.1
 - repo: https://github.com/adamchainz/django-upgrade
-  rev: 1.29.1
+  rev: 1.30.0
   hooks:
   - id: django-upgrade
 - repo: https://github.com/adamchainz/blacken-docs
@@ -45,7 +45,7 @@ repos:
     additional_dependencies:
     - black==25.1.0
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.14.2
+  rev: v0.15.17
   hooks:
     - id: ruff-check
       args: [ --fix ]

@@ -23,6 +23,7 @@ classifiers = [
     "Framework :: Django :: 5.0",
     "Framework :: Django :: 5.1",
     "Framework :: Django :: 5.2",
+    "Framework :: Django :: 6.0",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
@@ -35,9 +36,7 @@ classifiers = [
     "Topic :: Utilities",
 ]
 dependencies = [ "django>=4.2.20", "pytailwindcss>=0.3.0" ]
-
 optional-dependencies.cookiecutter = [ "cookiecutter>=2.6.0,<3" ]
-
 optional-dependencies.honcho = [ "honcho>=2.0.0,<3" ]
 optional-dependencies.reload = [ "django-browser-reload>=1.21.0,<2" ]
 urls.Homepage = "https://github.com/timonweb/django-tailwind"
@@ -47,18 +46,16 @@ dev = [
     "cookiecutter>=2.6.0,<3",
     "django-browser-reload>=1.21.0,<2",
     "honcho>=2.0.0,<3",
-    "pre-commit>=4.3.0,<5",
-    "pytest>=8.3.5,<9",
-    "pytest-django>=4.11.0,<5",
+    "pre-commit>=4.6.0,<5",
+    "pytest>=8.3.5,<10",
+    "pytest-django>=4.12.0,<5",
     "tox>=4.25.0,<5",
 ]
-
 docs = [
-    "recommonmark>=0.7.1,<0.8",
-    "sphinx>=8.1.3,<9",
+    "myst-parser>=4.0.0,<6",
+    "sphinx>=8.1.3,<10",
     "sphinx-rtd-theme>=3.0.2,<4",
 ]
-
 django42 = [
     "django>=4.2,<5",
 ]
@@ -71,16 +68,12 @@ django51 = [
 django52 = [
     "django>=5.2,<6",
 ]
-django60 = [ "django>=6a1,<6.1; python_version>='3.12'" ]
+django60 = [ "django>=6.0,<6.1; python_version>='3.12'" ]
 
-[tool.hatch.build.targets.sdist]
-include = [ "src/tailwind" ]
-
-[tool.hatch.build.targets.wheel]
-include = [ "src/tailwind" ]
-
-[tool.hatch.build.targets.wheel.sources]
-"src/tailwind" = "tailwind"
+[tool.hatch]
+build.targets.wheel.include = [ "src/tailwind" ]
+build.targets.wheel.sources."src/tailwind" = "tailwind"
+build.targets.sdist.include = [ "src/tailwind" ]
 
 [tool.uv]
 conflicts = [
@@ -95,7 +88,6 @@ conflicts = [
 
 [tool.ruff]
 target-version = "py311"
-
 line-length = 100
 src = [ "tailwind", "tests" ]
 fix = true
@@ -121,12 +113,12 @@ lint.isort.order-by-type = false
 indent = 4
 keep_full_version = true
 
-[tool.pytest.ini_options]
-addopts = """\
+[tool.pytest]
+ini_options.pythonpath = [ "." ]
+ini_options.addopts = """\
     --strict-config
     --strict-markers
     --ds=tests.settings
     """
-django_find_project = false
-pythonpath = [ "." ]
-xfail_strict = true
+ini_options.xfail_strict = true
+ini_options.django_find_project = false
