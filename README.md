@@ -105,4 +105,4 @@ Please see [CONTRIBUTING](CONTRIBUTING.md).
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=timonweb/django-tailwind&type=date&legend=top-left)](https://www.star-history.com/#timonweb/django-tailwind&type=date&legend=top-left)
+[![Star History Chart](https://star-history.dera.page/svg?repos=timonweb/django-tailwind&type=date&legend=top-left)](https://star-history.dera.page/#timonweb/django-tailwind&type=date&legend=top-left)
