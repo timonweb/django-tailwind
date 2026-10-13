@@ -6,6 +6,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Django-Tailwind is a Python package that integrates Tailwind CSS with Django applications. It provides management commands, template tags, and utilities to streamline Tailwind CSS development within Django projects.
 
+Supported versions: Python 3.11+ and Django 5.2 LTS, 6.0, 6.1 (Python 3.15 is tested in CI only). The npm-based v4 template needs Node.js 22+.
+
+`llms.txt` at the repo root is the installation guide for AI agents; keep it in sync with installation/settings changes.
+
 The package supports two installation modes:
 - **npm-based:** Traditional approach using Node.js and npm for maximum flexibility (plugins, PostCSS, etc.)
 - **Standalone binary:** Simplified approach using the Tailwind CSS standalone binary via pytailwindcss (no Node.js required)
@@ -82,6 +86,7 @@ python manage.py tailwind build
   - Main entry point for all Tailwind operations
   - Handles `init`, `install`, `build`, `start`, `dev`, `check-updates`, `update`, `plugin_install` commands
   - Uses cookiecutter templates for app initialization
+  - cookiecutter (`init`) and honcho (`dev`) are optional extras; when missing, the command raises CommandError naming the extra to install (never auto-installs)
   - `dev` command runs Django server and Tailwind watcher simultaneously using Honcho
   - Automatically detects and routes between npm-based and standalone binary modes
   - Standalone detection checks for `package.json` presence or `TAILWIND_USE_STANDALONE_BINARY` setting
@@ -98,12 +103,12 @@ python manage.py tailwind build
 - **Utilities** (`src/tailwind/utils.py`):
   - Helper functions for path resolution
   - Package.json manipulation
-  - Dynamic pip package installation
+  - File downloads (`download_file`, used for daisyUI standalone files)
 
 ### App Templates
 
 Three cookiecutter templates are provided:
-- `app_template_v3/` - For Tailwind CSS v3 (npm-based)
+- `app_template_v3/` - For Tailwind CSS v3 (npm-based, deprecated: `init` prints a warning; removal planned for the next major)
 - `app_template_v4/` - For Tailwind CSS v4 (npm-based)
 - `app_template_v4_standalone/` - For Tailwind CSS v4 standalone binary
 
@@ -125,10 +130,9 @@ Three cookiecutter templates are provided:
 The package uses Django settings for configuration:
 - `TAILWIND_APP_NAME` - Name of the Tailwind app
 - `TAILWIND_CSS_PATH` - Path to compiled CSS
-- `TAILWIND_DEV_MODE` - Development mode flag (deprecated)
 - `NPM_BIN_PATH` - Custom npm binary path (npm-based only)
 - `TAILWIND_USE_STANDALONE_BINARY` - Force standalone binary mode (default: False, auto-detected)
-- `TAILWIND_STANDALONE_BINARY_VERSION` - Tailwind CSS standalone binary version (default: "v4.3.0")
+- `TAILWIND_STANDALONE_BINARY_VERSION` - Tailwind CSS standalone binary version (default: "v4.3.3")
 
 ### Standalone Binary Implementation
 
@@ -145,7 +149,9 @@ The standalone binary mode uses [pytailwindcss](https://github.com/timonweb/pyta
 - `build`: Runs `pytailwindcss.run()` with minify flag
 - `start`: Runs `pytailwindcss.run()` with watch flag
 - `dev`: Works with standalone mode (Procfile uses `tailwind start`)
-- `check-updates`, `update`, `plugin_install`: Raise CommandError (not supported in standalone)
+- `check-updates`, `update`: Raise CommandError (not supported in standalone)
+- `plugin_install`: only `daisyui` is supported in standalone (downloads `daisyui.mjs`/`daisyui-theme.mjs`, pinned via `DAISYUI_STANDALONE_VERSION`); other plugins raise CommandError
+- `init --include-daisy-ui` with `4s` downloads the daisyUI files; `install` re-downloads them if `styles.css` references them and they're missing
 
 **Key implementation methods in `tailwind.py`:**
 - `tailwind_cli_install_command()`: Downloads binary via pytailwindcss
@@ -172,7 +178,8 @@ Tests are located in `tests/` directory and use pytest-django. The test suite in
 src/tailwind/
 ├── management/commands/tailwind.py  # Main management command
 ├── templatetags/tailwind_tags.py    # Django template tags
-├── apps.py                         # Django app configuration
+├── apps.py                         # Django app configuration (registers system checks)
+├── checks.py                       # System checks tailwind.W001/W002
 ├── npm.py                          # NPM command wrapper
 ├── utils.py                        # Utility functions
 ├── validate.py                     # Configuration validation
@@ -224,7 +231,7 @@ def test_command_creates_files(settings):
     THEN the necessary files and directories should be created
     """
     # Setup
-    app_name = f'test_theme_{str(uuid.uuid1()).replace("-", "_")}'
+    app_name = f"test_theme_{str(uuid.uuid1()).replace('-', '_')}"
 
     # Action
     call_command("tailwind", "init", "--app-name", app_name, "--no-input")

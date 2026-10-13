@@ -1,8 +1,8 @@
 # Installing Tailwind CSS Plugins
 
-> **Important:** Plugin installation via the `plugin_install` command is **only available for npm-based installations**. If you're using the standalone binary mode (initialized with `--tailwind-version 4s`), the `plugin_install` command is not supported. Standalone installations are limited to core Tailwind CSS features only.
+> **Important:** Plugin installation via the `plugin_install` command is **fully available for npm-based installations only**. In standalone binary mode (initialized with `--tailwind-version 4s`), the only supported plugin is DaisyUI — see the *DaisyUI in standalone mode* section below.
 
-Django Tailwind provides built-in support for managing Tailwind CSS plugins. This guide covers how to install, configure, and manage plugins in your Tailwind CSS projects.
+Django Tailwind provides built-in support for managing Tailwind CSS plugins in Tailwind CSS v4 apps (the deprecated v3 template configures plugins in `tailwind.config.js` instead). This guide covers how to install, configure, and manage plugins in your Tailwind CSS projects.
 
 ## Overview
 
@@ -110,17 +110,35 @@ python manage.py tailwind plugin_install @tailwindcss/forms
 - Better default appearance for form controls
 - Easy to customize with Tailwind utilities
 
-## Installing Plugins During Project Initialization (npm-based Only)
+## DaisyUI in standalone mode
+
+DaisyUI ships a single-file build that works with the Tailwind CSS standalone binary, so you can use it without Node.js.
+
+```bash
+python manage.py tailwind plugin_install daisyui
+```
+
+In standalone mode this command:
+1. Downloads `daisyui.mjs` and `daisyui-theme.mjs` (a version pinned by Django Tailwind) into `theme/static_src/src/`
+2. Adds `@plugin "./daisyui.mjs";` right after `@import "tailwindcss";` in `styles.css`
+
+Commit both `.mjs` files with your project. If a daisyUI file that `styles.css` references goes missing
+(for example, because you gitignored it), `python manage.py tailwind install` downloads it again. Any other plugin name is rejected in standalone mode.
+
+To customize DaisyUI themes, reference the theme plugin as described in the
+[DaisyUI themes documentation](https://daisyui.com/docs/themes/), using the local file path, e.g. `@plugin "./daisyui-theme.mjs" { ... }`.
+
+## Installing Plugins During Project Initialization
 
 ### DaisyUI Integration
 
-For npm-based Tailwind v4 projects, you can include DaisyUI directly during project initialization:
+For Tailwind v4 projects (npm-based and standalone), you can include DaisyUI directly during project initialization:
 
 ```bash
 python manage.py tailwind init --include-daisy-ui
 ```
 
-This is equivalent to running:
+This is equivalent to running the commands below, plus a sample daisyUI component in the generated `base.html`:
 ```bash
 python manage.py tailwind init
 python manage.py tailwind plugin_install daisyui

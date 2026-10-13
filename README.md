@@ -28,14 +28,25 @@ started with *Tailwind CSS* quickly and **without even needing to install `Node.
 
 ## Requirements
 
-Python 3.11 or newer and Django 4.2.20 or newer.
+Python 3.11 or newer and Django 5.2 or newer.
 
-**Note:** `Node.js` is only required if you choose the npm-based installation. The standalone binary mode does not require Node.js.
+**Note:** `Node.js` 22 or newer is only required if you choose the npm-based installation. The standalone binary mode does not require Node.js.
 
 ## Documentation
 
 The full documentation is at https://django-tailwind.readthedocs.io/ or in the [docs directory](docs/index.md) of this
 repository.
+
+## Install with an AI agent
+
+Using a coding agent such as Claude Code, Codex, or Cursor? Point it at [`llms.txt`](https://github.com/timonweb/django-tailwind/blob/master/llms.txt) and let it do the setup:
+
+```text
+Install and configure django-tailwind in this project by following
+https://raw.githubusercontent.com/timonweb/django-tailwind/master/llms.txt
+```
+
+The agent will ask you a few questions (standalone or npm-based, app name, daisyUI) and then install, configure, and verify everything.
 
 ## Getting Started
 
@@ -46,7 +57,7 @@ repository.
    pip install 'django-tailwind[cookiecutter,honcho,reload]'
    ```
 
-   b) or just the core package (enough for production use):
+   b) or just the core package (enough for production use; `tailwind init` additionally needs the `cookiecutter` extra):
     ```bash
     pip install django-tailwind
     ```
@@ -101,7 +112,7 @@ For configuring automatic page reloads during development, see the [Installation
 
 Please see [CONTRIBUTING](CONTRIBUTING.md).
 
-2019 - 2025 (c) Tim Kamanin — [A Full-Stack Django and Wagtail Developer](https://timonweb.com)
+2019 - 2026 (c) Tim Kamanin — [A Full-Stack Django and Wagtail Developer](https://timonweb.com)
 
 ## Star History
 

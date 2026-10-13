@@ -6,19 +6,19 @@ you decide which one is best suited for your needs.
 
 | Feature              | npm-based                 | Standalone Binary     |
 |----------------------|---------------------------|-----------------------|
-| **Node.js Required** | ✅ Yes                     | ❌ No                  |
+| **Node.js Required** | ✅ Yes (22+)               | ❌ No                  |
 | **Setup Complexity** | Moderate                  | Simple                |
-| **Tailwind Version** | v3 or v4                  | v4 only               |
-| **Plugin Support**   | ✅ Full                    | ❌ None                |
-| **DaisyUI Support**  | ✅ Yes                     | ❌ No                  |
+| **Tailwind Version** | v4 (v3 deprecated)        | v4 only               |
+| **Plugin Support**   | ✅ Full                    | ⚠️ DaisyUI only        |
+| **DaisyUI Support**  | ✅ Yes                     | ✅ Yes                 |
 | **Custom PostCSS**   | ✅ Yes                     | ❌ No                  |
-| **Plugin Install**   | `tailwind plugin_install` | ❌ Not available       |
+| **Plugin Install**   | `tailwind plugin_install` | `plugin_install daisyui` only |
 | **package.json**     | ✅ Created                 | ❌ Not created         |
 | **node_modules**     | ✅ Created                 | ❌ Not created         |
 | **Best For**         | Teams, complex projects   | Solo, simple projects |
 
 **Choose npm-based if you:**
-- Need Tailwind plugins (DaisyUI)
+- Need Tailwind plugins other than DaisyUI
 - Want to customize PostCSS configuration
 - Prefer managing dependencies with package.json
 - Need the plugin management commands
@@ -26,5 +26,5 @@ you decide which one is best suited for your needs.
 **Choose standalone binary if you:**
 - Want the simplest possible setup
 - Don't have or don't want to install Node.js
-- Don't need plugins or advanced customization
+- Don't need plugins beyond DaisyUI, or advanced customization
 - Are building a basic project with core Tailwind features

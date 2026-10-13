@@ -24,5 +24,5 @@ class Validations:
             raise ValidationError(f"'{app_name}' isn't a Tailwind app")
 
     def has_settings(self):
-        if not hasattr(settings, "TAILWIND_APP_NAME"):
+        if not getattr(settings, "TAILWIND_APP_NAME", None):
             raise ValidationError("TAILWIND_APP_NAME isn't set in settings.py")

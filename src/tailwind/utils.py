@@ -1,6 +1,7 @@
 import json
 import os
 import re
+import urllib.request
 
 from django.apps import apps
 
@@ -29,10 +30,22 @@ def is_path_absolute(path):
     return path.startswith(("/", "http"))
 
 
-def install_pip_package(package):
-    import pip._internal as pip
+def download_file(url, dest_path):
+    request = urllib.request.Request(url, headers={"User-Agent": "django-tailwind"})
+    with urllib.request.urlopen(request, timeout=30) as response:
+        content = response.read()
 
-    pip.main(["install", package])
+    # Write to a temporary file first so an interrupted download never leaves
+    # a truncated file behind that would later be mistaken for a complete one.
+    tmp_path = f"{dest_path}.download"
+    try:
+        with open(tmp_path, "wb") as f:
+            f.write(content)
+        os.replace(tmp_path, dest_path)
+    except OSError:
+        if os.path.exists(tmp_path):
+            os.remove(tmp_path)
+        raise
 
 
 def extract_server_url_from_procfile(procfile_path):
@@ -50,7 +63,7 @@ def extract_server_url_from_procfile(procfile_path):
                 return f"{protocol}://{host}:{port}/"
         return None
 
-    except Exception:
+    except OSError:
         return None
 
 

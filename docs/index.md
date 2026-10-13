@@ -13,6 +13,7 @@ To avoid confusion, we'll use:
 Contents
 --------
 * [Installation](installation.md)
+* Installing with an AI agent: point your agent at [`llms.txt`](https://raw.githubusercontent.com/timonweb/django-tailwind/master/llms.txt)
 * [Adding to an Existing Project](existing-project.md)
 * [Standalone vs npm-based](standalone-vs-npm.md)
 * [Usage](usage.md)

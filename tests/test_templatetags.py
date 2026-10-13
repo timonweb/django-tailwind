@@ -63,25 +63,6 @@ def test_tailwind_css_in_debug(settings):
     )
 
 
-def test_tailwind_css_in_legacy_tailwind_dev_mode(settings):
-    """
-    GIVEN Tailwind is configured with legacy TAILWIND_DEV_MODE=True
-    WHEN the tailwind_css template tag is rendered
-    THEN it should output a link tag with the static CSS path without cache-busting
-    """
-    settings.TAILWIND_APP_NAME = "theme"
-    settings.TAILWIND_DEV_MODE = True
-
-    output = Template(
-        """
-        {% load tailwind_tags %}
-        {% tailwind_css %}
-        """
-    ).render(Context({}))
-
-    assert '<link rel="stylesheet" type="text/css" href="/static/css/dist/styles.css">' in output
-
-
 def test_tailwind_css_in_debug_with_version(settings):
     """
     GIVEN Tailwind is configured and a specific version is provided

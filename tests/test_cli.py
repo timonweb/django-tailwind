@@ -1,11 +1,16 @@
 import json
 import os
+import sys
+from unittest import mock
+from urllib.error import URLError
 
 import pytest
 from django.core.management import call_command
 from django.core.management import CommandError
 
 from tailwind.utils import get_app_path
+
+from .conftest import call_command_with_output
 
 
 @pytest.mark.parametrize("no_package_lock", [True, False])
@@ -388,3 +393,246 @@ def test_tailwind_plugin_install_no_plugin_name_error(settings, app_name):
         call_command("tailwind", "plugin_install")
 
     assert "the following arguments are required: plugin_name" in str(exc_info.value)
+
+
+def test_tailwind_init_v3_warns_about_deprecation(app_name):
+    """
+    GIVEN the deprecated Tailwind v3 template
+    WHEN the init command is run with --tailwind-version 3
+    THEN the app should still be created and a deprecation warning should be printed
+    """
+    out, _ = call_command_with_output(
+        "tailwind", "init", "--app-name", app_name, "--no-input", "--tailwind-version", "3"
+    )
+
+    assert "The Tailwind CSS v3 template is deprecated" in out
+    assert os.path.isfile(os.path.join(app_name, "apps.py")), "The v3 app has been generated"
+
+
+def test_tailwind_init_v4_does_not_warn_about_deprecation(app_name):
+    """
+    GIVEN the Tailwind v4 template
+    WHEN the init command is run with --tailwind-version 4
+    THEN no deprecation warning should be printed
+    """
+    out, _ = call_command_with_output(
+        "tailwind", "init", "--app-name", app_name, "--no-input", "--tailwind-version", "4"
+    )
+
+    assert "deprecated" not in out
+
+
+def test_tailwind_init_without_cookiecutter(app_name):
+    """
+    GIVEN cookiecutter is not installed
+    WHEN the init command is run
+    THEN a CommandError should explain which extra to install and no app should be created
+    """
+    with (
+        mock.patch.dict(sys.modules, {"cookiecutter.main": None}),
+        pytest.raises(CommandError, match=r"django-tailwind\[cookiecutter\]"),
+    ):
+        call_command(
+            "tailwind", "init", "--app-name", app_name, "--no-input", "--tailwind-version", "4s"
+        )
+
+    assert not os.path.exists(app_name)
+
+
+def test_tailwind_init_with_daisy_ui_v4_standalone(settings, app_name):
+    """
+    GIVEN a new Tailwind v4 standalone app is initialized with the --include-daisy-ui flag
+    WHEN the install and build commands are run
+    THEN the daisyUI files should be downloaded next to styles.css, referenced as a plugin,
+    and daisyUI component classes should end up in the compiled CSS
+    """
+    call_command(
+        "tailwind",
+        "init",
+        "--app-name",
+        app_name,
+        "--no-input",
+        "--tailwind-version",
+        "4s",
+        "--include-daisy-ui",
+    )
+
+    settings.INSTALLED_APPS += [app_name]
+    settings.TAILWIND_APP_NAME = app_name
+
+    src_dir = os.path.join(get_app_path(app_name), "static_src", "src")
+    assert os.path.isfile(os.path.join(src_dir, "daisyui.mjs")), "daisyui.mjs is downloaded"
+    assert os.path.isfile(os.path.join(src_dir, "daisyui-theme.mjs")), (
+        "daisyui-theme.mjs is downloaded"
+    )
+
+    with open(os.path.join(src_dir, "styles.css")) as f:
+        styles_content = f.read()
+    assert '@plugin "./daisyui.mjs";' in styles_content, "daisyUI plugin is included"
+
+    with open(os.path.join(get_app_path(app_name), "templates", "base.html")) as f:
+        base_html_content = f.read()
+    assert "alert alert-info" in base_html_content, "daisyUI alert markup is present"
+
+    call_command("tailwind", "install")
+
+    with open(os.path.join(get_app_path(app_name), "static", "css", "dist", "styles.css")) as f:
+        compiled_css = f.read()
+    assert ".alert" in compiled_css, "daisyUI component classes are compiled into the CSS"
+
+
+def test_tailwind_install_restores_missing_daisy_ui_files_v4_standalone(settings, app_name):
+    """
+    GIVEN a Tailwind v4 standalone app with daisyUI whose daisyui.mjs file has been removed
+    WHEN the install command is run
+    THEN the missing daisyUI file should be downloaded again
+    """
+    call_command(
+        "tailwind",
+        "init",
+        "--app-name",
+        app_name,
+        "--no-input",
+        "--tailwind-version",
+        "4s",
+        "--include-daisy-ui",
+    )
+    settings.INSTALLED_APPS += [app_name]
+    settings.TAILWIND_APP_NAME = app_name
+
+    daisyui_path = os.path.join(get_app_path(app_name), "static_src", "src", "daisyui.mjs")
+    os.remove(daisyui_path)
+
+    call_command("tailwind", "install")
+
+    assert os.path.isfile(daisyui_path), "daisyui.mjs is restored by install"
+
+
+def test_tailwind_plugin_install_daisy_ui_v4_standalone(settings, app_name):
+    """
+    GIVEN a Tailwind v4 standalone app initialized without daisyUI
+    WHEN the plugin_install command is run for daisyui
+    THEN the daisyUI files should be downloaded and the plugin added to styles.css
+    """
+    call_command(
+        "tailwind", "init", "--app-name", app_name, "--no-input", "--tailwind-version", "4s"
+    )
+    settings.INSTALLED_APPS += [app_name]
+    settings.TAILWIND_APP_NAME = app_name
+
+    call_command("tailwind", "plugin_install", "daisyui")
+
+    src_dir = os.path.join(get_app_path(app_name), "static_src", "src")
+    assert os.path.isfile(os.path.join(src_dir, "daisyui.mjs")), "daisyui.mjs is downloaded"
+    with open(os.path.join(src_dir, "styles.css")) as f:
+        styles_content = f.read()
+    assert styles_content.count('@plugin "./daisyui.mjs";') == 1, "daisyUI plugin is added once"
+    assert styles_content.index('@import "tailwindcss";') < styles_content.index(
+        '@plugin "./daisyui.mjs";'
+    ), "Plugin directive comes after the import directive"
+
+
+def test_tailwind_plugin_install_daisy_ui_without_tailwind_import_v4_standalone(settings, app_name):
+    """
+    GIVEN a Tailwind v4 standalone app whose styles.css lacks the @import "tailwindcss"; line
+    WHEN the plugin_install command is run for daisyui
+    THEN a CommandError should be raised before any daisyUI file is downloaded
+    """
+    call_command(
+        "tailwind", "init", "--app-name", app_name, "--no-input", "--tailwind-version", "4s"
+    )
+    settings.INSTALLED_APPS += [app_name]
+    settings.TAILWIND_APP_NAME = app_name
+
+    src_dir = os.path.join(get_app_path(app_name), "static_src", "src")
+    with open(os.path.join(src_dir, "styles.css"), "w") as f:
+        f.write("body { margin: 0; }\n")
+
+    with pytest.raises(CommandError, match='Could not find @import "tailwindcss";'):
+        call_command("tailwind", "plugin_install", "daisyui")
+
+    assert not os.path.exists(os.path.join(src_dir, "daisyui.mjs"))
+
+
+def test_tailwind_init_daisy_ui_download_failure_v4_standalone(app_name):
+    """
+    GIVEN the daisyUI release files cannot be downloaded (e.g. no network)
+    WHEN a standalone app with daisyUI is initialized
+    THEN a CommandError naming the failed URL should be raised
+    """
+    with (
+        mock.patch(
+            "tailwind.management.commands.tailwind.download_file",
+            side_effect=URLError("network is unreachable"),
+        ),
+        pytest.raises(CommandError, match=r"Failed to download .*daisyui\.mjs"),
+    ):
+        call_command(
+            "tailwind",
+            "init",
+            "--app-name",
+            app_name,
+            "--no-input",
+            "--tailwind-version",
+            "4s",
+            "--include-daisy-ui",
+        )
+
+
+def test_tailwind_build_failure_v4_standalone(settings, app_name):
+    """
+    GIVEN a Tailwind v4 standalone app whose build arguments point at a missing input file
+    WHEN the build command is run
+    THEN a CommandError should be raised instead of silently reporting success
+    """
+    call_command(
+        "tailwind", "init", "--app-name", app_name, "--no-input", "--tailwind-version", "4s"
+    )
+    settings.INSTALLED_APPS += [app_name]
+    settings.TAILWIND_APP_NAME = app_name
+    settings.TAILWIND_STANDALONE_BUILD_COMMAND_ARGS = (
+        "-i static_src/src/missing.css -o static/css/dist/styles.css --minify"
+    )
+
+    with pytest.raises(CommandError, match="failed with exit code 1") as exc_info:
+        call_command("tailwind", "build")
+
+    assert exc_info.value.returncode == 1
+
+
+def test_tailwind_install_binary_download_failure_v4_standalone(settings, app_name):
+    """
+    GIVEN the Tailwind CSS standalone binary cannot be downloaded
+    WHEN the install command is run
+    THEN a CommandError explaining the failure should be raised
+    """
+    call_command(
+        "tailwind", "init", "--app-name", app_name, "--no-input", "--tailwind-version", "4s"
+    )
+    settings.INSTALLED_APPS += [app_name]
+    settings.TAILWIND_APP_NAME = app_name
+
+    with (
+        mock.patch("pytailwindcss.install", side_effect=URLError("network is unreachable")),
+        pytest.raises(CommandError, match="Failed to install the Tailwind CSS standalone binary"),
+    ):
+        call_command("tailwind", "install")
+
+
+def test_tailwind_npm_failure_raises_command_error_v4(settings, app_name):
+    """
+    GIVEN a Tailwind v4 npm-based app and an npm executable that exits with an error
+    WHEN the build command is run
+    THEN a CommandError carrying npm's exit code should be raised instead of exiting the process
+    """
+    call_command(
+        "tailwind", "init", "--app-name", app_name, "--no-input", "--tailwind-version", "4"
+    )
+    settings.INSTALLED_APPS += [app_name]
+    settings.TAILWIND_APP_NAME = app_name
+    settings.NPM_BIN_PATH = "false"
+
+    with pytest.raises(CommandError, match="'npm run build' failed with exit code 1") as exc_info:
+        call_command("tailwind", "build")
+
+    assert exc_info.value.returncode == 1

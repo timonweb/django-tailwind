@@ -1,4 +1,6 @@
 import os
+import sys
+from io import StringIO
 from unittest import mock
 
 import pytest
@@ -36,11 +38,7 @@ def test_tailwind_dev_command_creates_procfile_real(
 
     # Mock subprocess to prevent actual honcho execution
     with mock.patch("subprocess.run") as mock_subprocess:
-        # Mock honcho is installed
-        mock_subprocess.side_effect = [
-            mock.Mock(),  # honcho --version succeeds
-            KeyboardInterrupt(),  # honcho start interrupted immediately
-        ]
+        mock_subprocess.side_effect = KeyboardInterrupt()  # honcho start interrupted immediately
 
         # Call dev command - should create Procfile
         with pytest.raises(SystemExit):
@@ -92,11 +90,7 @@ redis: redis-server"""
 
     # Mock subprocess to prevent actual honcho execution
     with mock.patch("subprocess.run") as mock_subprocess:
-        # Mock honcho is installed
-        mock_subprocess.side_effect = [
-            mock.Mock(),  # honcho --version succeeds
-            KeyboardInterrupt(),  # honcho start interrupted immediately
-        ]
+        mock_subprocess.side_effect = KeyboardInterrupt()  # honcho start interrupted immediately
 
         # Call dev command - should NOT overwrite existing Procfile
         with pytest.raises(SystemExit):
@@ -136,11 +130,7 @@ def test_tailwind_dev_command_subprocess_error(settings, app_name, procfile_path
     with mock.patch("subprocess.run") as mock_subprocess:
         import subprocess
 
-        # Mock honcho version check to succeed, but start to fail
-        mock_subprocess.side_effect = [
-            mock.Mock(),  # honcho --version succeeds
-            subprocess.CalledProcessError(1, ["honcho", "start"]),  # honcho start fails
-        ]
+        mock_subprocess.side_effect = subprocess.CalledProcessError(1, ["honcho", "start"])
 
         # Expect CommandError to be raised
         with pytest.raises(CommandError, match="Failed to start honcho"):
@@ -171,11 +161,7 @@ def test_tailwind_dev_command_graceful_keyboard_interrupt(
 
     # Mock subprocess to simulate KeyboardInterrupt
     with mock.patch("subprocess.run") as mock_subprocess:
-        # Mock honcho version check to succeed, but start to be interrupted
-        mock_subprocess.side_effect = [
-            mock.Mock(),  # honcho --version succeeds
-            KeyboardInterrupt(),  # honcho start interrupted
-        ]
+        mock_subprocess.side_effect = KeyboardInterrupt()  # honcho start interrupted
 
         # Should not raise exception, should handle gracefully
         with pytest.raises(SystemExit):
@@ -208,20 +194,72 @@ def test_tailwind_dev_command_messages_in_the_output(
 
     # Mock subprocess to prevent actual honcho execution
     with mock.patch("subprocess.run") as mock_subprocess:
-        # Mock honcho is installed
-        mock_subprocess.side_effect = [
-            mock.Mock(),  # honcho --version succeeds
-            KeyboardInterrupt(),  # honcho start interrupted immediately
-        ]
+        mock_subprocess.side_effect = KeyboardInterrupt()  # honcho start interrupted immediately
 
-        # Call dev command - should create Procfile
+        # The command exits on Ctrl+C, so capture stdout directly to inspect it afterwards.
+        stdout = StringIO()
         with pytest.raises(SystemExit):
-            out, _ = call_command_with_output("tailwind", "dev")
+            call_command("tailwind", "dev", stdout=stdout)
 
-            assert "Procfile.tailwind created" in out
-            assert "Starting Tailwind watcher and Django development server" in out
-            assert "You can access the server at: http://127.0.0.1:8000/"
-            assert "Press Ctrl+C to stop the servers"
+    out = stdout.getvalue()
+    assert "Procfile.tailwind created" in out
+    assert "Starting Tailwind watcher and Django development server" in out
+    assert "You can access the server at: http://127.0.0.1:8000/" in out
+    assert "Press Ctrl+C to stop the servers" in out
+
+
+@pytest.mark.parametrize("tailwind_version", get_tailwind_versions())
+def test_tailwind_dev_command_runs_honcho_from_current_interpreter(
+    settings, app_name, procfile_path, tailwind_version
+):
+    """
+    GIVEN a Tailwind app is initialized and honcho is installed
+    WHEN the dev command is run
+    THEN honcho should be started with the current Python interpreter, not from PATH
+    """
+    call_command(
+        "tailwind",
+        "init",
+        "--app-name",
+        app_name,
+        "--tailwind-version",
+        tailwind_version,
+        "--no-input",
+    )
+    settings.INSTALLED_APPS += [app_name]
+    settings.TAILWIND_APP_NAME = app_name
+
+    with mock.patch("subprocess.run") as mock_subprocess:
+        mock_subprocess.side_effect = KeyboardInterrupt()
+
+        with pytest.raises(SystemExit):
+            call_command("tailwind", "dev")
+
+    mock_subprocess.assert_called_once_with(
+        [sys.executable, "-m", "honcho", "-f", "Procfile.tailwind", "start"], check=True
+    )
+
+
+def test_tailwind_dev_command_without_honcho(settings, app_name, procfile_path):
+    """
+    GIVEN a Tailwind app is initialized but honcho is not installed
+    WHEN the dev command is run
+    THEN a CommandError should explain which extra to install, and nothing should be started
+    """
+    call_command(
+        "tailwind", "init", "--app-name", app_name, "--tailwind-version", "4s", "--no-input"
+    )
+    settings.INSTALLED_APPS += [app_name]
+    settings.TAILWIND_APP_NAME = app_name
+
+    with (
+        mock.patch.dict(sys.modules, {"honcho": None}),
+        mock.patch("subprocess.run") as mock_subprocess,
+        pytest.raises(CommandError, match=r"django-tailwind\[honcho\]"),
+    ):
+        call_command("tailwind", "dev")
+
+    mock_subprocess.assert_not_called()
 
 
 def test_tailwind_dev_command_help_includes_dev():

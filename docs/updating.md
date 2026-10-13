@@ -14,7 +14,7 @@ If you're using the standalone binary mode (initialized with `--tailwind-version
 
    ```python
    # settings.py
-   TAILWIND_STANDALONE_BINARY_VERSION = "v4.2.0"  # Change to desired version
+   TAILWIND_STANDALONE_BINARY_VERSION = "v4.3.3"  # Change to desired version
    ```
 
 3. **Download the new binary**:

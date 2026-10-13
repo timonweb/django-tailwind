@@ -1,4 +1,4 @@
 .PHONY: docs
 
 docs:
-	cd docs && sphinx-build -b html -d _build/doctrees . _build/html
+	uv run --group docs sphinx-build -b html -d docs/_build/doctrees docs docs/_build/html

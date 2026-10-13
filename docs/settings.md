@@ -58,14 +58,14 @@ This setting specifies which version of the Tailwind CSS standalone binary to us
 
 The default value is:
 ```python
-TAILWIND_STANDALONE_BINARY_VERSION = "v4.3.0"
+TAILWIND_STANDALONE_BINARY_VERSION = "v4.3.3"
 ```
 
-You can specify any valid Tailwind CSS version tag. To upgrade to a newer version:
+You can specify any valid Tailwind CSS version tag, for example to pin your project to a specific release:
 
 ```python
 # settings.py
-TAILWIND_STANDALONE_BINARY_VERSION = "v4.2.0"
+TAILWIND_STANDALONE_BINARY_VERSION = "v4.3.3"
 ```
 
 After changing this setting, run `python manage.py tailwind install` to download the new binary version.
@@ -74,7 +74,7 @@ After changing this setting, run `python manage.py tailwind install` to download
 
 **Finding available versions:**
 
-Visit the [Tailwind CSS releases page](https://github.com/tailwindlabs/tailwindcss/releases) to see all available versions. Use the tag name (e.g., `v4.3.0`) as the value for this setting.
+Visit the [Tailwind CSS releases page](https://github.com/tailwindlabs/tailwindcss/releases) to see all available versions. Use the tag name (e.g., `v4.3.3`) as the value for this setting.
 
 ## `TAILWIND_STANDALONE_START_COMMAND_ARGS`
 
@@ -134,5 +134,18 @@ The default value is:
 TAILWIND_CSS_PATH = "css/dist/styles.css"
 ```
 
-## `TAILWIND_DEV_MODE` (deprecated)
-Determines whether the `browser-sync` snippet is added to the page via the `{% tailwind_css %}` tag. It is set to `False` by default. If you use a legacy pre-`3.1.0` configuration and rely on `browser-sync`, add `TAILWIND_DEV_MODE=True` to your `settings.py`.
+## System checks
+
+*Django Tailwind* registers [Django system checks](https://docs.djangoproject.com/en/stable/topics/checks/) that warn about common misconfigurations whenever you run `python manage.py check`, `runserver`, or another management command:
+
+| ID | Meaning |
+|---|---|
+| `tailwind.W001` | `TAILWIND_APP_NAME` isn't set in `settings.py`. |
+| `tailwind.W002` | The app named in `TAILWIND_APP_NAME` isn't in `INSTALLED_APPS`. |
+
+These are warnings, so they never block a command. If you intentionally run without a theme app (e.g. you only use the `{% tailwind_css %}` tag with a custom `TAILWIND_CSS_PATH`), silence them:
+
+```python
+# settings.py
+SILENCED_SYSTEM_CHECKS = ["tailwind.W001"]
+```

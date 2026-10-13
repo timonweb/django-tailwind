@@ -14,14 +14,16 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
+import importlib.metadata
+
 # -- Project information -----------------------------------------------------
 
 project = "Django-Tailwind"
-copyright = "2021, Tim Kamanin"
+copyright = "2019 - 2026, Tim Kamanin"
 author = "Tim Kamanin"
 
 # The full version, including alpha/beta/rc tags
-release = "2.0.0"
+release = importlib.metadata.version("django-tailwind")
 
 # -- General configuration ---------------------------------------------------
 

@@ -1,10 +1,42 @@
 # Changelog
 
+## 4.6.0
+
+**Breaking changes:**
+
+- Drops support for Django 4.2, 5.0, and 5.1 (all end-of-life). Supported versions are now Django 5.2 LTS, 6.0, and 6.1;
+- `tailwind init` and `tailwind dev` no longer install `cookiecutter`/`honcho` automatically through pip's private API (which failed in uv-created environments). They now fail with a clear error asking you to install `django-tailwind[cookiecutter]` or `django-tailwind[honcho]`;
+- Removes the deprecated, no-op `TAILWIND_DEV_MODE` setting;
+- The npm-based v4 template now requires Node.js 22+ (`postcss-cli` 12, `postcss-nested` 8);
+
+**New:**
+
+- Adds Django 6.1 support and tests against Python 3.15;
+- daisyUI is now available in standalone mode: `tailwind init --tailwind-version 4s --include-daisy-ui` and `tailwind plugin_install daisyui` download daisyUI's single-file plugin (`v5.7.48`), and `tailwind install` restores it if missing;
+- Adds Django system checks `tailwind.W001` (`TAILWIND_APP_NAME` not set) and `tailwind.W002` (Tailwind app not in `INSTALLED_APPS`);
+- Adds `llms.txt` with installation instructions for AI coding agents;
+- Deprecates the Tailwind CSS v3 template; `tailwind init` prints a warning when it's selected;
+
+**Fixes:**
+
+- Standalone `tailwind build`/`start`/`install` now fail with a non-zero exit code when the Tailwind CSS binary fails, instead of silently reporting success;
+- A failing npm command now raises a `CommandError` carrying npm's exit code instead of calling `sys.exit()`;
+- `tailwind dev` runs honcho with the current Python interpreter instead of whichever `honcho` is first on `PATH`;
+- `tailwind plugin_install` validates `styles.css` before installing anything, so a failure no longer leaves a half-installed plugin behind (v3 apps get a clear "v4 only" error);
+- Updates the default standalone binary to `v4.3.3`; the previous default `v4.3.0` macOS binary is killed on launch by macOS 27;
+
+**Maintenance:**
+
+- Updates Tailwind CSS to `4.3.3`, daisyUI to `5.7.48`, and other JS and Python dependencies;
+- Builds Read the Docs with uv from the `docs` dependency group; removes `docs/requirements.txt` and `.gitpod.yml`;
+- Hardens the CI workflow and adds Dependabot for GitHub Actions and uv;
+- Adds Documentation, Changelog, and Issues project URLs; drops the license classifier that duplicates the SPDX `license` field (PEP 639);
+
 ## 4.5.0
 
 - Updates Python and JS dependencies;
 
-# 4.4.2
+## 4.4.2
 - Fixes an issue with CSS path configuration.
 
 

@@ -1,11 +1,12 @@
 import subprocess
-import sys
 
 from tailwind import get_config
 
 
 class NPMException(Exception):
-    pass
+    def __init__(self, message, returncode=1):
+        super().__init__(message)
+        self.returncode = returncode
 
 
 class NPM:
@@ -21,10 +22,13 @@ class NPM:
 
     def command(self, *args):
         try:
-            subprocess.run([self.npm_bin_path, *list(args)], cwd=self.cwd, check=True)
-            return True
-        except subprocess.CalledProcessError:
-            sys.exit(1)
+            subprocess.run([self.npm_bin_path, *args], cwd=self.cwd, check=True)
+        except subprocess.CalledProcessError as err:
+            raise NPMException(
+                f"'npm {' '.join(args)}' failed with exit code {err.returncode}.",
+                # A process killed by a signal reports a negative code; still exit non-zero.
+                returncode=max(err.returncode, 1),
+            ) from err
         except OSError as err:
             raise NPMException(
                 "\nIt looks like node.js and/or npm is not installed or cannot be found.\n\n"

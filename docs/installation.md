@@ -11,11 +11,14 @@
    ```
 
    This includes:
-   - `cookiecutter` - for creating theme apps
+   - `cookiecutter` - for creating theme apps (required by `python manage.py tailwind init`)
    - `honcho` - for running Django and Tailwind servers simultaneously with `python manage.py tailwind dev`
    - `django-browser-reload` - for automatic page reloads during development
 
-   **Option B:** Install just the core package (enough for production use):
+   > If you use `uv`, Poetry, or another package manager, add the same extras with it, e.g.
+   > `uv add 'django-tailwind[cookiecutter,honcho,reload]'`.
+
+   **Option B:** Install just the core package (enough for production use; `python manage.py tailwind init` additionally needs the `cookiecutter` extra):
 
    ```bash
    python -m pip install django-tailwind
@@ -45,6 +48,17 @@
    You will need to provide the name of the app and choose the installation method: standalone binary or npm-based.
 
    > See [Standalone vs npm-based](./standalone-vs-npm.md) for a detailed comparison.
+
+   To skip the prompts (e.g. in scripts), pass the choices as flags:
+
+   ```bash
+   python manage.py tailwind init --no-input --app-name theme --tailwind-version 4s
+   ```
+
+   `--tailwind-version` accepts `4s` (v4 standalone), `4` (v4 npm-based), or `3` (v3 npm-based, deprecated).
+   Add `--include-daisy-ui` to include the [daisyUI](https://daisyui.com/) component library.
+
+   > The Tailwind CSS v3 template is deprecated and will be removed in a future major release. Use v4 for new projects.
 
 4. Add your newly created `'theme'` app to `INSTALLED_APPS` in `settings.py`:
 
@@ -164,17 +178,17 @@ placed in the `style.css` file.
 By default, it looks like this:
 
 ```css
-@source "../../**/*.{html,py,js}";
+@source "../../../**/*.{html,py,js}";
 ```
 
 This means that Tailwind CSS will scan all HTML, Python, and JavaScript files in all directories starting from the
-three directories above the `style.css` file. Depending on your project structure, you might need to adjust the
+directory three levels above the `styles.css` file (the project root in a standard layout). Depending on your project structure, you might need to adjust the
 `@source` directive to suit your specific project layout.
 
 For more information about setting `@source`, check out the *"Source Configuration"* page of the Tailwind CSS docs:
 [https://tailwindcss.com/docs/detecting-classes-in-source-files#explicitly-registering-sources](https://tailwindcss.com/docs/detecting-classes-in-source-files#explicitly-registering-sources).
 
-### Content (formerly Purge) rules configuration (for npm-based Tailwind CSS v3 only)
+### Content (formerly Purge) rules configuration (for npm-based Tailwind CSS v3 only, deprecated)
 
 The `content` section of your `tailwind.config.js` file is where you configure the paths to all of your HTML templates,
 JavaScript components, and any other source files that contain *Tailwind* class names.
@@ -212,7 +226,7 @@ docs: [https://tailwindcss.com/docs/content-configuration](https://tailwindcss.c
 
 > **Note:** This section only applies to npm-based installations. Skip if using the standalone binary mode.
 
-For npm-based installations, *Tailwind CSS* requires *Node.js* to be installed on your machine.
+For npm-based installations, *Tailwind CSS* requires *Node.js* 22 or newer to be installed on your machine.
 *Node.js* is a *JavaScript* runtime that allows you to run *JavaScript* code outside the browser. Most (if not all) of
 the current frontend tools depend on *Node.js*.
 

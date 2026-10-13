@@ -1,6 +1,11 @@
 import os
+import pathlib
 import tempfile
+from urllib.error import URLError
 
+import pytest
+
+from tailwind.utils import download_file
 from tailwind.utils import extract_host_and_port
 from tailwind.utils import extract_protocol_from_command
 from tailwind.utils import extract_server_url_from_procfile
@@ -77,3 +82,36 @@ def test_extract_server_url_from_procfile():
         f.flush()
         assert extract_server_url_from_procfile(f.name) is None
         os.unlink(f.name)
+
+
+def test_download_file_writes_content_to_destination():
+    """
+    GIVEN a reachable URL
+    WHEN download_file is called
+    THEN the content should be written to the destination and no temporary file left behind
+    """
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        source_path = pathlib.Path(tmp_dir, "source.mjs")
+        source_path.write_text("export default {};")
+        dest_path = os.path.join(tmp_dir, "daisyui.mjs")
+
+        download_file(source_path.as_uri(), dest_path)
+
+        assert pathlib.Path(dest_path).read_text() == "export default {};"
+        assert sorted(os.listdir(tmp_dir)) == ["daisyui.mjs", "source.mjs"]
+
+
+def test_download_file_failure_leaves_no_file():
+    """
+    GIVEN a URL that cannot be fetched
+    WHEN download_file is called
+    THEN a URLError should be raised and neither the destination nor a temporary file should exist
+    """
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        missing_url = pathlib.Path(tmp_dir, "missing.mjs").as_uri()
+        dest_path = os.path.join(tmp_dir, "daisyui.mjs")
+
+        with pytest.raises(URLError):
+            download_file(missing_url, dest_path)
+
+        assert os.listdir(tmp_dir) == []
