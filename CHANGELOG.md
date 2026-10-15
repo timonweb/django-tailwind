@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Updates daisyUI to `5.7.50` (npm templates and standalone mode);
+
 ## 4.6.0
 
 **Breaking changes:**
