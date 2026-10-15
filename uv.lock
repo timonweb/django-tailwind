@@ -435,11 +435,11 @@ wheels = [
 
 [[package]]
 name = "filelock"
-version = "4.1.1"
+version = "4.2.0"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/35/c8/1d457d9150ff948f2ce6ada7715e0eeebbe5d3b58a45271a1e222474bcd3/filelock-4.1.1.tar.gz", hash = "sha256:7ba0927482c5a814b0a7f391d029ccdb8010f576f0a74c0dcde1811e8bc4c1b6", size = 563430, upload-time = "2026-10-11T16:11:54.373Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/f4/a9/1af41b37c3279712b22cdc63aac78a52432202b6fe1f9666a2a3d2831fb4/filelock-4.2.0.tar.gz", hash = "sha256:7a60906c75227cf04d0c273afadc8219400f11aeb13cc69591d4f6cdc6c8036e", size = 569667, upload-time = "2026-10-14T20:57:13.11Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/d7/8b/f837f52905395ba4510fe61f753c24833fb0a9c76e21267bb9f828b664a9/filelock-4.1.1-py3-none-any.whl", hash = "sha256:3f4a557945a7b0f95efeb1f432267affe5d45ac8ddde2aed1b97ebb62382c089", size = 132460, upload-time = "2026-10-11T16:11:52.753Z" },
+    { url = "https://files.pythonhosted.org/packages/8e/a3/9bc26acff301fe1aaea1cc3d82a1d57e0a34df3e1cadbfa91ac2dbcdde5c/filelock-4.2.0-py3-none-any.whl", hash = "sha256:2ff5690882e8cdb00ef31fb3d01a3094c29f30985426c59495afb1733f3b7238", size = 135032, upload-time = "2026-10-14T20:57:11.349Z" },
 ]
 
 [[package]]
@@ -744,23 +744,23 @@ wheels = [
 
 [[package]]
 name = "pyproject-api"
-version = "1.11.5"
+version = "1.11.6"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "packaging" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/3c/e1/148e4bbb469b26b6648dac4ee292aed80c1205c06ecd2e32987c7ed3e6f5/pyproject_api-1.11.5.tar.gz", hash = "sha256:79294e79953a30fd3eac04bdf8b57241d33e2c8b7230b94c1b76e4d765fe09ad", size = 25745, upload-time = "2026-10-10T10:03:06.963Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/9c/ef/7e422ead671468b094299f54a1e0be12cf47a1c291b25c6001e60b1d1814/pyproject_api-1.11.6.tar.gz", hash = "sha256:c275cb4600f831ac5337d719b2bc547f0656173c05a923a66dce741d91f9e09d", size = 25938, upload-time = "2026-10-14T07:08:56.409Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/9e/36/23ad3400367c009dab172650745895b913dc91edc11306ab2602af7b3f20/pyproject_api-1.11.5-py3-none-any.whl", hash = "sha256:aa546f4e4b76a4ad8412c35dc34cfb5d823172c4a43b44ccd95e75a934990d4a", size = 13566, upload-time = "2026-10-10T10:03:05.564Z" },
+    { url = "https://files.pythonhosted.org/packages/53/28/7e78bf8836755945c0147b5521e1f7d7a60d83154ab13b85c66b4c47a917/pyproject_api-1.11.6-py3-none-any.whl", hash = "sha256:7601f5f7b738b9007f02004347c7a831c579ba943dab18123f852c193766ecae", size = 13580, upload-time = "2026-10-14T07:08:55.09Z" },
 ]
 
 [[package]]
 name = "pytailwindcss"
-version = "0.3.1"
+version = "0.4.2"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/27/8a/5ba4a60c6a2f235c9ad93a5e9f29d202ad9e8038e8ea293be31057085cee/pytailwindcss-0.3.1.tar.gz", hash = "sha256:e83c65985f078ff91500f74bca595f615e54059d5afc90b233382e118b509b4d", size = 18712, upload-time = "2026-06-12T13:43:01.804Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/fb/2c/044d8fffba8c4cd236766879a8fab6e782b8ecad285399b5b7b6c29e3836/pytailwindcss-0.4.2.tar.gz", hash = "sha256:f069bfe693aba32ffa7097ed642fc53e83db3b229449d6074a67dc900fa9c89f", size = 68086, upload-time = "2026-10-13T15:31:07.633Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/95/9b/362cd1ae308a2fd8a9a58ff089cefd2e49976540765afa4e9a2c013876af/pytailwindcss-0.3.1-py3-none-any.whl", hash = "sha256:31583c5bb7fac66c6e6535992e51630e36788cf6e569f4d294e98962fa034535", size = 7496, upload-time = "2026-06-12T13:43:00.675Z" },
+    { url = "https://files.pythonhosted.org/packages/6e/a8/73b554fe3fab569b6827d7fba2e0cc9a0fa6ec866263153c0daa77a8417f/pytailwindcss-0.4.2-py3-none-any.whl", hash = "sha256:55cd55394ceb747c90b92e3e2822207cb60b143996e4ccf7753d8127e7fb5246", size = 10771, upload-time = "2026-10-13T15:31:06.453Z" },
 ]
 
 [[package]]
@@ -1110,7 +1110,7 @@ wheels = [
 
 [[package]]
 name = "tox"
-version = "4.65.4"
+version = "4.65.5"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "cachetools" },
@@ -1125,9 +1125,9 @@ dependencies = [
     { name = "typing-extensions", marker = "python_full_version < '3.13' or (extra == 'group-15-django-tailwind-django52' and extra == 'group-15-django-tailwind-django60') or (extra == 'group-15-django-tailwind-django52' and extra == 'group-15-django-tailwind-django61') or (extra == 'group-15-django-tailwind-django60' and extra == 'group-15-django-tailwind-django61')" },
     { name = "virtualenv" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/58/e0/3e2a5f99e0559879cc02ca11d483ae9f48bd5d7d28a725560334f1b75452/tox-4.65.4.tar.gz", hash = "sha256:e416fcfef86874001ba90787c282f4c6ecae6e2e167dbe65e7b8b53f9d43c931", size = 343656, upload-time = "2026-10-12T08:01:09.061Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/cf/da/fede1f079b72862a9383eeff8508fa87c26c2386427cc97eab0a589fd058/tox-4.65.5.tar.gz", hash = "sha256:9b7296cc43f358736665afecb9154b04309e500c1ebe6aafe86632211b8cad41", size = 343779, upload-time = "2026-10-14T01:12:12.206Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/46/0e/c5d5baade75057939b00589a4bb1a045b9282f84487f148398047bc2c482/tox-4.65.4-py3-none-any.whl", hash = "sha256:1c4f29c5886ad46228da8a023f8f82167db2ff3da7a6da060f9d4fc3dc2e2dd0", size = 237610, upload-time = "2026-10-12T08:01:07.37Z" },
+    { url = "https://files.pythonhosted.org/packages/f1/90/8141bb641eb19fd806d680b1250c45f0b6bd25643ad8546cb431efbd5ad4/tox-4.65.5-py3-none-any.whl", hash = "sha256:17baefa138f8f4c6a552f6afc136008e7bce11a94f4b8e47c87b22dd33fc80f8", size = 237614, upload-time = "2026-10-14T01:12:10.678Z" },
 ]
 
 [[package]]
