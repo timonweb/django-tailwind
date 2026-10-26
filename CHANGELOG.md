@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Updates daisyUI to 5.7.50 in the v4 template and standalone mode;
+- Updates postcss to 8.5.31 in the npm-based templates;
 
 ## 4.6.0
 
