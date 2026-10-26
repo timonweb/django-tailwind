@@ -4,6 +4,7 @@
 
 - Updates daisyUI to 5.7.50 in the v4 template and standalone mode;
 - Updates postcss to 8.5.31 in the npm-based templates;
+- Updates postcss-nested to 9 in the npm-based v4 template. Nested selectors with more than one `&` under a parent selector list now expand to every combination, matching Sass and native CSS nesting;
 
 ## 4.6.0
 
