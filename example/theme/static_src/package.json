@@ -16,11 +16,11 @@
     "@tailwindcss/postcss": "^4.3.5",
     "daisyui": "^5.8.1",
     "cross-env": "^10.1.0",
-    "postcss": "^8.5.30",
+    "postcss": "^8.5.33",
     "postcss-cli": "^12.0.0",
     "postcss-nested": "^8.0.1",
     "postcss-simple-vars": "^7.0.1",
-    "rimraf": "^6.1.3",
+    "rimraf": "^6.1.4",
     "tailwindcss": "^4.3.5"
   }
 }
