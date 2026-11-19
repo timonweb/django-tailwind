@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+- Updates Tailwind CSS to `4.3.5` in the npm-based v4 template and the default standalone binary to `v4.3.5`;
+- Updates daisyUI to `5.8.1` in the npm-based v4 template and for standalone mode (fixes duplicated CSS rules with Tailwind CSS 4.3.3+);
+- Updates `postcss` to `8.5.33` and `rimraf` to `6.1.4` in the npm-based templates;
+- Updates `postcss-import` to `16.2.0` in the deprecated v3 template;
+- Updates `postcss-nested` to `9.0.1` in the npm-based v4 template; nested selectors with several `&` now expand like Sass and native CSS nesting;
+- Declares Python 3.15 support now that Django 6.1 does;
+
 ## 4.6.0
 
 **Breaking changes:**

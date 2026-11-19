@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Django-Tailwind is a Python package that integrates Tailwind CSS with Django applications. It provides management commands, template tags, and utilities to streamline Tailwind CSS development within Django projects.
 
-Supported versions: Python 3.11+ and Django 5.2 LTS, 6.0, 6.1 (Python 3.15 is tested in CI only). The npm-based v4 template needs Node.js 22+.
+Supported versions: Python 3.11+ and Django 5.2 LTS, 6.0, 6.1. The npm-based v4 template needs Node.js 22+.
 
 `llms.txt` at the repo root is the installation guide for AI agents; keep it in sync with installation/settings changes.
 
@@ -132,7 +132,7 @@ The package uses Django settings for configuration:
 - `TAILWIND_CSS_PATH` - Path to compiled CSS
 - `NPM_BIN_PATH` - Custom npm binary path (npm-based only)
 - `TAILWIND_USE_STANDALONE_BINARY` - Force standalone binary mode (default: False, auto-detected)
-- `TAILWIND_STANDALONE_BINARY_VERSION` - Tailwind CSS standalone binary version (default: "v4.3.3")
+- `TAILWIND_STANDALONE_BINARY_VERSION` - Tailwind CSS standalone binary version (default: "v4.3.5")
 
 ### Standalone Binary Implementation
 
