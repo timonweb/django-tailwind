@@ -19,7 +19,7 @@
     "@tailwindcss/typography": "^0.5.20",
     "cross-env": "^7.0.3",
     "postcss": "^8.5.33",
-    "postcss-import": "^16.1.1",
+    "postcss-import": "^16.2.0",
     "postcss-nested": "^7.0.2",
     "postcss-simple-vars": "^7.0.1",
     "rimraf": "^6.1.4",
