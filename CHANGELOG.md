@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Updates Tailwind CSS to `4.3.5` in the npm-based v4 template and the default standalone binary to `v4.3.5`;
+
 ## 4.6.0
 
 **Breaking changes:**

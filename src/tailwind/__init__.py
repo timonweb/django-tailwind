@@ -15,7 +15,7 @@ def get_config(setting_name):
         "TAILWIND_STANDALONE_BINARY_VERSION": getattr(
             settings,
             "TAILWIND_STANDALONE_BINARY_VERSION",
-            os.environ.get("TAILWINDCSS_VERSION", "v4.3.3"),
+            os.environ.get("TAILWINDCSS_VERSION", "v4.3.5"),
         ),
         "TAILWIND_STANDALONE_START_COMMAND_ARGS": getattr(
             settings,
